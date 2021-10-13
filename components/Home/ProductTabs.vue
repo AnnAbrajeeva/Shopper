@@ -30,7 +30,7 @@
           <div class="clearfix"></div>
         </ul>
 
-        <div class="resp-tabs-container">
+        <div v-if="this.products" class="resp-tabs-container">
           <!---tab1----->
 
           <div v-if="activetab === '1'" class="tabcontent">
@@ -114,6 +114,10 @@
             </div>
           </div>
           <!---//tab3----->
+        </div>
+
+        <div v-else>
+          <p class="productNotFound">Товары не найдены</p>
         </div>
       </div>
     </div>

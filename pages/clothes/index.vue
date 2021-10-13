@@ -11,26 +11,30 @@
             <h3>Все товары</h3>
             <search @search="search = $event" />
           </div>
-          <div class="fashion-section">
-            <div
-              class="col-12 col-md-4"
-              v-for="product in sortProducts"
-              :key="product.id"
-            >
-              <product-item :product="product" :key="product.id" />
+            <div class="fashion-section">
+              <div
+                class="col-12 col-md-4"
+                v-for="product in sortProducts"
+                :key="product.id"
+              >
+                <product-item :product="product" :key="product.id" />
+              </div>
+              <div class="clearfix"></div>
             </div>
-            <div class="clearfix"></div>
-          </div>
 
-          <!-- Пагинация  -->
-          <section v-if="this.products.length" class="pagination-wrapper">
-            <pagination :pages="pages" @changePage="changePage" />
-          </section>
+            <!-- Пагинация  -->
+            <section v-if="this.products.length" class="pagination-wrapper">
+              <pagination :pages="pages" @changePage="changePage" />
+            </section>
+      
+
+        
         </div>
 
         <!-- Сайдбар -->
         <sidebar :products="this.products" :getCategories="getCategories" />
       </div>
+
     </div>
   </div>
 </template>
@@ -115,6 +119,7 @@ export default {
       products: [],
       sortingProducts: [],
       search: null,
+      dialog: true
     };
   },
   components: {
@@ -127,10 +132,18 @@ export default {
 
   async mounted() {
     const products = await this.$store.dispatch("products/getProducts");
+    if(!products) {
+      this.$router.push('/error')
+    }
     this.products = products;
   },
 
   methods: {
+    getError() {
+      this.dialog = false
+      this.$router.push('/')
+    },
+
     getUniqueListBy(arr, key) {
       return [...new Map(arr.map((item) => [item[key], item])).values()];
     },
@@ -158,50 +171,52 @@ export default {
     ...mapGetters("products", ["getPriceValue", "getColors", "getSize"]),
 
     sortProducts() {
-      this.pages = [];
+      if (this.products.length) {
+        this.pages = [];
 
-      let sortProducts = this.products;
-      sortProducts = this.products.filter((product) => {
-        if (this.getPriceValue) {
-          return (
-            product.cost >= this.getPriceValue[0] &&
-            product.cost <= this.getPriceValue[1]
-          );
-        }
-      });
+        let sortProducts = this.products;
+        sortProducts = this.products.filter((product) => {
+          if (this.getPriceValue) {
+            return (
+              product.cost >= this.getPriceValue[0] &&
+              product.cost <= this.getPriceValue[1]
+            );
+          }
+        });
 
-      sortProducts = sortProducts.filter((product) => {
-        if (this.getSize) {
-          return product.sizes.indexOf(this.getSize) >= 0;
-        } else {
-          return sortProducts;
-        }
-      });
+        sortProducts = sortProducts.filter((product) => {
+          if (this.getSize) {
+            return product.sizes.indexOf(this.getSize) >= 0;
+          } else {
+            return sortProducts;
+          }
+        });
 
-      sortProducts = sortProducts.filter((product) => {
-        if (this.getColors.length > 0) {
-          for (let i = 0; i < this.getColors.length; i++)
-            return this.getColors.includes(product.color);
-        } else {
-          return sortProducts;
-        }
-      });
+        sortProducts = sortProducts.filter((product) => {
+          if (this.getColors.length > 0) {
+            for (let i = 0; i < this.getColors.length; i++)
+              return this.getColors.includes(product.color);
+          } else {
+            return sortProducts;
+          }
+        });
 
-      sortProducts = sortProducts.filter((product) => {
-        if (this.search) {
-          return product.title
-            .toLowerCase()
-            .includes(this.search.toLowerCase());
-        } else {
-          return sortProducts;
-        }
-      });
+        sortProducts = sortProducts.filter((product) => {
+          if (this.search) {
+            return product.title
+              .toLowerCase()
+              .includes(this.search.toLowerCase());
+          } else {
+            return sortProducts;
+          }
+        });
 
-      sortProducts = this.getUniqueListBy(sortProducts, "title");
+        sortProducts = this.getUniqueListBy(sortProducts, "title");
 
-      this.sortingProducts = sortProducts;
-      this.setPages();
-      return this.paginate(this.sortingProducts);
+        this.sortingProducts = sortProducts;
+        this.setPages();
+        return this.paginate(this.sortingProducts);
+      }
     },
 
     getLoading() {

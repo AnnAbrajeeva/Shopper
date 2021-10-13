@@ -6,24 +6,18 @@
       </div>
     </transition>
 
-    <transition-group name="fade" mode="in-out" v-else class="main-wrapper">
-    
-      <header-component @showModal="showModal" key="header" />
-      <h1 key="title">Админка</h1>
-     
-        <nuxt v-if="appReady" key="nuxt"  />
- 
-      <footer-component key="footer" />
-      <cart-modal cartModal="cartModal" key="modal" />
-     
-    </transition-group>
+    <div class="wrapper">
+      <sidebar />
+      <admin-header />
+      <nuxt />
+    </div>
   </div>
 </template>
 
 <script>
-import HeaderComponent from "~/components/HeaderComponent.vue";
-import FooterComponent from "~/components/FooterComponent.vue";
-import CartModal from "~/components/Cart/CartModal.vue";
+import Sidebar from "~/components/Admin/Sidebar/Sidebar.vue";
+import AdminHeader from "~/components/Admin/AdminHeader.vue";
+
 export default {
   head() {
     return {
@@ -36,11 +30,10 @@ export default {
     };
   },
   components: {
-    HeaderComponent,
-    FooterComponent,
-    CartModal,
+    Sidebar,
+    AdminHeader,
   },
-  // middleware: ['auth-check', 'auth'],
+  middleware: ["auth-check", "auth"],
   data() {
     return {
       cartModal: false,
@@ -92,5 +85,4 @@ export default {
 .spinner-leave-active {
   opacity: 0;
 }
-
 </style>

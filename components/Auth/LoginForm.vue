@@ -81,8 +81,8 @@ export default {
       };
       try {
         console.log('123')
-        await this.$store.dispatch("user/login", user);
-        this.$router.push("/admin");
+        await this.$store.dispatch("user/authUser", user);
+        this.$router.push("/");
       } catch (e) {}
     },
   },

@@ -11,9 +11,9 @@
           </div>
         </div>
         <div class="logo">
-          <a href="index.html"
+          <nuxt-link to="/"
             ><img src="~/static/assets/images/logo.png" alt=""
-          /></a>
+          /></nuxt-link>
         </div>
         <div class="header-right">
           <!-- <div class="currency">			 

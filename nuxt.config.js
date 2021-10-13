@@ -18,7 +18,8 @@ export default {
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {rel: 'stylesheet', href: "/assets/style.css"},
-      {rel: 'stylesheet', href: "/assets/easy-responsive-tabs.css"}
+      {rel: 'stylesheet', href: "/assets/easy-responsive-tabs.css"},
+      {rel: 'stylesheet', href: "/assets/css/material-dashboard.css"}
     ],
   },
   transition: {
@@ -28,10 +29,10 @@ export default {
   // theme: {
   //   options: { variations: false },
   // },
-  vuetify:
-  {theme: {
-    disable: true,
-  }},
+  // vuetify:
+  // {theme: {
+  //   disable: true,
+  // }},
 
   
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -88,7 +89,7 @@ export default {
     }}],
     ['nuxt-vuex-localstorage', {
      mode: 'debug', 
-     localStorage: ['cart'] //  If not entered, “localStorage” is the default value
+     localStorage: ['cart', 'todo'] //  If not entered, “localStorage” is the default value
     }],
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',

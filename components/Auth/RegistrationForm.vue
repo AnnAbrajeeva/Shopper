@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { required, sameAs, email } from "vuelidate/lib/validators";
+import { required, sameAs, email, minLength } from "vuelidate/lib/validators";
 
 
 export default {
@@ -92,6 +92,7 @@ export default {
     passwordErrors() {
       const errors = [];
       if (!this.$v.user.password.$dirty) return errors;
+       !this.$v.user.password.minLength && errors.push('Пароль должен быть не меньше 6-ти символов')
       !this.$v.user.password.required && errors.push("Введите Ваш пароль");
       return errors;
     },
