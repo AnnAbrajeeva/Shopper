@@ -28,7 +28,7 @@
         </div>
       </div>
 
-      <div class="card-body">
+      <div class="todo card-body">
         <div class="tab-content">
           <client-only>
             <div class="tab-pane active">
@@ -37,7 +37,7 @@
                   <v-tabs-items v-model="tab">
                     <v-tab-item
                       v-for="task in getTodos"
-                      :key="task.name"
+                      :key="task.id"
                       :value="'tab-' + task.urgent"
                     >
                       <tr class="table-row">
@@ -57,18 +57,31 @@
                           </div>
                         </td>
                         <td>
-                          <span @click="edit = !edit" v-if="edit === false">{{ task.name }}</span> 
-                           <v-text-field
-                           v-else
+                          <span
+                            @click="doEdit(task)"
+                            v-if="task.edit === false"
+                            >{{ task.name }}</span
+                          >
+                          <input
+                           
+                            v-else
+                            :ref="'input_item_' + task.id"
                             :value="task.name"
-                            @change="editTodo($event, task.id)"
-                            v-on:keyup.enter="edit = !edit"
-                          ></v-text-field>
+                            @change="editTodo($event.target.value, task.id)"
+                            v-on:keyup.enter="doEdit(task)"
+                          />
                         </td>
-                       
+
                         <td class="td-actions text-right table-action">
-                          <v-icon left color="#9c27b0" @click="editTodo(id)">mdi-pencil</v-icon>
-                          <v-icon right color="#f44336" @click="delTodo(task.id)">mdi-close</v-icon>
+                          <!-- <v-icon left color="#9c27b0" @click="doEdit(task)"
+                            >mdi-pencil</v-icon
+                          > -->
+                          <v-icon
+                            right
+                            color="#f44336"
+                            @click="delTodo(task.id)"
+                            >mdi-close</v-icon
+                          >
                         </td>
                       </tr>
                     </v-tab-item>
@@ -88,6 +101,7 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
+      todos: [],
       tasksType: [
         {
           type: "urgent",
@@ -99,30 +113,38 @@ export default {
         },
       ],
       tab: null,
-      edit: false
+      edit: false,
     };
   },
 
   methods: {
+    doEdit(task) {
+      this.$store.dispatch('todo/changeEdit', task)
+    },
     taskModalShow() {
       this.$store.dispatch("todo/openModal");
     },
     doneTask(id) {
-      this.$store.dispatch("todo/changeStatus", id)
+      this.$store.dispatch("todo/changeStatus", id);
     },
     delTodo(id) {
-      this.$store.dispatch("todo/deleteTodo", id)
+      this.$store.dispatch("todo/deleteTodo", id);
     },
     editTodo(value, id) {
+      this.$nextTick(() => {
+        this.$refs["input_item_" + id][0].focus();
+      });
       let editValue = {
         value: value,
-        id: id
-      }
-      this.$store.dispatch("todo/editTodo", editValue)
-    }
+        id: id,
+      };
+
+      this.$store.dispatch("todo/editTodo", editValue);
+      this.edit = false;
+    },
   },
   computed: {
-    ...mapGetters('todo', ['getTodos'])
-  }
+    ...mapGetters("todo", ["getTodos"]),
+  },
 };
 </script>

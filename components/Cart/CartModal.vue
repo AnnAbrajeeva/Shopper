@@ -51,16 +51,6 @@ export default {
       this.$store.dispatch('cart/closeModal')
     },
   },
-  // mounted() {
-  //       const self = this
-  //  window.onNuxtReady(() => {
-  //    console.log(self.storage)
-  //  })
-
-  //       // let cart = cartObj.find((c) => c.key === 'cart');
-  //       // this.cart = cart
-  //       // console.log('cartModal' + this.cart)
-  // }
 };
 </script>
 

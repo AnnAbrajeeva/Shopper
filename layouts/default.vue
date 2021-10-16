@@ -10,7 +10,7 @@
     
       <header-component @showModal="showModal" key="header" />
      
-        <nuxt v-if="appReady" key="nuxt"  />
+        <nuxt class="main" v-if="appReady" key="nuxt"  />
  
       <footer-component key="footer" />
       <cart-modal cartModal="cartModal" key="modal" />

@@ -27,8 +27,8 @@ export const state = () => ({
     //   }
     // },
     addNewUser({commit}, user) {
-      const key = 'AIzaSyAoNYrTio0PFuV1N_Q9A2NoIJRIk57wQB8'
-      return axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${key}`, {
+      const firebaseKey = process.env.FIREBASE_KEY
+      return axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${firebaseKey}`, {
         displayName: user.login,
         email: user.email,
         password: user.password,

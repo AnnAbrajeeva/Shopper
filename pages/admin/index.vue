@@ -4,81 +4,42 @@
       <div class="container-fluid">
         <h1>Админка</h1>
         <div class="row">
-
          <todo />
-
+         <currency :currency="this.currency.rates" />
           <modal />
-
-  
-  
-
-
-          
-          <!-- <div class="col-lg-6 col-md-12">
-            <div class="card">
-              <div class="card-header card-header-warning">
-                <h4 class="card-title">Employees Stats</h4>
-                <p class="card-category">
-                  New employees on 15th September, 2016
-                </p>
-              </div>
-              <div class="card-body table-responsive">
-                <table class="table table-hover">
-                  <thead class="text-warning">
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Salary</th>
-                    <th>Country</th>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>Dakota Rice</td>
-                      <td>$36,738</td>
-                      <td>Niger</td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>Minerva Hooper</td>
-                      <td>$23,789</td>
-                      <td>Curaçao</td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>Sage Rodriguez</td>
-                      <td>$56,142</td>
-                      <td>Netherlands</td>
-                    </tr>
-                    <tr>
-                      <td>4</td>
-                      <td>Philip Chaney</td>
-                      <td>$38,735</td>
-                      <td>Korea, South</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div> -->
         </div>
+         <table-orders />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Currency from '~/components/Admin/Dashboard/Currency/Currency'
 import Todo from '~/components/Admin/Dashboard/Todo/Todo'
 import Modal from '~/components/Admin/Dashboard/Todo/Modal'
+import TableOrders from '~/components/Admin/Dashboard/TableOrders/TableOrders'
 
 export default {
   layout: "admin",
   components: {
     Todo,
-    Modal
+    Modal,
+    Currency,
+    TableOrders
   },
- data() {
+
+  async asyncData({ $axios }) {
+  let currencyKey = process.env.CURRENCY_KEY
+  const currency = await $axios.$get(`https://openexchangerates.org/api/latest.json?app_id=${currencyKey}&symbols=EUR,RUB,UZS`)
+  return { currency }
+},
+
+ data()
+  {
    return {
-     dialog: false
+     dialog: false,
+    
    }
  }
 };

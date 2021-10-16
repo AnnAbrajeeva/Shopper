@@ -46,6 +46,7 @@ export default {
    '~/plugins/vue-spinners.js',
    '~/plugins/server.js',
    '~/plugins/icons.js',
+   '~/plugins/filter.js',
    { src: '~/plugins/vuelidate.js', ssr: true },
    { src: '~/plugins/persistedState.client.js' },
    {
@@ -60,6 +61,7 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     '@nuxtjs/vuetify',
+    '@nuxtjs/dotenv'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules

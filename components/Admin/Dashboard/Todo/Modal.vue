@@ -54,7 +54,8 @@ export default {
     return {
       name: "",
       urgent: false,
-      status: false
+      status: false,
+      edit: false
     };
   },
    validations: {
@@ -76,12 +77,15 @@ export default {
     },
     addTask() {
       let task = {
-        id: this.getTodos.length > 0 ? this.getTodos.length+1 : 1,
+        id: this.getTodos && this.getTodos.length > 0 ? this.getTodos.length+1 : 1,
         name: this.name,
         status: this.status,
         urgent: this.urgent === true ? "urgent" : "regular",
+        edit: this.edit
       };
       this.$store.dispatch("todo/addTask", task);
+      this.name = "",
+      this.urgent = false,
       this.closeTaskModal()
     },
   },

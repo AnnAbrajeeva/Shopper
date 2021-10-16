@@ -5,13 +5,14 @@ export const state = () => ({
     order: {
       id: null,
       products: [],
-      user: []
+      user: {},
+      date: new Date()
     },
     cart: [
       {
         "url": "https://fashionup.ua/fashion-up/4500-tolstovka-quottessiequot-kf-1678a.html",
         "id": "4500",
-        "quantity": "5",
+        "quantity": "1",
         "title": "Толстовка \"Tessie\"",
         "articul": "KF-1678A",
         "descr": {
@@ -29,7 +30,7 @@ export const state = () => ({
             "https://fashionup.ua/uploads/tov/dc00f0fe458cc98.jpg",
             "https://fashionup.ua/uploads/tov/818841d806668f1.jpg"
         ],
-        "sizes": "42,44,46,48,50",
+        "sizes": "42",
         "category-id": "14",
         "category-name": "FashionUp",
         "color": "красный",
@@ -38,7 +39,7 @@ export const state = () => ({
     {
         "url": "https://fashionup.ua/fashion-up/4499-golf-quotagataquot-kf-1813l.html",
         "id": "4499",
-        "quantity": "5",
+        "quantity": "1",
         "title": "Гольф \"Agata\"",
         "articul": "KF-1813L",
         "descr": {
@@ -56,7 +57,7 @@ export const state = () => ({
             "https://fashionup.ua/uploads/tov/767e64bdc763660.jpg",
             "https://fashionup.ua/uploads/tov/a15883ee4d7e479.jpg"
         ],
-        "sizes": "42,44,46,48,50",
+        "sizes": "44",
         "category-id": "14",
         "category-name": "FashionUp",
         "color": "белый",
@@ -114,16 +115,8 @@ export const state = () => ({
       state.cartModal = false
     },
     deleteProductFromCart(state, id) {
-      
-      // state.cart.splice(index, 1)
-      
-      // const arr = JSON.parse(localStorage.getItem("cart")) || [];
       let index = state.cart.find(product => product.id === id)
       state.cart.splice(index, 1)
-     
-      // arr.splice(index, 1)
-      // console.log(arr)
-      // localStorage.setItem("cart", JSON.stringify(arr))
     }, 
     getProductsInCart(state, cart) {
       state.cart = cart
@@ -134,12 +127,18 @@ export const state = () => ({
       product.quantity = value
     },
     addNewOrder(state, user) {
-      console.log(user)
       state.order.products = [...state.cart]
-      state.order.user.push(user)
+      state.order.user = user
       state.order.id = state.orders.length+1
       state.orders.push(state.order)
       console.log(state.order)
+      state.order = {
+        id: null,
+        products: [],
+        user: [],
+        date: null
+      }
+      state.cart = []
       localStorage.clear()
     }
   }
@@ -175,8 +174,13 @@ export const state = () => ({
       console.log(id)
       commit('changeQuantityInCart', {value: value, id: id})
     },
-    addNewOrder({commit}, user) {
-      commit('addNewOrder', user)
+    addNewOrder({commit, state}, user) {
+      axios.post('https://shopper-4eb43-default-rtdb.asia-southeast1.firebasedatabase.app/orders.json', state.order)
+      .then(res => {
+        commit('addNewOrder', user)
+      })
+      .catch(e => console.log(e))
+      
     }
   }
 
@@ -186,5 +190,8 @@ export const state = () => ({
     },
     getCartModal(state) {
       return state.cartModal
+    },
+    getOrders(state) {
+      return state.orders
     }
   }

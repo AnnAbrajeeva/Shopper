@@ -388,7 +388,7 @@ button.signout i {
 
 .shopping-cart {
   width: 750px;
-  height: 423px;
+  /* height: 423px; */
   margin: 80px auto;
   background: #FFFFFF;
   box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.10);
@@ -3135,6 +3135,11 @@ h3.lorem {
   color: #D6D600;
 }
 
+.card .todo.card-body {
+  overflow-y: scroll;
+  margin-bottom: 30px;
+}
+
 .card-img {
   width: 100%;
   height: 100%;
@@ -3308,6 +3313,9 @@ h3.lorem {
   margin-bottom: 20px;
   text-align: center;
 }
+.main{
+  min-height: 100vh;
+}
 
 .form-group .icon {
   position: absolute;
@@ -3456,3 +3464,53 @@ h3.lorem {
  .table-action {
 	 margin-left: auto;
  }
+
+ .table tr {
+   border-bottom: 1px solid #ddd
+ }
+.currency .table,
+.currency .table tbody {
+  height: 100%;
+  text-align: center;
+}
+
+.currency__type {
+  color: #ff9800
+}
+
+.currency__value {
+  color: #212529
+}
+
+.card.last-orders .card-header-primary .card-icon, 
+.card.last-orders .card-header-primary:not(.card-header-icon):not(.card-header-text), 
+.card.last-orders .card-header-primary .card-text {
+  background: linear-gradient(60deg,#66bb6a,#43a047);
+        -webkit-box-shadow: 0 12px 20px -10px rgb(76 175 80 / 28%), 0 4px 20px 0 rgb(0 0 0 / 12%), 0 7px 8px -5px rgb(76 175 80 / 20%);
+        box-shadow: 0 12px 20px -10px rgb(76 175 80 / 28%), 0 4px 20px 0 rgb(0 0 0 / 12%), 0 7px 8px -5px rgb(76 175 80 / 20%);
+}
+
+.last-orders .card-header-primary .card-icon, .card .card-header-primary:not(.card-header-icon):not(.card-header-text), .card .card-header-primary .card-text {
+  box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%) !important;
+}
+
+.orders .v-data-table > .v-data-table__wrapper > table > tbody > tr > td {
+  border: 1px solid #ddd;
+}
+
+.orders .theme--light.v-data-table > .v-data-table__wrapper > table > thead > tr > th {
+  border: 1px solid #b4b4b4
+}
+
+.orders .table thead th {
+  vertical-align: middle;
+}
+
+.orders .v-data-table > .v-data-table__wrapper > table > thead > tr > th {
+  font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.orders__table-header {
+  background-color: #ddd
+}

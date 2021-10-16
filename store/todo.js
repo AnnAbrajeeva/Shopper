@@ -22,10 +22,19 @@ export const state = () => ({
       },
       deleteTodo(state, id) {
         state.todos = state.todos.filter(todo => todo.id !== id)
+        // const parsed = JSON.stringify(this.todos);
+        // window.localStorage.setItem('todos', parsed);
       },
       editTodo(state, editValue) {
         let index = state.todos.findIndex(todo => todo.id == editValue.id)
         state.todos[index].name = editValue.value
+        state.todos[index].edit = false
+      },
+      changeEdit(state, task) {
+        // console.log(task)
+        let index = state.todos.findIndex(todo => todo.id == task.id)
+         console.log(index)
+        state.todos[index].edit = !state.todos[index].edit
       }
   }
 
@@ -47,6 +56,13 @@ export const state = () => ({
     },
     editTodo({commit}, editValue) {
         commit("editTodo", editValue)
+    },
+    getTodosFromLocalStorage({commit}) {
+        commit("getTodosFromLocalStorage")
+    },
+    changeEdit({commit}, task) {
+        // console.log(task)
+        commit("changeEdit", task)
     }
   }
 
