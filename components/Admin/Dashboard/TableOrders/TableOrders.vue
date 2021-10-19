@@ -35,10 +35,12 @@
                       <td>{{ getTotalQuantity }} шт.</td>
                       <td>{{ getTotalSizes }} шт.</td>
                       <td>{{ getTotalColor }}</td>
-                      <td>{{ order.user['name'] }}</td>
-                      <td>{{ order.user['city'] + ' ' + order.user['address'] }}</td>
-                      <td>{{ order.user['phone'] }}</td>
-                      <td>{{ order.user['email'] }}</td>
+                      <td>{{ order.user["name"] }}</td>
+                      <td>
+                        {{ order.user["city"] + " " + order.user["address"] }}
+                      </td>
+                      <td>{{ order.user["phone"] }}</td>
+                      <td>{{ order.user["email"] }}</td>
                     </tr>
                   </tbody>
                 </template>
@@ -96,23 +98,23 @@ export default {
       });
       return total.toString();
     },
-     getTotalSizes() {
+    getTotalSizes() {
       let total = this.getOrders.map((order) => {
         let size = order.products.map((product) => {
           return product.sizes;
         });
         console.log(size);
-       return size.join(', ')
+        return size.join(", ");
       });
       return total.toString();
     },
-     getTotalColor() {
+    getTotalColor() {
       let total = this.getOrders.map((order) => {
         let color = order.products.map((product) => {
           return product.color;
         });
         console.log(color);
-       return color.join(', ')
+        return color.join(", ");
       });
       return total.toString();
     },

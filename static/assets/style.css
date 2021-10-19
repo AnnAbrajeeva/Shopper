@@ -3133,6 +3133,7 @@ h3.lorem {
   width: 100%;
   height: 400px;
   color: #D6D600;
+  height: 100%;
 }
 
 .card .todo.card-body {
@@ -3483,14 +3484,18 @@ h3.lorem {
 }
 
 .card.last-orders .card-header-primary .card-icon, 
+.card.products .card-header-primary .card-icon, 
 .card.last-orders .card-header-primary:not(.card-header-icon):not(.card-header-text), 
-.card.last-orders .card-header-primary .card-text {
+.card.products .card-header-primary:not(.card-header-icon):not(.card-header-text), 
+.card.last-orders .card-header-primary .card-text,
+.card.products .card-header-primary .card-text {
   background: linear-gradient(60deg,#66bb6a,#43a047);
         -webkit-box-shadow: 0 12px 20px -10px rgb(76 175 80 / 28%), 0 4px 20px 0 rgb(0 0 0 / 12%), 0 7px 8px -5px rgb(76 175 80 / 20%);
         box-shadow: 0 12px 20px -10px rgb(76 175 80 / 28%), 0 4px 20px 0 rgb(0 0 0 / 12%), 0 7px 8px -5px rgb(76 175 80 / 20%);
 }
 
-.last-orders .card-header-primary .card-icon, .card .card-header-primary:not(.card-header-icon):not(.card-header-text), .card .card-header-primary .card-text {
+.last-orders .card-header-primary .card-icon, .card .card-header-primary:not(.card-header-icon):not(.card-header-text), .card .card-header-primary .card-text, 
+.products .card-header-primary .card-icon, .card .card-header-primary:not(.card-header-icon):not(.card-header-text), .card .card-header-primary .card-text {
   box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%) !important;
 }
 
@@ -3513,4 +3518,159 @@ h3.lorem {
 
 .orders__table-header {
   background-color: #ddd
+}
+
+.products-table__img {
+  max-width: 60px;
+}
+
+.orders .products-table .v-data-table > .v-data-table__wrapper > table > tbody > tr > td {
+  vertical-align: middle;
+}
+
+.descr {
+  max-height: 150px;
+  height: 100%;
+  overflow: overlay;
+  padding-right: 25px;
+}
+
+.card.products {
+  height: 100%;
+}
+
+.products-table {
+  margin-top: 20px;
+}
+
+.product-table__edit {
+  color: blue !important;
+  cursor: pointer
+}
+
+.product-table__del {
+  color: red !important;
+  cursor: pointer
+}
+
+/* Modal */
+
+.modal-mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: table;
+  transition: opacity 0.3s ease;
+}
+
+.modal-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.modal-container {
+  width: 300px;
+  margin: 0px auto;
+  /* padding: 20px 30px; */
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  transition: all 0.3s ease;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.modal-header h3 {
+  margin-top: 0;
+  color: #42b983;
+}
+
+.modal-body {
+  margin: 20px 0;
+}
+
+.modal-default-button {
+  float: right;
+}
+
+/*
+ * The following styles are auto-applied to elements with
+ * transition="modal" when their visibility is toggled
+ * by Vue.js.
+ *
+ * You can easily play with the modal transition by editing
+ * these styles.
+ */
+
+.modal-enter {
+  opacity: 0;
+}
+
+.modal-leave-active {
+  opacity: 0;
+}
+
+.modal-enter .modal-container,
+.modal-leave-active .modal-container {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+.modal__text {
+  font-weight: 600;
+}
+
+.modal-mask .theme--dark.v-toolbar.v-sheet {
+  background-color: #2a4eff !important;
+}
+
+.new-product__tabs {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.new-product__tabs .active {
+  background-color: #FFFFFF;
+  padding: 20px 50px
+}
+
+.new-product__wrapper {
+  background-color:rgb(218, 218, 218);
+  padding: 20px
+}
+
+.new-product__content {
+    margin-top: 20px;
+}
+
+.new-product__tab-content {
+  margin-top: 0 !important;
+  padding: 20px !important;
+  max-height: 100% !important;
+}
+
+.new-product__foto-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.new-product__foto-wrapper img {
+  width: 100%;
+  border: 1px solid rgb(218, 218, 218);
+}
+
+.new-product__foto {
+  max-width: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.new-product__add-foto-btn {
+  background: linear-gradient(60deg, #ab47bc, #8e24aa);
 }

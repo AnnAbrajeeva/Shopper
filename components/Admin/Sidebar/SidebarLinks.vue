@@ -20,7 +20,7 @@ export default {
   data() {
     return {
       items: [
-        { title: "Главная", icon: "mdi-view-dashboard", link: "/admin/dashboard" },
+        { title: "Главная", icon: "mdi-view-dashboard", link: "/admin" },
         { title: "Товары", icon: "mdi-clipboard-text-outline", link: "/admin/products" },
         { title: "Блог", icon: "mdi-chat", link: "/admin/blog" },
         { title: "Пользователи", icon: "mdi-account-multiple", link: '/admin/users' },

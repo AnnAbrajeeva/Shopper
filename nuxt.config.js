@@ -22,7 +22,7 @@ export default {
       {rel: 'stylesheet', href: "/assets/css/material-dashboard.css"}
     ],
   },
-  transition: {
+  pageTransition: {
     name: 'fade',
     mode: 'out-in'
   },
@@ -48,7 +48,7 @@ export default {
    '~/plugins/icons.js',
    '~/plugins/filter.js',
    { src: '~/plugins/vuelidate.js', ssr: true },
-   { src: '~/plugins/persistedState.client.js' },
+  //  { src: '~/plugins/persistedState.client.js' },
    {
     src: '~plugins/vue-slider-component.js',
     ssr: false
@@ -84,11 +84,7 @@ export default {
     //   }
     // ],
     // https://go.nuxtjs.dev/bootstrap
-    ['bootstrap-vue/nuxt',
-    {bootstrapVue: {
-      bootstrapCSS: false, // here you can disable automatic bootstrapCSS in case you are loading it yourself using sass
-      bootstrapVueCSS: false, // CSS that is specific to bootstrapVue components can also be disabled. That way you won't load css for modules that you don't use
-    }}],
+    ['bootstrap-vue/nuxt'],
     ['nuxt-vuex-localstorage', {
      mode: 'debug', 
      localStorage: ['cart', 'todo'] //  If not entered, “localStorage” is the default value
@@ -130,7 +126,7 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    extractCSS: true,
+    // extractCSS: true,
     // transpile: ['vue-agile']
   },
   vue: {

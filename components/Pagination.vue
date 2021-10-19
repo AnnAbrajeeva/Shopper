@@ -3,7 +3,7 @@
             <v-pagination
               v-model="page"
               class="my-4"
-              :length="pages.length"
+              :length="pages"
                :total-visible="7"
             ></v-pagination>
           </v-container>
