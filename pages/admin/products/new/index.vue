@@ -14,32 +14,37 @@
               <div class="card-body">
                 <div class="container">
                   <v-form class="new-product">
-                    <v-row>
-                      <v-text-field label="Название" solo></v-text-field>
-                    </v-row>
+                    <div class="container">
+                      <v-row>
+                        <v-text-field label="Название" solo></v-text-field>
+                      </v-row>
+                    </div>
+
                     <div class="new-product__wrapper">
                       <div class="new-product__content">
                         <ul class="new-product__tabs">
-                          <li>
+                          <li  v-on:click="activetab = '1'"
+                              v-bind:class="[activetab === '1' ? 'active' : '']">
                             <a
-                              class="active"
+                              
                               v-on:click="activetab = '1'"
                               v-bind:class="[activetab === '1' ? 'active' : '']"
-                              >РЕКОМЕНДУЕМ</a
+                              >Основные настройки</a
                             >
                           </li>
-                          <li>
+                          <li  v-on:click="activetab = '2'"
+                              v-bind:class="[activetab === '2' ? 'active' : '']">
                             <a
                               v-on:click="activetab = '2'"
                               v-bind:class="[activetab === '2' ? 'active' : '']"
-                              >НОВИНКИ</a
+                              >Цвета/Размеры</a
                             >
                           </li>
                           <li>
                             <a
                               v-on:click="activetab = '3'"
                               v-bind:class="[activetab === '3' ? 'active' : '']"
-                              >РАСПРОДАЖА</a
+                              >Рекомендуемые товары</a
                             >
                           </li>
                           <div class="clearfix"></div>
@@ -52,107 +57,10 @@
 
                           <div v-if="activetab === '1'" class="tabcontent">
                             <div class="course_demo1">
-                              <v-row>
-                                <v-col cols="12" sm="6" md="3">
-                                  <p>Артикул</p>
-                                  <v-text-field
-                                    label="Артикул"
-                                    solo
-                                  ></v-text-field>
-                                </v-col>
-
-                                <v-col cols="12" sm="6" md="3">
-                                  <p>Наличие</p>
-                                  <v-radio-group v-model="available" row>
-                                    <v-radio
-                                      label="Есть"
-                                      value="radio-1"
-                                    ></v-radio>
-                                    <v-radio
-                                      label="Нет"
-                                      value="radio-2"
-                                    ></v-radio>
-                                  </v-radio-group>
-                                </v-col>
-
-                                <v-col cols="12" sm="6" md="3">
-                                  <p>Мужчинам/Женщинам</p>
-                                  <v-radio-group v-model="available" row>
-                                    <v-radio
-                                      label="М"
-                                      value="radio-1"
-                                    ></v-radio>
-                                    <v-radio
-                                      label="Ж"
-                                      value="radio-2"
-                                    ></v-radio>
-                                  </v-radio-group>
-                                </v-col>
-
-                                <v-col
-                                  class="d-flex flex-column"
-                                  cols="12"
-                                  sm="6"
-                                  md="3"
-                                >
-                                  <p>Категория</p>
-                                  <v-select
-                                    :items="items"
-                                    label="Выберите категорию"
-                                    solo
-                                  ></v-select>
-                                </v-col>
-                              </v-row>
-                              <v-row>
-                                <v-col cols="12" sm="6" md="3">
-                                  <p>Цена (сум)</p>
-                                  <v-text-field
-                                    label="Артикул"
-                                    solo
-                                  ></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="3">
-                                  <p>Старая цена (сум)</p>
-                                  <v-text-field
-                                    label="Артикул"
-                                    solo
-                                  ></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="4">
-                                  <p>Статус недели</p>
-                                  <v-radio-group v-model="status" row>
-                                    <v-radio
-                                      label="Новая"
-                                      value="radio-1"
-                                    ></v-radio>
-                                    <v-radio
-                                      label="Популярная"
-                                      value="radio-2"
-                                    ></v-radio>
-                                    <v-radio
-                                      label="Скидка"
-                                      value="radio-2"
-                                    ></v-radio>
-                                  </v-radio-group>
-                                </v-col>
-                              </v-row>
-                              <p>Фото</p>
-                              <v-row>
-                                <div class="new-product__foto-wrapper">
-                                  <add-foto />
-                                  <add-foto />
-                                  <add-foto />
-                                  <add-foto />  
-                                </div>
-                              </v-row>
-                              <v-row class="mt-5">
-                                <div class="new-product__foto-wrapper">
-                                  <add-foto />
-                                  <add-foto />
-                                  <add-foto />
-                                  <add-foto />  
-                                </div>
-                              </v-row>
+                              <product-params />
+                              <product-price />
+                              <product-images />
+                              <product-editor />      
                             </div>
                           </div>
 
@@ -160,31 +68,7 @@
                           <!---tab2----->
                           <div v-if="activetab === '2'" class="tabcontent">
                             <div class="course_demo1">
-                              <VueSlickCarousel
-                                multiple
-                                class="home-tabs"
-                                id="flexiselDemo1"
-                                v-if="this.products.length"
-                                v-bind="settings"
-                              >
-                                <li
-                                  class="g1"
-                                  v-for="product in getSales"
-                                  :key="product.id"
-                                >
-                                  <img
-                                    class="home-tabs_img"
-                                    :src="product.poster[0]"
-                                    :alt="product.title"
-                                  />
-                                  <a href="single.html"
-                                    ><div class="caption">
-                                      <h3>{{ product.title }}</h3>
-                                      <h5>{{ product.cost }} &euro;</h5>
-                                    </div></a
-                                  >
-                                </li>
-                              </VueSlickCarousel>
+                             <product-color />
                             </div>
                           </div>
                           <!---//tab2----->
@@ -221,6 +105,24 @@
                         </div>
                       </div>
                     </div>
+                    <v-btn
+                      class="new-product__add-foto-btn mt-3"
+                      :loading="loading"
+                      :disabled="loading"
+                      color="secondary"
+                      @click="loader = 'loading'"
+                    >
+                      Сохранить
+                    </v-btn>
+                    <v-btn
+                      class="new-product__add-foto-btn mt-3 ml-2"
+                      :loading="loading"
+                      :disabled="loading"
+                      color="secondary"
+                      @click="loader = 'loading'"
+                    >
+                      Отменить
+                    </v-btn>
                   </v-form>
                 </div>
               </div>
@@ -233,18 +135,27 @@
 </template>
 
 <script>
-import AddFoto from '../../../../components/Admin/NewProduct/AddFoto/AddFoto.vue';
-import _id from "../../../accessories/_id.vue";
+
+import ProductParams from "~/components/Admin/NewProduct/Inset/ProductParams.vue";
+import ProductPrice from "~/components/Admin/NewProduct/Inset/ProductPrice.vue";
+import ProductImages from '~/components/Admin/NewProduct/Inset/ProductImages.vue';
+import ProductEditor from '~/components/Admin/NewProduct/Inset/ProductEditor.vue';
+import ProductColor from '~/components/Admin/NewProduct/Inset2/ProductColor.vue';
 export default {
   layout: "admin",
-  components: {},
+  components: {
+   
+   
+    ProductParams,
+    ProductPrice,
+    ProductImages,
+    ProductEditor,
+    ProductColor,
+  },
   data() {
     return {
       activetab: "1",
     };
   },
-  components: {
-    AddFoto
-  }
 };
 </script>

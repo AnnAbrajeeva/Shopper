@@ -1,95 +1,102 @@
 <template>
   <div class="new-product__foto">
-    <img :src="imgUrl ? imgUrl : '/assets/images/no-image-large.jpg'" alt="" />
+    <img :src="imageUrl ? imageUrl : '/assets/images/no-image-large.jpg'" alt="" />
     <input
       style="display: none"
+      ref="imageFile"
+      @change.prevent="uploadImageFile($event.target.files)"
       type="file"
-      ref="fileInput"
-      accept="image/*"
-      @change="onFilePicked"
+      accept="image/png, image/jpeg"
     />
     <v-btn
-      v-if="!imgUrl"
+      v-if="!imageUrl"
       class="ma-2 mt-2 mx-auto new-product__add-foto-btn"
-      :loading="loading"
-      :disabled="loading"
+      @click="launchImageFile"
+      :disabled="isUploadingImage"
       color="secondary"
-      @click="onPickFile"
     >
-      Выберите фото
+      {{ isUploadingImage ? 'Загружается...' : 'Выберите фото' }}
     </v-btn>
     <v-btn
-      v-if="imgUrl"
+      v-if="imageUrl"
       class="ma-2 mt-2 mx-auto new-product__add-foto-btn"
-      :loading="loading"
-      :disabled="loading"
+       @click="deleteImage"
+      :disabled="isDeletingImage"
       color="secondary"
-      @click="delImg"
     >
-     Удалить
+     {{ isDeletingImage ? 'Удаляется...' : 'Удалить' }}
     </v-btn>
   </div>
 </template>
 
 <script>
+import firebase from "firebase"
 import axios from 'axios';
 export default {
   data() {
     return {
-      loading: false,
-      imgUrl: null,
-      image: null,
-      buttonText: "Выберите фото",
-      selectedFile: null
+      imageUrl: null,
+      isUploadingImage: false,
+      isDeletingImage: false
     };
   },
 
  
 
   methods: {
-    onPickFile() {
-      this.$refs.fileInput.click();
+    launchImageFile () {
+      // Trigger the file input click event.
+      this.$refs.imageFile.click()
     },
 
-    onFilePicked(event) {
-    
-      const files = event.target.files;
-      let filename = files[0].name;
-      if (filename.lastIndexOf(".") <= 0) {
-        this.$toast.show("Пожалуйста выберите верный формат файла");
+     uploadImageFile (files) {
+      if (!files.length) {
+        return
       }
-      const fileRider = new FileReader();
-      fileRider.addEventListener("load", () => {
-        this.imgUrl = fileRider.result;
-      });
-      fileRider.readAsDataURL(files[0]);
-      this.image = files[0];
+      const file = files[0]
 
-      this.selectedFile = event.target.files[0]
-      
-      const fd = new FormData();
-      fd.append('image', this.selectedFile, this.selectedFile.name)
-      console.log(files[0])
-      console.log(fd)
-      axios.post('https://shopper-4eb43-default-rtdb.asia-southeast1.firebasedatabase.app/shopper-4eb43.appspot.com/products/\.\json', this.image)
-      .then(res => {
-          console.log(res)
+      if (!file.type.match('image.*')) {
+        alert('Please upload an image.')
+        return
+      }
+
+      const metadata = {
+        contentType: file.type
+      }
+
+      this.isUploadingImage = true
+
+      // Create a reference to the destination where we're uploading
+      // the file.
+      const storage = firebase.storage()
+      const imageRef = storage.ref(`products/${file.name}`)
+
+      const uploadTask = imageRef.put(file, metadata).then((snapshot) => {
+        // Once the image is uploaded, obtain the download URL, which
+        // is the publicly accessible URL of the image.
+        return snapshot.ref.getDownloadURL().then((url) => {
+          return url
+        })
+      }).catch((error) => {
+        console.error('Error uploading image', error)
       })
-       .catch((error) => {
-          // Error
-          if (error.response) {
-            console.log(error.response.data);
-          } else if (error.request) {
-            console.log(error.request);
-          } else {
-            console.log("Error", error.message);
-          }
-          console.log(error.config);
-        });
+
+      // When the upload ends, set the value of the blog image URL
+      // and signal that uploading is done.
+      uploadTask.then((url) => {
+        this.imageUrl = url
+        this.isUploadingImage = false
+      })
     },
 
-    delImg() {
-        this.imgUrl = null
+      deleteImage () {
+      firebase.storage().refFromURL(this.imageUrl).delete()
+        .then(() => {
+          this.imageUrl = ''
+        })
+        .catch((error) => {
+          console.error('Error deleting image', error)
+        })
     }
   },
 };

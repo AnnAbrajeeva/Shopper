@@ -39,15 +39,20 @@ export default {
   css: [
   ],
 
+  vendor: [
+    'firebase'
+  ],
+
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
    '~/plugins/vue-slick-carousel.js',
-   '~/plugins/firebase.js',
+   {src: '~/plugins/firebase.js', ssr: false},
    '~/plugins/vue-spinners.js',
    '~/plugins/server.js',
    '~/plugins/icons.js',
    '~/plugins/filter.js',
    { src: '~/plugins/vuelidate.js', ssr: true },
+   { src: '~/plugins/tinymce.js', ssr: false },
   //  { src: '~/plugins/persistedState.client.js' },
    {
     src: '~plugins/vue-slider-component.js',
@@ -66,23 +71,25 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    // [
-    //   '@nuxtjs/firebase',
-    //   {
-    //     config: {
-    //       apiKey: "AIzaSyAoNYrTio0PFuV1N_Q9A2NoIJRIk57wQB8",
-    //       authDomain: "shopper-4eb43.firebaseapp.com",
-    //       projectId: "shopper-4eb43",
-    //       storageBucket: "shopper-4eb43.appspot.com",
-    //       messagingSenderId: "1004928916174",
-    //       appId: "1:1004928916174:web:2b6c9e3ec41d73e08b4e9f"
-    //     },
-    //     services: {
-    //       auth: true,
-    //       database: true // Just as example. Can be any other service.
-    //     }
-    //   }
-    // ],
+    [
+      '@nuxtjs/firebase',
+      {
+        config: {
+          apiKey: "AIzaSyAoNYrTio0PFuV1N_Q9A2NoIJRIk57wQB8",
+          authDomain: "shopper-4eb43.firebaseapp.com",
+          databaseURL: "https://shopper-4eb43-default-rtdb.asia-southeast1.firebasedatabase.app",
+          projectId: "shopper-4eb43",
+          storageBucket: "shopper-4eb43.appspot.com",
+          messagingSenderId: "1004928916174",
+          appId: "1:1004928916174:web:2b6c9e3ec41d73e08b4e9f"
+        },
+        services: {
+          auth: true,
+          database: true,
+          storage: true // Just as example. Can be any other service.
+        }
+      }
+    ],
     // https://go.nuxtjs.dev/bootstrap
     ['bootstrap-vue/nuxt'],
     ['nuxt-vuex-localstorage', {
