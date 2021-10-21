@@ -1,17 +1,16 @@
 <template>
-  <div class="main-panel">
-    <div class="content">
-      <div class="container-fluid">
-        <h1>Админка</h1>
+  <!-- <div class="main-panel">
+    <div class="content"> -->
+      <div class="container-fluid mt-10">
         <div class="row">
          <todo />
          <currency :currency="this.currency.rates" />
           <modal />
         </div>
-         <table-orders />
+         <table-orders class="mt-10" />
       </div>
-    </div>
-  </div>
+    <!-- </div>
+  </div> -->
 </template>
 
 <script>

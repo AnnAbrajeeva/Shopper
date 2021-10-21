@@ -35,7 +35,8 @@ export default {
             articul: null,
             available: true,
             gender: 'woman',
-            category: null
+            category: null,
+             
         }
     }
 }

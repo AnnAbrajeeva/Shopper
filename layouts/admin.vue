@@ -1,17 +1,47 @@
 <template>
-  <div id="app">
+  <!-- <div id="app">
+    
+   
     <transition name="spinner" v-if="this.loading">
       <div class="loader">
         <ring-loader color="#D73636" :size="150" sizeUnit="px" />
       </div>
     </transition>
 
+ <v-app> 
     <div class="wrapper">
+       <admin-header />
       <sidebar />
-      <admin-header />
+    
+     
+  
       <nuxt />
+  
     </div>
-  </div>
+    </v-app>
+  </div> -->
+
+
+  <v-app>
+   
+    <transition name="spinner" v-if="this.loading">
+      <div class="loader">
+        <ring-loader color="#D73636" :size="150" sizeUnit="px" />
+      </div>
+    </transition>
+   
+  <admin-header />
+
+      <sidebar />
+
+    <v-main>
+    
+        <nuxt />
+    
+    </v-main>
+
+    
+</v-app>
 </template>
 
 <script>

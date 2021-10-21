@@ -1,9 +1,9 @@
 <template>
   <v-app-bar
-    absolute
-    color="white"
-    elevate-on-scroll
-    class="header-admin"
+  elevate-on-scroll
+   app
+   color="#f5f5f5"
+   light
   >
     <v-app-bar-nav-icon></v-app-bar-nav-icon>
 

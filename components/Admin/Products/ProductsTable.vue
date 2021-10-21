@@ -2,8 +2,9 @@
   <div class="col-md-12">
     <agree-modal v-if="showModal" @close="close" @agreeToDel="agreeToDel" />
     <div class="card products">
-      <div class="card-header card-header-primary">
+      <div class="card-header card-header-primary d-flex justify-space-between align-center">
         <h4 class="card-title">Все товары</h4>
+        <nuxt-link tag="v-btn" to="/admin/products/new" class="add-product-btn">Добавить</nuxt-link>
       </div>
       <div class="orders card-body">
         <div class="table-responsive products-table">

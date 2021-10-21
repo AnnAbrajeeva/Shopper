@@ -1,6 +1,5 @@
 <template>
-  <div class="main-panel">
-    <div class="content">
+
       <div class="container-fluid">
         <div class="title">
           <!-- <h3>Все товары</h3> -->
@@ -10,8 +9,7 @@
           <products-table :products="products" />
         </div>
       </div>
-    </div>
-  </div>
+  
 </template>
 
 <script>
@@ -24,46 +22,43 @@ export default {
     ProductsTable,
   },
 
-  async asyncData({ $axios }) {
+  async asyncData({ $axios, store  }) {
     const products = await $axios.$get(
       "https://shopper-4eb43-default-rtdb.asia-southeast1.firebasedatabase.app/products.json"
-    )
-    let productsArray = []
+    );
+    let productsArray = [];
     // productsArray = Array.from(products)
     // console.log(products)
     // let newArray = []
     // Object.keys(products).forEach(key => {
     //   let product = {}
     //   product[key] = products[key]
-    //   productsArray.push(...product) 
+    //   productsArray.push(...product)
     //   console.log(product)
     // })
     // console.log(productsArray)
-   
+
     // for(let key in products) {
     //   console.log(key)
     //   productsArray.push({key:{products[key]}})
     // }
     for (let [key, value] of Object.entries(products)) {
-      productsArray.push(value)
-    console.log(productsArray);
-}
-
-
-     return {
-      products: productsArray
+      productsArray.push(value);
     }
+
+    return {
+      products: productsArray,
+    };
     // console.log(productsArray)
     // return productsArray
     // .then(res => {
     //   const productsArray = Object.entries(products);
     //   console.log(productsArray)
-      
+
     //   console.log(productsArray)
-    //   return productsArray  
+    //   return productsArray
     //   })
-      
-    
+
     // return {products}
     // const productsArray = []
     // for(let key in products) {

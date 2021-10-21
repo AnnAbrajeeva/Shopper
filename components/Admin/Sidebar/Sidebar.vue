@@ -1,6 +1,7 @@
 <template>
-  <div class="sidebar">
     <v-navigation-drawer
+    app
+    class="sidebar"
       v-model="drawer"
       :src="bg"
       absolute
@@ -26,8 +27,9 @@
       
       </v-list>
     </v-navigation-drawer>
-  </div>
 </template>
+
+
 <script>
 import SidebarLinks from "./SidebarLinks.vue";
 

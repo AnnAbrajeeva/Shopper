@@ -70,6 +70,9 @@ export default {
   data() {
     return {
       sizes: [],
+      color: null,
+      color2: null,
+      color3: null,
     };
   },
 };

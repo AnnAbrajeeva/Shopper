@@ -9,7 +9,7 @@ export const state = () => ({
   category: [],
   value: [0, 2000],
   colors: [],
-  size: ''
+  size: '',
 })
 
 export const mutations = {
@@ -51,7 +51,8 @@ export const mutations = {
   },
   resetPriceFilters(state) {
     state.value = [0, 2000]
-  }
+  },
+
 }
 
 export const actions = {
@@ -145,7 +146,8 @@ export const actions = {
   },
   setLoadingFalse({commit}) {
     commit('setLoadingFalse')
-  }
+  },
+ 
 }
 
 export const getters = {
@@ -160,5 +162,6 @@ export const getters = {
   },
   getSize(state) {
     return state.size
-  }
+  },
+
 }
