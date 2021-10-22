@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-12">
+  <div class="col-md-12 mt-10">
     <agree-modal v-if="showModal" @close="close" @agreeToDel="agreeToDel" />
     <div class="card products">
       <div class="card-header card-header-primary d-flex justify-space-between align-center">
@@ -78,9 +78,8 @@
             </template>
           </v-simple-table>
         </div>
-      </div>
-
-      <pagination :pages="pages" @changePage="changePage" />
+         <pagination :pages="pages" @changePage="changePage" />
+      </div>    
     </div>
   </div>
 </template>

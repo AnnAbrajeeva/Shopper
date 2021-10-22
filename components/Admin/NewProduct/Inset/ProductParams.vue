@@ -2,20 +2,34 @@
   <v-row>
     <v-col cols="12" sm="6" md="3">
       <p>Артикул</p>
-      <v-text-field v-model="articul" label="Артикул" solo></v-text-field>
+      <v-text-field
+        v-model="articul"
+        label="Артикул"
+        solo
+        :rules="[v => !!v || 'Введите артикул товара']"
+        required
+      ></v-text-field>
     </v-col>
 
     <v-col cols="12" sm="6" md="3">
       <p>Наличие</p>
-      <v-radio-group v-model="available" row>
-        <v-radio label="Есть" value="true"></v-radio>
-        <v-radio label="Нет" value="false"></v-radio>
+      <v-radio-group
+        v-model="available"
+        row
+         :rules="[v => !!v || 'Укажите наличие товара']"
+      >
+        <v-radio label="Есть" value="Есть"></v-radio>
+        <v-radio label="Нет" value="Нет"></v-radio>
       </v-radio-group>
     </v-col>
 
     <v-col cols="12" sm="6" md="3">
       <p>Мужчинам/Женщинам</p>
-      <v-radio-group v-model="gender" row>
+      <v-radio-group 
+      v-model="gender" 
+      row
+       :rules="[v => !!v || 'Укажите для кого данный товар']"  
+      >
         <v-radio label="М" value="man"></v-radio>
         <v-radio label="Ж" value="woman"></v-radio>
       </v-radio-group>
@@ -23,21 +37,51 @@
 
     <v-col class="d-flex flex-column" cols="12" sm="6" md="3">
       <p>Категория</p>
-      <v-select v-model="category" :items="items" label="Выберите категорию" solo></v-select>
+      <v-select
+        v-model="category"
+        :items="this.categories"
+        label="Выберите категорию"
+        solo
+         :rules="[v => !!v || 'Выберите категорию товара']"  
+        required
+      ></v-select>
     </v-col>
   </v-row>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            articul: null,
-            available: true,
-            gender: 'woman',
-            category: null,
-             
-        }
+  props: {
+    products: {
+      type: Array
+    },
+    categories: {
+      type: Array
     }
-}
+  },
+  data() {
+    return {
+      articul: '',
+      available: '',
+      gender: '',
+      category: null,
+    };
+  },
+
+ 
+  watch: {
+    articul() {
+      this.$store.dispatch("adminProducts/setArticul", this.articul);
+    },
+    available() {
+      this.$store.dispatch("adminProducts/setAvailable", this.available);
+    },
+    gender() {
+      this.$store.dispatch("adminProducts/setGender", this.gender);
+    },
+    category() {
+      this.$store.dispatch("adminProducts/setCategory", this.category);
+    },
+  },
+};
 </script>

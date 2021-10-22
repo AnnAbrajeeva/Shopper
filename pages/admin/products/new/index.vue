@@ -1,8 +1,5 @@
 <template>
-  <!-- <v-app> -->
-    <!-- <div class="main-panel">
-      <div class="content"> -->
-        <div class="container-fluid">
+        <div v-if="!loading" class="container-fluid">
           <div class="row">
             <div class="col-md-12 mt-10">
               <div class="card">
@@ -11,10 +8,18 @@
                 </div>
                 <div class="card-body">
                   <div class="container">
-                    <v-form class="new-product">
+                    <v-form
+                    ref="form"
+                    v-model="valid" 
+                    class="new-product">
                       <div class="container">
                         <v-row>
-                          <v-text-field label="Название" solo></v-text-field>
+                          <v-text-field 
+                          v-model="title" 
+                          label="Название" 
+                          solo
+                           :rules="[v => !!v || 'Введите название товара']"
+                          ></v-text-field>
                         </v-row>
                       </div>
 
@@ -49,7 +54,7 @@
 
                             <div v-if="activetab === '1'" class="tabcontent">
                               <div class="course_demo1">
-                                <product-params />
+                                <product-params :categories="getCategories" :products="products" />
                                 <product-price />
                                 <product-images />
                                 <product-editor />
@@ -67,7 +72,7 @@
                             <!---tab3----->
                             <div v-if="activetab === '3'" class="tabcontent">
                               <div class="course_demo1">
-                                <recommended-product :products="products" />
+                                <recommended-product :products="products" :categories="getCategories" />
                               </div>
                             </div>
                           </div>
@@ -76,9 +81,9 @@
                       <v-btn
                         class="new-product__add-foto-btn mt-3"
                         :loading="loading"
-                        :disabled="loading"
                         color="secondary"
-                        @click="loader = 'loading'"
+                        @click="addNewProduct"
+                       
                       >
                         Сохранить
                       </v-btn>
@@ -98,12 +103,10 @@
             </div>
           </div>
         </div>
-      <!-- </div>
-    </div> -->
-  <!-- </v-app> -->
 </template>
 
 <script>
+import { required } from 'vuelidate/lib/validators'
 import ProductParams from "~/components/Admin/NewProduct/Inset/ProductParams.vue";
 import ProductPrice from "~/components/Admin/NewProduct/Inset/ProductPrice.vue";
 import ProductImages from "~/components/Admin/NewProduct/Inset/ProductImages.vue";
@@ -111,6 +114,11 @@ import ProductEditor from "~/components/Admin/NewProduct/Inset/ProductEditor.vue
 import ProductColor from "~/components/Admin/NewProduct/Inset2/ProductColor.vue";
 import RecommendedProduct from "~/components/Admin/NewProduct/Inset3/RecommendedProduct.vue";
 export default {
+  // provide() {
+  //   return {
+  //     $v: this.$v
+  //   }
+  // },
   layout: "admin",
   components: {
     ProductParams,
@@ -126,6 +134,9 @@ export default {
     );
     let productsArray = [];
     for (let [key, value] of Object.entries(products)) {
+      if(!value.id) {
+        value.id = key
+      }
       productsArray.push(value);
     }
 
@@ -134,11 +145,53 @@ export default {
     };
   },
 
+   validations: {
+      title: { required },
+      },
+
   data() {
     return {
       activetab: "1",
       loading: false,
+      title: null,
+      valid: true,
     };
   },
+
+  watch: {
+    title() {
+      this.$store.dispatch('adminProducts/setTitle', this.title)
+    }
+  },
+
+  computed: {
+     titleErrors () {
+        const errors = []
+        if (!this.$v.title.$dirty) return errors
+        !this.$v.title.required && errors.push('Введите название товара')
+        return errors
+      },
+     getCategories() {
+      let categories = [];
+      this.products.forEach((product) => {
+        categories.push(product["category-name"]);
+      });
+      categories = categories.filter(
+        (item, index) => categories.indexOf(item) === index
+      );
+      this.categoriesList = categories;
+
+      return categories;
+    },
+  },
+
+  methods: {
+    addNewProduct() {
+       this.$refs.form.validate()
+       if(!this.valid) return
+      this.$store.dispatch('adminProducts/addProduct')
+      this.$route.push('/admin/products')
+    }
+  }
 };
 </script>

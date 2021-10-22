@@ -40,8 +40,6 @@ export default {
     };
   },
 
- 
-
   methods: {
     launchImageFile () {
       // Trigger the file input click event.
@@ -85,6 +83,7 @@ export default {
       uploadTask.then((url) => {
         this.imageUrl = url
         this.isUploadingImage = false
+        this.$store.dispatch('adminProducts/setImage', this.imageUrl)
       })
     },
 

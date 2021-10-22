@@ -11,7 +11,7 @@
         app
           v-model="selectCategory"
           data-app
-          :items="getCategories"
+          :items="categories"
           label="Выберите категорию"
           solo
         ></v-select>
@@ -58,6 +58,9 @@ export default {
     products: {
       type: Array,
     },
+    categories: {
+      type: Array
+    }
   },
   data() {
     return {
@@ -65,18 +68,6 @@ export default {
     };
   },
   computed: {
-    getCategories() {
-      let categories = [];
-      this.products.forEach((product) => {
-        categories.push(product["category-name"]);
-      });
-      categories = categories.filter(
-        (item, index) => categories.indexOf(item) === index
-      );
-      this.categoriesList = categories;
-
-      return categories;
-    },
 
     getProducts() {
       let productsList = [];

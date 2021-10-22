@@ -1,7 +1,7 @@
 <template>
   <div class="container">
       <choose-recommended-product @closeAddRecommended=
-      "closeAddRecommended" :products="products" :addRecommendedShow="addRecommendedShow" />
+      "closeAddRecommended" :categories="categories" :addRecommendedShow="addRecommendedShow" />
     <v-row v-if="!addRecommendedShow">
       <div v-if="getRecomendedProducts" class="new-product__recommended-wrapper">
       <v-col
@@ -35,9 +35,9 @@ import {mapGetters} from 'vuex'
 import ChooseRecommendedProduct from './ChooseRecommendedProduct.vue'
 export default {
     props: {
-        products: {
+        categories: {
             type: Array,
-        }
+        },
     },
     data() {
         return {

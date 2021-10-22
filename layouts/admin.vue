@@ -49,6 +49,7 @@ import Sidebar from "~/components/Admin/Sidebar/Sidebar.vue";
 import AdminHeader from "~/components/Admin/AdminHeader.vue";
 
 export default {
+  name: 'adminLayout',
   head() {
     return {
       link: [
