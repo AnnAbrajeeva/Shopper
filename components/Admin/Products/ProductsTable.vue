@@ -169,6 +169,9 @@ export default {
         });
       this.showModal = false;
     },
+    editProduct(product) {
+      this.$router.push(`/admin/products/edit/${product.id}`)
+    }
   },
   computed: {
     sortProducts() {

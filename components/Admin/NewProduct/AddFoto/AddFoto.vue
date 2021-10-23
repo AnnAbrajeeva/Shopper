@@ -32,9 +32,17 @@
 <script>
 import firebase from "firebase"
 export default {
+  props: {
+    product: {
+      type: Object
+    },
+    image: {
+      type: String
+    }
+  },
   data() {
     return {
-      imageUrl: null,
+      imageUrl: '',
       isUploadingImage: false,
       isDeletingImage: false
     };
@@ -97,6 +105,11 @@ export default {
         })
     }
   },
+  mounted() {
+    if(this.image) {
+      this.imageUrl = this.image
+    }
+  }
 };
 </script>
 

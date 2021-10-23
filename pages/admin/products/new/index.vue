@@ -92,7 +92,7 @@
                         :loading="loading"
                         :disabled="loading"
                         color="secondary"
-                        @click="loader = 'loading'"
+                        @click="this.$router.push('/admin/products')"
                       >
                         Отменить
                       </v-btn>
@@ -106,6 +106,7 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 import { required } from 'vuelidate/lib/validators'
 import ProductParams from "~/components/Admin/NewProduct/Inset/ProductParams.vue";
 import ProductPrice from "~/components/Admin/NewProduct/Inset/ProductPrice.vue";
@@ -114,11 +115,7 @@ import ProductEditor from "~/components/Admin/NewProduct/Inset/ProductEditor.vue
 import ProductColor from "~/components/Admin/NewProduct/Inset2/ProductColor.vue";
 import RecommendedProduct from "~/components/Admin/NewProduct/Inset3/RecommendedProduct.vue";
 export default {
-  // provide() {
-  //   return {
-  //     $v: this.$v
-  //   }
-  // },
+ 
   layout: "admin",
   components: {
     ProductParams,
@@ -128,16 +125,13 @@ export default {
     ProductColor,
     RecommendedProduct,
   },
-  async asyncData({ $axios, store }) {
+  async asyncData({ $axios }) {
     const products = await $axios.$get(
       "https://shopper-4eb43-default-rtdb.asia-southeast1.firebasedatabase.app/products.json"
     );
     let productsArray = [];
     for (let [key, value] of Object.entries(products)) {
-      if(!value.id) {
-        value.id = key
-      }
-      productsArray.push(value);
+        productsArray.push({...value, id: key});
     }
 
     return {
@@ -155,6 +149,7 @@ export default {
       loading: false,
       title: null,
       valid: true,
+      products: []
     };
   },
 
@@ -190,7 +185,7 @@ export default {
        this.$refs.form.validate()
        if(!this.valid) return
       this.$store.dispatch('adminProducts/addProduct')
-      this.$route.push('/admin/products')
+      this.$router.push('/admin/products') 
     }
   }
 };

@@ -14,7 +14,9 @@ export const state = () => ({
      poster: [],
      descr: '',
      sizes: [],
-     color: ""
+     color: "",
+     cloth: "",
+     id: Math.random().toString(36).substr(2, 4)
    }
   })
   
@@ -58,6 +60,9 @@ export const state = () => ({
     setColor(state, color) {
       state.newProduct.color = color
     },
+    setMaterial(state, material) {
+      state.newProduct.cloth = material
+    },
     addProduct(state, newProduct) {
         state.newProduct.title = ''
         state.newProduct.articul = '',
@@ -70,6 +75,7 @@ export const state = () => ({
         state.newProduct.poster = [],
         state.newProduct.descr = ''
         state.newProduct.color = ''
+        state.newProduct.cloth = ''
         state.newProduct.sizes = []
     }
   }
@@ -114,11 +120,13 @@ export const state = () => ({
     setSizes({commit}, sizes) {
       commit('setSizes', sizes)
     },
+    setMaterial({commit}, material) {
+      commit('setMaterial', material)
+    },
     async addProduct({commit, state}) {
       await axios.post('https://shopper-4eb43-default-rtdb.asia-southeast1.firebasedatabase.app/products.json', state.newProduct)
       .then(res => {
-        console.log(state.newProduct)
-        commit('addProduct', {...state.newProduct, id: res.data.name})
+        commit('addProduct')
       })    
     }
   }
@@ -126,5 +134,8 @@ export const state = () => ({
   export const getters = {
     getRecomendedProducts(state) {
         return state.recomendedProducts
+    },
+    getNewProduct(state) {
+      return state.newProduct
     }
   }

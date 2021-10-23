@@ -57,14 +57,17 @@ export default {
     },
     categories: {
       type: Array
+    },
+    product: {
+      type: Object
     }
   },
   data() {
     return {
-      articul: '',
+      articul: this.product.articul,
       available: '',
       gender: '',
-      category: null,
+      category: '',
     };
   },
 
@@ -83,5 +86,13 @@ export default {
       this.$store.dispatch("adminProducts/setCategory", this.category);
     },
   },
+  mounted() {
+    if(this.product) {
+      this.articul = this.product.articul ? this.product.articul : '',
+      this.available = this.product.available ? this.product.available : '',
+      this.gender = this.product.gender ? this.product.gender : '',
+      this.category = this.product['category-name'] ? this.product['category-name'] : ''
+    }
+  }
 };
 </script>

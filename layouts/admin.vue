@@ -1,47 +1,19 @@
 <template>
-  <!-- <div id="app">
-    
-   
-    <transition name="spinner" v-if="this.loading">
-      <div class="loader">
-        <ring-loader color="#D73636" :size="150" sizeUnit="px" />
-      </div>
-    </transition>
-
- <v-app> 
-    <div class="wrapper">
-       <admin-header />
-      <sidebar />
-    
-     
-  
-      <nuxt />
-  
-    </div>
-    </v-app>
-  </div> -->
-
-
   <v-app>
-   
     <transition name="spinner" v-if="this.loading">
       <div class="loader">
         <ring-loader color="#D73636" :size="150" sizeUnit="px" />
       </div>
     </transition>
-   
-  <admin-header />
 
-      <sidebar />
+    <admin-header />
+
+    <sidebar />
 
     <v-main>
-    
-        <nuxt />
-    
+      <nuxt />
     </v-main>
-
-    
-</v-app>
+  </v-app>
 </template>
 
 <script>
@@ -49,7 +21,7 @@ import Sidebar from "~/components/Admin/Sidebar/Sidebar.vue";
 import AdminHeader from "~/components/Admin/AdminHeader.vue";
 
 export default {
-  name: 'adminLayout',
+  name: "adminLayout",
   head() {
     return {
       link: [

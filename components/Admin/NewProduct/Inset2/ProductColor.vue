@@ -1,14 +1,27 @@
     <template>
   <v-row>
     <v-col cols="12" sm="12" md="12">
-      <p>Цвет 1</p>
+      <p>Цвет</p>
       <v-text-field 
       v-model="color" 
-      label="Цвет 1" 
+      label="Цвет" 
       solo
       :rules="[v => !!v || 'Укажите цвет товара']"  
       ></v-text-field>
-      <p>Цвет 2</p>
+     
+      <!-- <v-text-field v-model="color2" label="Цвет 2" solo></v-text-field>
+      <p>Цвет 3</p>
+      <v-text-field v-model="color3" label="Цвет 3" solo></v-text-field> -->
+    </v-col>
+
+     <v-col cols="12" sm="12" md="12">
+      <p>Материал</p>
+      <v-text-field 
+      v-model="material" 
+      label="Укажите ткань" 
+      solo
+      :rules="[v => !!v || 'Укажите используемый материал товара']"  
+      ></v-text-field>
       <!-- <v-text-field v-model="color2" label="Цвет 2" solo></v-text-field>
       <p>Цвет 3</p>
       <v-text-field v-model="color3" label="Цвет 3" solo></v-text-field> -->
@@ -76,17 +89,19 @@ export default {
     return {
       sizes: [],
       color: '',
-      color2: null,
-      color3: null,
+      material: ''
     };
   },
 
     watch: {
       sizes() {
-        this.$store.dispatch('adminProducts/setSizes', this.sizes)
+        this.$store.dispatch('adminProducts/setSizes', this.sizes.join(', '))
       },
       color() {
         this.$store.dispatch('adminProducts/setColor', this.color)
+      },
+      material() {
+        this.$store.dispatch('adminProducts/setMaterial', this.material)
       }
     }
 };
