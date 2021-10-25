@@ -48,11 +48,11 @@
                     :src="product.poster[0]"
                     :alt="product.title"
                   />
-                  <a href="single.html"
+                  <nuxt-link :to="`/clothes/${product.id}`"
                     ><div class="caption">
                       <h3>{{ product.title }}</h3>
-                      <h5>{{ product.cost }} &euro;</h5>
-                    </div></a
+                      <h5>{{ product.cost }} сум</h5>
+                    </div></nuxt-link
                   >
                 </li>
               </VueSlickCarousel>
@@ -76,11 +76,11 @@
                     :src="product.poster[0]"
                     :alt="product.title"
                   />
-                  <a href="single.html"
+                 <nuxt-link :to="`/clothes/${product.id}`"
                     ><div class="caption">
                       <h3>{{ product.title }}</h3>
-                      <h5>{{ product.cost }} &euro;</h5>
-                    </div></a
+                      <h5>{{ product.cost }} сум</h5>
+                    </div></nuxt-link
                   >
                 </li>
               </VueSlickCarousel>
@@ -103,11 +103,11 @@
                     :src="product.poster[0]"
                     :alt="product.title"
                   />
-                  <a href="single.html"
+                  <nuxt-link :to="`/clothes/${product.id}`"
                     ><div class="caption">
                       <h3>{{ product.title }}</h3>
-                      <h5>{{ product.cost }} &euro;</h5>
-                    </div></a
+                      <h5>{{ product.cost }} сум</h5>
+                    </div></nuxt-link
                   >
                 </li>
               </VueSlickCarousel>
@@ -186,12 +186,6 @@ export default {
     };
   },
   
-
-  // async mounted() {
-  //   const products = await this.$store.dispatch("products/getProducts");
-  //   this.products = products;
-  // },
-
   computed: {
 	  ...mapGetters('products', ['loading']),
      getLoading() {

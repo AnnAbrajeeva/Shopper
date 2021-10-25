@@ -36,17 +36,17 @@ export default {
     ProductTabs,
   },
 
-  // async asyncData({ $axios }) {
-  //   const products = await $axios.$get(
-  //     "https://shopper-4eb43-default-rtdb.asia-southeast1.firebasedatabase.app/products.json"
-  //   );
-  //   let productsArray = [];
+  async asyncData({ $axios }) {
+    const products = await $axios.$get(
+      "https://shopper-4eb43-default-rtdb.asia-southeast1.firebasedatabase.app/products.json"
+    );
+    let productsArray = [];
 
-  //   for (let [key, value] of Object.entries(products)) {
-  //     productsArray.push({ ...value, id: key });
-  //   }
+    for (let [key, value] of Object.entries(products)) {
+      productsArray.push({ ...value, id: key });
+    }
   
-  //   return { products: productsArray };
-  // },
+    return { products: productsArray };
+  },
 };
 </script>

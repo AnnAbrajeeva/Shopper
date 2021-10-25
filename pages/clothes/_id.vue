@@ -47,15 +47,16 @@ export default {
     };
   },
 
-  async mounted() {
-    const product = await this.$store.dispatch(
-      "products/getProduct",
-      this.$route.params.id
+  async asyncData({ $axios, params }) {
+    const product = await $axios.$get(
+      `https://shopper-4eb43-default-rtdb.asia-southeast1.firebasedatabase.app/products/${params.id}.json`
     );
-    const sameProducts = await this.$store.dispatch("products/getSameProducts");
+    return { product};
+  },
+
+  async mounted() {
+    const sameProducts = await this.$store.dispatch("products/getSameProducts", this.product);
     this.products = sameProducts;
-    this.product = product;
-    console.log(this.products);
     this.hideNotification();
   },
 

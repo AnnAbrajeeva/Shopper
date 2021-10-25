@@ -63,7 +63,6 @@
               label="Цвет"
               multiple
               chips
-              hint="Выберите цвет"
               persistent-hint
             ></v-select>
           </div>

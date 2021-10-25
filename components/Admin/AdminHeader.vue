@@ -11,7 +11,7 @@
 
    
 
-    <v-btn>
+    <v-btn @click="logout">
       <v-icon>mdi-logout-variant</v-icon>
       Выйти
     </v-btn>
@@ -27,6 +27,10 @@ export default {
   methods: {
     openMenu() {
       this.$emit('showMenu')
+    },
+    logout() {
+       this.$store.dispatch("user/logoutUser")
+      .then(()=>{this.$router.push('/auth/login')})
     }
   },
 

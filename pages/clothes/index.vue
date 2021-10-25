@@ -61,62 +61,12 @@ export default {
     };
   },
 
-  // async asyncData({$http}) {
-
-  //     const posts = await $http.$get('https://jsonplaceholder.typicode.com/posts')
-
-  //     return { posts }
-  // },
-
-  // asyncData() {
-  //   return axios
-  //     .get('/api/products/')
-  //     .then((res) => {
-  //       return { products: res.data[0].data.content }
-  //     })
-  // },
-
-  //  async asyncData({ params, $http }) {
-  //       const products = await axios.get('/api/products/')
-  //       return { products }
-  //  },
-
-  // async fetch() {
-  //     return await axios.get('/api/products/')
-  //      .then(res => {
-  //       let products = res.data[0].data.content
-  //       this.products = products
-  //   })
-
-  // },
-  //  async fetch() {
-  //     this.products = await fetch(
-  //       '/api/products/'
-  //     ).then(res => {
-  //       console.log(res)
-  //       return res.data[0].data.content.json()
-  //     })
-  //   },
-
-  // async asyncData(context) {
-  //   return new Promise((resolve, reject) => {
-  //     resolve(axios("/api/products/"))
-  //   })
-  //     .then(data => {
-  //       return data
-  //     })
-  //     .catch(e => {
-  //       context.error(e)
-  //     })
-  //   },
-
   data() {
     return {
       page: 1,
       perPage: 6,
       pages: [],
       categories: [],
-      products: [],
       sortingProducts: [],
       search: null,
       dialog: true
@@ -165,10 +115,7 @@ export default {
       return products.slice(from, to);
     },
     setPages() {
-      let numberOfPages = Math.ceil(this.sortingProducts.length / this.perPage);
-      for (let index = 1; index <= numberOfPages; index++) {
-        this.pages.push(index);
-      }
+      this.pages = Math.ceil(this.sortingProducts.length / this.perPage);
     },
   },
 

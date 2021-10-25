@@ -80,9 +80,13 @@ export default {
         password: this.user.password,
       };
       try {
-        console.log('123')
         await this.$store.dispatch("user/authUser", user);
-        this.$router.push("/");
+        if(this.$route.fullPath == '/admin/auth') {
+           this.$router.push("/admin");
+        } else {
+           this.$router.push("/");
+        }
+       
       } catch (e) {}
     },
   },

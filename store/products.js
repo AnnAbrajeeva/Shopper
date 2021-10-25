@@ -90,13 +90,18 @@ export const actions = {
     })
   },
 
-  async getSameProducts({commit, state}) {
+  async getSameProducts({commit, state}, product) {
     commit('setLoadingTrue')
-    return await axios.get('/api/products/')
+    return await axios.get('https://shopper-4eb43-default-rtdb.asia-southeast1.firebasedatabase.app/products.json')
     .then(res => {
-      let products = res.data[0].data.content
-      this.products = products
-      const sameProducts = products.filter(same => state.product.title === same.title)
+      let products = res.data
+      let productsArray = [];
+      for (let [key, value] of Object.entries(products)) {
+        productsArray.push({ ...value, id: key });
+      }
+      const sameProducts = productsArray.filter(same => {
+        return product.title === same.title
+      })
       commit('setSameProducts', sameProducts)
       commit('setLoadingFalse')
       return sameProducts
