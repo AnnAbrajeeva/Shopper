@@ -64,7 +64,7 @@ export default {
   },
   data() {
     return {
-      articul: this.product.articul,
+      articul: '',
       available: '',
       gender: '',
       category: '',

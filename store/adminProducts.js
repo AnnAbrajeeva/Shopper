@@ -16,8 +16,9 @@ export const state = () => ({
      sizes: [],
      color: "",
      cloth: "",
-     id: Math.random().toString(36).substr(2, 4)
-   }
+     id: ''
+   },
+   loading: false
   })
   
   export const mutations = {
@@ -63,7 +64,7 @@ export const state = () => ({
     setMaterial(state, material) {
       state.newProduct.cloth = material
     },
-    addProduct(state, newProduct) {
+    addProduct(state) {
         state.newProduct.title = ''
         state.newProduct.articul = '',
         state.newProduct.available = '',
@@ -77,6 +78,12 @@ export const state = () => ({
         state.newProduct.color = ''
         state.newProduct.cloth = ''
         state.newProduct.sizes = []
+    },
+    editProduct(state) {
+      console.log(state.newProduct)
+    },
+    setProduct(state, product) {
+      state.newProduct = product
     }
   }
 
@@ -123,11 +130,24 @@ export const state = () => ({
     setMaterial({commit}, material) {
       commit('setMaterial', material)
     },
+    setProduct({commit}, product) {
+      commit('setProduct', product)
+    },
     async addProduct({commit, state}) {
+      state.loading = true
       await axios.post('https://shopper-4eb43-default-rtdb.asia-southeast1.firebasedatabase.app/products.json', state.newProduct)
       .then(res => {
         commit('addProduct')
+        state.loading = false
       })    
+    },
+    async editProduct({commit, state}, id) {
+      state.loading = true
+      await axios.patch(`https://shopper-4eb43-default-rtdb.asia-southeast1.firebasedatabase.app/products/${id}.json`, state.newProduct)
+      .then(res => {
+        state.loading = false
+        commit('editProduct')
+      })
     }
   }
 
@@ -137,5 +157,8 @@ export const state = () => ({
     },
     getNewProduct(state) {
       return state.newProduct
+    },
+    getLoading(state) {
+      return state.loading
     }
   }

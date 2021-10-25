@@ -1,5 +1,12 @@
 <template>
-  <div v-if="!loading" class="container-fluid">
+
+ <transition name="spinner" v-if="this.loading">
+      <div class="loader">
+        <ring-loader color="#D73636" :size="150" sizeUnit="px" />
+      </div>
+    </transition>
+
+  <div v-else class="container-fluid">
     <div class="row">
       <div class="col-md-12 mt-10">
         <div class="card">
@@ -74,7 +81,7 @@
                       <!---tab2----->
                       <div v-if="activetab === '2'" class="tabcontent">
                         <div class="course_demo1">
-                          <product-color />
+                          <product-color :product="product" />
                         </div>
                       </div>
                       <!---//tab2----->
@@ -94,7 +101,7 @@
                   class="new-product__add-foto-btn mt-3"
                   :loading="loading"
                   color="secondary"
-                  @click="addNewProduct"
+                  @click="editProduct"
                 >
                   Сохранить
                 </v-btn>
@@ -117,6 +124,7 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 import ProductParams from "~/components/Admin/NewProduct/Inset/ProductParams.vue";
 import ProductPrice from "~/components/Admin/NewProduct/Inset/ProductPrice.vue";
 import ProductImages from "~/components/Admin/NewProduct/Inset/ProductImages.vue";
@@ -137,25 +145,21 @@ export default {
     const products = await $axios.$get(
       "https://shopper-4eb43-default-rtdb.asia-southeast1.firebasedatabase.app/products.json"
     );
-    // let product = {}
     let productsArray = [];
     for (let [key, value] of Object.entries(products)) {
-      productsArray.push({ ...value });
-      // if(value.id == params.id) {
-      //   product = value
-      // }
+      productsArray.push({ ...value, id: key });
     }
-    // console.log(product)
+    console.log(productsArray)
+
     return {
       products: productsArray,
-      // product: product
     };
   },
 
   data() {
     return {
       activetab: "1",
-      loading: false,
+      loading: this.getLoading,
       title: this.product ? this.product.title : '',
       valid: true,
       products: [],
@@ -170,6 +174,7 @@ export default {
   },
 
   computed: {
+    ...mapGetters('adminProducts', ['getLoading']),
     getCategories() {
       let categories = [];
       this.products.forEach((product) => {
@@ -193,12 +198,17 @@ export default {
       let product = await this.products.find((product) => {
         return product.id == this.$route.params.id;
       });
-      console.log(product);
       this.product = product;
       this.title = product.title
+      this.$store.dispatch('adminProducts/setProduct', product)
     }
   },
 
+  methods: {
+    editProduct() {
+      this.$store.dispatch('adminProducts/editProduct', this.product.id)
+    }
+  }
  
 };
 </script>

@@ -7,7 +7,7 @@
           v-model="descr"
           api-key="lg2lb6gtgfbz9p82e9cqbzd4zwq6s08nbkzsvk6t6eca1br1"
           :init="{
-            forced_root_block : false,
+            forced_root_block: false,
             height: 500,
             menubar: false,
             plugins: [
@@ -20,7 +20,7 @@
            alignleft aligncenter alignright alignjustify | \
            bullist numlist outdent indent | removeformat | help',
           }"
-          :rules="[v => !!v || 'Введите описание товара']"  
+          :rules="[(v) => !!v || 'Введите описание товара']"
         />
       </div>
     </div>
@@ -30,13 +30,37 @@
 <script>
 import Editor from "@tinymce/tinymce-vue";
 export default {
+  props: {
+    product: {
+      type: Object
+    }
+  },
+
   data() {
     return {
-      descr: null,
+      descr: this.product ? this.getDescr : '',
     };
   },
   components: {
     editor: Editor,
+  },
+
+  computed: {
+    getDescr() {
+      if(this.product) {
+        if(typeof this.product.descr === 'object') {
+          return this.product.descr.__text
+        } else {
+          return this.product.descr
+        }
+     }
+    }  
+  },
+
+  mounted() {
+    if(this.product) {
+      this.descr = this.product ? this.getDescr : ''
+    }
   },
 
 

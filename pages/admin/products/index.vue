@@ -29,7 +29,7 @@ export default {
     let productsArray = [];
     
     for (let [key, value] of Object.entries(products)) {
-      productsArray.push(value);
+      productsArray.push({...value, id: key});
     }
 
     return {

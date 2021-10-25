@@ -12,7 +12,7 @@
             <template v-slot:default>
               <thead class="text-primary">
                 <tr class="orders__table-header">
-                  <th class="text-left">ID</th>
+                  <!-- <th class="text-left">ID</th> -->
                   <th class="text-left">Изображение</th>
                   <th class="text-left">Название</th>
                   <th class="text-left">Артикул</th>
@@ -28,7 +28,7 @@
               </thead>
               <tbody>
                 <tr v-for="product in sortProducts" :key="product.id">
-                  <td>{{ product.id }}</td>
+                  <!-- <td>{{ product.id }}</td> -->
                   <td>
                     <img
                       class="products-table__img"

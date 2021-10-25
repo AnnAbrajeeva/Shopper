@@ -1,23 +1,53 @@
 <template>
   <div class="container">
     <p>Фото</p>
-    <v-row>
-      <div class="new-product__foto-wrapper">
-        <div v-for="i in 5" :key="i">
-          <template v-for="(image, index) in product.poster">
-            <add-foto :image="index = product.poster.length ? image : null" v-if="i < 4" :key="index" />
+  
+    <div v-if="this.product">
+      <template v-if="posterType == 'object'">
+        <div class="new-product__foto-wrapper">
+         
+          <template v-for="(image, index) in product.poster" :v-if="index < 3">
+            <add-foto
+              :image="index <= product.poster.length ? image : ''"
+              :key="index"
+            />
           </template>
+          <template v-for="i in getImageCount">
+            <add-foto :key="i" />
+          </template>
+       
         </div>
+      </template>
+
+      <template v-if="posterType == 'string'">
+        <div class="new-product__foto-wrapper">
+          <add-foto :image="product.poster" />
+          <add-foto />
+          <add-foto />
+          <add-foto />
+        </div>
+        <div class="new-product__foto-wrapper">
+          <add-foto />
+          <add-foto />
+          <add-foto />
+          <add-foto />
+        </div>
+      </template>
+    </div>
+    <v-row v-else class="mt-5">
+      <div class="new-product__foto-wrapper">
+        <add-foto />
+        <add-foto />
+        <add-foto />
+        <add-foto />
+      </div>
+      <div class="new-product__foto-wrapper">
+        <add-foto />
+        <add-foto />
+        <add-foto />
+        <add-foto />
       </div>
     </v-row>
-    <!-- <v-row class="mt-5">
-      <div class="new-product__foto-wrapper">
-        <add-foto />
-        <add-foto />
-        <add-foto />
-        <add-foto />
-      </div>
-    </v-row> -->
   </div>
 </template>
 
@@ -39,22 +69,35 @@ export default {
   },
 
   computed: {
-    getImage() {
-      let images = [];
-      if (this.product) {
-        for (let [key, value] of Object.entries(this.product)) {
-          if (key === "poster") {
-            value.forEach((image) => {
-              images.push(image);
-            });
-          }
-          //  console.log(key)
-          //  console.log(value)
-          // if(value.id == params.id) {
-          //   product = value
-          // }
-        }
-        return images;
+    // getImage() {
+    //   let images = [];
+    //   if (this.product) {
+    //     for (let [key, value] of Object.entries(this.product)) {
+    //       if (key === "poster") {
+    //         value.forEach((image) => {
+    //           images.push(image);
+    //         });
+    //       }
+    //       //  console.log(key)
+    //       //  console.log(value)
+    //       // if(value.id == params.id) {
+    //       //   product = value
+    //       // }
+    //     }
+    //     return images;
+    //   }
+    // },
+
+    posterType() {
+      return typeof this.product.poster;
+    },
+
+    getImageCount() {
+      if (this.product.poster) {
+        let imageNumber = 8 - this.product.poster.length;
+        return imageNumber;
+      } else {
+        return;
       }
     },
   },
