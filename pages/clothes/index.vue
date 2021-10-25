@@ -130,12 +130,17 @@ export default {
     Search,
   },
 
-  async mounted() {
-    const products = await this.$store.dispatch("products/getProducts");
-    if(!products) {
-      this.$router.push('/error')
+  async asyncData({ $axios }) {
+    const products = await $axios.$get(
+      "https://shopper-4eb43-default-rtdb.asia-southeast1.firebasedatabase.app/products.json"
+    );
+    let productsArray = [];
+
+    for (let [key, value] of Object.entries(products)) {
+      productsArray.push({ ...value, id: key });
     }
-    this.products = products;
+  
+    return { products: productsArray };
   },
 
   methods: {

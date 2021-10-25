@@ -43,7 +43,8 @@
                       <tr class="table-row">
                         <td>
                           <div class="form-check">
-                            <label class="form-check-label">
+                            <label
+                            class="form-check-label">
                               <input
                                 class="form-check-input"
                                 type="checkbox"
@@ -63,7 +64,7 @@
                             >{{ task.name }}</span
                           >
                           <input
-                           
+                            :class="task.edit === true ? 'edit' : ''"
                             v-else
                             :ref="'input_item_' + task.id"
                             :value="task.name"
@@ -97,7 +98,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -118,6 +119,7 @@ export default {
   },
 
   methods: {
+    ...mapActions('todo', ['fetchTodos']),
     doEdit(task) {
       this.$store.dispatch('todo/changeEdit', task)
     },
@@ -145,6 +147,9 @@ export default {
   },
   computed: {
     ...mapGetters("todo", ["getTodos"]),
+  },
+  async mounted() {
+    this.fetchTodos()
   },
 };
 </script>

@@ -52,7 +52,7 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      name: "",
+      name: null,
       urgent: false,
       status: false,
       edit: false
@@ -77,14 +77,15 @@ export default {
     },
     addTask() {
       let task = {
-        id: this.getTodos && this.getTodos.length > 0 ? this.getTodos.length+1 : 1,
+        id: Date.now(),
         name: this.name,
         status: this.status,
         urgent: this.urgent === true ? "urgent" : "regular",
         edit: this.edit
       };
       this.$store.dispatch("todo/addTask", task);
-      this.name = "",
+      this.$v.$reset()
+      this.name = null,
       this.urgent = false,
       this.closeTaskModal()
     },

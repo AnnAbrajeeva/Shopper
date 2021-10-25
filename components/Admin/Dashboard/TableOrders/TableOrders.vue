@@ -5,7 +5,7 @@
         <div class="card last-orders">
           <div class="card-header card-header-primary">
             <h4 class="card-title">Последние заказы</h4>
-            
+           
           </div>
           <div class="orders card-body">
             <div class="table-responsive">
@@ -13,7 +13,6 @@
                 <template v-slot:default>
                   <thead class="text-primary">
                     <tr class="orders__table-header">
-                      <th class="text-left">ID</th>
                       <th class="text-left">Дата</th>
                       <th class="text-left">Товары</th>
                       <th class="text-left">Сумма</th>
@@ -26,9 +25,9 @@
                       <th class="text-left">E-mail</th>
                     </tr>
                   </thead>
+                
                   <tbody>
-                    <tr v-for="order in orders" :key="order.id">
-                      <td>{{ order.id }}</td>
+                    <tr v-for="order in sortOrders" :key="order.id">
                       <td>{{ order.date | formatDate("date") }}</td>
                       <td>{{ getProductsName }}</td>
                       <td>{{ getTotalPrice }} сум</td>
@@ -56,6 +55,11 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
+  props: {
+    orders: {
+      type: Array,
+    },
+  },
   data() {
     return {
       productName: "",
@@ -65,59 +69,65 @@ export default {
   computed: {
     // ...mapGetters("cart", ["getOrders"]),
     getProductsName() {
-      let order = this.orders.map((order) => {
-        let productName = order.products.map((product) => {
-          console.log(product.title);
+       for (let i = 0; i < this.orders.length; i++) { 
+        let productName = this.orders[i].products.map((product) => {
           return product.title;
         });
-        return productName;
-      });
-      return order.join(", ");
+        return productName.join(', ')
+       }
+      return productName.toString();
     },
     getTotalPrice() {
-      let total = this.orders.map((order) => {
-        let price = order.products.map((product) => {
+     for (let i = 0; i < this.orders.length; i++) { 
+        let price = this.orders[i].products.map((product) => {
           return product.quantity * product.cost;
         });
-        console.log(price);
-        return price.reduce(
+        let total = price.reduce(
           (previousValue, currentValue) => previousValue + currentValue
         );
-      });
+        return total
+     }
       return total.toString();
     },
     getTotalQuantity() {
-      let total = this.orders.map((order) => {
-        let quantity = order.products.map((product) => {
+       for (let i = 0; i < this.orders.length; i++) {
+        let quantity = this.orders[i].products.map((product) => {
           return Number(product.quantity);
-        });
-        console.log(quantity);
-        return quantity.reduce(
+            });
+        let total = quantity.reduce(
           (previousValue, currentValue) => previousValue + currentValue
         );
-      });
+        return total
+       }
+      
       return total.toString();
     },
     getTotalSizes() {
-      let total = this.orders.map((order) => {
-        let size = order.products.map((product) => {
+     for (let i = 0; i < this.orders.length; i++) {
+        let sizes = this.orders[i].products.map((product) => {
+          let sizes = [];
+          sizes.push(product.sizes);
           return product.sizes;
         });
-        console.log(size);
-        return size.join(", ");
-      });
-      return total.toString();
+        return sizes.join(", ");
+      }
     },
     getTotalColor() {
-      let total = this.orders.map((order) => {
-        let color = order.products.map((product) => {
+      for (let i = 0; i < this.orders.length; i++) {
+        let color = this.orders[i].products.map((product) => {
+          let colors = [];
+          colors.push(product.color);
           return product.color;
         });
-        console.log(color);
         return color.join(", ");
-      });
-      return total.toString();
+      }
     },
+    sortOrders() {
+      let sort = this.orders.sort(function(a,b) {
+         return new Date(b.date) - new Date(a.date);
+      })
+      return sort
+    }
   },
 };
 </script>

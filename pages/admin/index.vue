@@ -7,7 +7,7 @@
       <currency :currency="this.currency.rates" />
       <modal />
     </div>
-    <table-orders class="mt-10" />
+    <table-orders :orders="orders" class="mt-10" />
   </div>
   <!-- </div>
   </div> -->
@@ -28,26 +28,13 @@ export default {
     TableOrders,
   },
 
-  //  async asyncData({ $axios, store }) {
-  //   const orders = await $axios.$get(
-  //     "https://shopper-4eb43-default-rtdb.asia-southeast1.firebasedatabase.app/orders.json"
-  //   );
-  //   let ordersArray = [];
-
-  //   for (let [key, value] of Object.entries(orders)) {
-  //     ordersArray.push({ ...value, id: key });
-  //   }
-
-  //   console.log(ordersArray)
-  //   return {
-  //     orders: ordersArray,
-  //   };
-  // },
 
   async asyncData({ $axios }) {
     let currencyKey = process.env.CURRENCY_KEY;
-    const [currency, orders] = await $axios.$get(
+    const currency = await $axios.$get(
       `https://openexchangerates.org/api/latest.json?app_id=${currencyKey}&symbols=EUR,RUB,UZS`,
+    );
+    const orders = await $axios.$get(
       "https://shopper-4eb43-default-rtdb.asia-southeast1.firebasedatabase.app/orders.json"
     );
     let ordersArray = [];
@@ -55,8 +42,10 @@ export default {
     for (let [key, value] of Object.entries(orders)) {
       ordersArray.push({ ...value, id: key });
     }
+    console.log(currency)
+    console.log(orders)
 
-    return { currency, orders };
+    return { currency, orders: ordersArray };
   },
 
   data() {

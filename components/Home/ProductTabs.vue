@@ -131,10 +131,13 @@
 import {mapGetters} from 'vuex'
 import VueSlickCarousel from "vue-slick-carousel";
 import "vue-slick-carousel/dist/vue-slick-carousel.css";
-// optional style for arrows & dots
-// import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
 import SecondNavigation from "~/components/Home/SecondNavigation.vue";
 export default {
+  props: {
+    products: {
+      type: Array
+    }
+  },
   components: {
     SecondNavigation,
     VueSlickCarousel,
@@ -144,7 +147,7 @@ export default {
       activetab: "1",
       products: [],
       settings: {
-        arrows: true,
+        arrows: false,
         dots: false,
         infinite: true,
         slidesToShow: 4,
@@ -182,16 +185,16 @@ export default {
       },
     };
   },
+  
 
-  async mounted() {
-    const products = await this.$store.dispatch("products/getProducts");
-    this.products = products;
-  },
+  // async mounted() {
+  //   const products = await this.$store.dispatch("products/getProducts");
+  //   this.products = products;
+  // },
 
   computed: {
 	  ...mapGetters('products', ['loading']),
      getLoading() {
-       console.log(this.loading)
       return this.$store.getters["products/loading"];
     },
     getFeatured() {

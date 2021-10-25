@@ -4,7 +4,7 @@
     </div>
   <div v-else>
     <slider />
-    <product-tabs />
+    <product-tabs :products="products" />
   </div>
 </template>
 
@@ -35,5 +35,18 @@ export default {
     Slider,
     ProductTabs,
   },
+
+  // async asyncData({ $axios }) {
+  //   const products = await $axios.$get(
+  //     "https://shopper-4eb43-default-rtdb.asia-southeast1.firebasedatabase.app/products.json"
+  //   );
+  //   let productsArray = [];
+
+  //   for (let [key, value] of Object.entries(products)) {
+  //     productsArray.push({ ...value, id: key });
+  //   }
+  
+  //   return { products: productsArray };
+  // },
 };
 </script>

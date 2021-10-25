@@ -3786,6 +3786,11 @@ button.close-icon:hover {
   color: #FFFFFF !important;
 }
 
+td input.edit {
+  color: green;
+  font-weight: 600;
+}
+
 
 @media (max-width: 1000px) {
   .sidebar::before,
