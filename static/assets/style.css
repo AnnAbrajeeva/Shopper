@@ -12,6 +12,12 @@ body {
   height: auto;
 }
 
+.v-application .black {
+  background-color: none !important;
+  border-color: none !important;
+}
+
+
 .v-input label {
   margin: 0 !important;
 }
@@ -3323,7 +3329,8 @@ h3.lorem {
   margin-bottom: 20px;
   text-align: center;
 }
-.main{
+
+.main {
   min-height: 100vh;
 }
 
@@ -3413,6 +3420,7 @@ h3.lorem {
 
 .sidebar {
   height: 100% !important;
+  z-index: 20 !important;
 }
 
 .sidebar .v-image__image:after {
@@ -3440,48 +3448,50 @@ h3.lorem {
 }
 
 .header-admin__date {
-  margin-left: 256px;
+  margin: 0 auto;
 }
 
 .theme--light.v-tabs>.v-tabs-bar {
   background: linear-gradient(60deg, #ab47bc, #8e24aa) !important;
   width: 100% !important;
 }
+
 .card .card-header.card-header-tabs .nav-tabs-title {
-	display: flex !important;
-    justify-content: space-between;
-	align-items: center;
-	float: none !important;
- }
+  display: flex !important;
+  justify-content: space-between;
+  align-items: center;
+  float: none !important;
+}
 
- .nav-tabs-addTask {
-	background-color: #da00ff !important; 
- }
+.nav-tabs-addTask {
+  background-color: #da00ff !important;
+}
 
- .dashboard-todo .error--text .v-input__slot {
-	 border: none
- }
+.dashboard-todo .error--text .v-input__slot {
+  border: none
+}
 
- .dashboard-todo label {
-	 margin-bottom: 0 !important;
- }
+.dashboard-todo label {
+  margin-bottom: 0 !important;
+}
 
- .dashboard-todo .v-input--is-label-active .v-icon.v-icon {
-	 color: red;
- }
+.dashboard-todo .v-input--is-label-active .v-icon.v-icon {
+  color: red;
+}
 
- .table-row {
-	 display: flex;
-	 align-items: center;
- }
+.table-row {
+  display: flex;
+  align-items: center;
+}
 
- .table-action {
-	 margin-left: auto;
- }
+.table-action {
+  margin-left: auto;
+}
 
- .table tr {
-   border-bottom: 1px solid #ddd
- }
+.table tr {
+  border-bottom: 1px solid #ddd
+}
+
 .currency .table,
 .currency .table tbody {
   height: 100%;
@@ -3496,27 +3506,31 @@ h3.lorem {
   color: #212529
 }
 
-.card.last-orders .card-header-primary .card-icon, 
-.card.products .card-header-primary .card-icon, 
-.card.last-orders .card-header-primary:not(.card-header-icon):not(.card-header-text), 
-.card.products .card-header-primary:not(.card-header-icon):not(.card-header-text), 
+.card.last-orders .card-header-primary .card-icon,
+.card.products .card-header-primary .card-icon,
+.card.last-orders .card-header-primary:not(.card-header-icon):not(.card-header-text),
+.card.products .card-header-primary:not(.card-header-icon):not(.card-header-text),
 .card.last-orders .card-header-primary .card-text,
 .card.products .card-header-primary .card-text {
-  background: linear-gradient(60deg,#66bb6a,#43a047);
-        -webkit-box-shadow: 0 12px 20px -10px rgb(76 175 80 / 28%), 0 4px 20px 0 rgb(0 0 0 / 12%), 0 7px 8px -5px rgb(76 175 80 / 20%);
-        box-shadow: 0 12px 20px -10px rgb(76 175 80 / 28%), 0 4px 20px 0 rgb(0 0 0 / 12%), 0 7px 8px -5px rgb(76 175 80 / 20%);
+  background: linear-gradient(60deg, #66bb6a, #43a047);
+  -webkit-box-shadow: 0 12px 20px -10px rgb(76 175 80 / 28%), 0 4px 20px 0 rgb(0 0 0 / 12%), 0 7px 8px -5px rgb(76 175 80 / 20%);
+  box-shadow: 0 12px 20px -10px rgb(76 175 80 / 28%), 0 4px 20px 0 rgb(0 0 0 / 12%), 0 7px 8px -5px rgb(76 175 80 / 20%);
 }
 
-.last-orders .card-header-primary .card-icon, .card .card-header-primary:not(.card-header-icon):not(.card-header-text), .card .card-header-primary .card-text, 
-.products .card-header-primary .card-icon, .card .card-header-primary:not(.card-header-icon):not(.card-header-text), .card .card-header-primary .card-text {
+.last-orders .card-header-primary .card-icon,
+.card .card-header-primary:not(.card-header-icon):not(.card-header-text),
+.card .card-header-primary .card-text,
+.products .card-header-primary .card-icon,
+.card .card-header-primary:not(.card-header-icon):not(.card-header-text),
+.card .card-header-primary .card-text {
   box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%) !important;
 }
 
-.orders .v-data-table > .v-data-table__wrapper > table > tbody > tr > td {
+.orders .v-data-table>.v-data-table__wrapper>table>tbody>tr>td {
   border: 1px solid #ddd;
 }
 
-.orders .theme--light.v-data-table > .v-data-table__wrapper > table > thead > tr > th {
+.orders .theme--light.v-data-table>.v-data-table__wrapper>table>thead>tr>th {
   border: 1px solid #b4b4b4
 }
 
@@ -3524,9 +3538,9 @@ h3.lorem {
   vertical-align: middle;
 }
 
-.orders .v-data-table > .v-data-table__wrapper > table > thead > tr > th {
+.orders .v-data-table>.v-data-table__wrapper>table>thead>tr>th {
   font-size: 0.85rem;
-    font-weight: 700;
+  font-weight: 700;
 }
 
 .orders__table-header {
@@ -3537,7 +3551,7 @@ h3.lorem {
   max-width: 100px;
 }
 
-.orders .products-table .v-data-table > .v-data-table__wrapper > table > tbody > tr > td {
+.orders .products-table .v-data-table>.v-data-table__wrapper>table>tbody>tr>td {
   vertical-align: middle;
 }
 
@@ -3670,17 +3684,17 @@ h3.lorem {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition:  0.5s all;
+  transition: 0.5s all;
   -webkit-transition: 0.5s all;
 }
 
 .new-product__wrapper {
-  background-color:rgb(218, 218, 218);
+  background-color: rgb(218, 218, 218);
   padding: 20px
 }
 
 .new-product__content {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .new-product__tab-content {
@@ -3691,7 +3705,7 @@ h3.lorem {
 
 .new-product__foto-wrapper {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   width: 100%;
   flex-wrap: wrap;
 }
@@ -3705,6 +3719,7 @@ h3.lorem {
   max-width: 200px;
   display: flex;
   flex-direction: column;
+  margin: 10px 20px;
 }
 
 .new-product__add-foto-btn {
@@ -3754,4 +3769,27 @@ h3.lorem {
 
 .wrapper {
   height: 100% !important;
+}
+
+.close-icon {
+  position: absolute !important;
+  right: 0 !important;
+  cursor: pointer;
+  z-index: 999;
+}
+
+button.close-icon:hover {
+  color: red !important;
+}
+
+.v-tab--active {
+  color: #FFFFFF !important;
+}
+
+
+@media (max-width: 1000px) {
+  .sidebar::before,
+  .off-canvas-sidebar nav .navbar-collapse::before {
+    z-index: -1 !important;
+  } 
 }

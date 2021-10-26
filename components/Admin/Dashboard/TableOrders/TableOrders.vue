@@ -5,7 +5,7 @@
         <div class="card last-orders">
           <div class="card-header card-header-primary">
             <h4 class="card-title">Последние заказы</h4>
-            <!-- {{this.getProducts}} -->
+            
           </div>
           <div class="orders card-body">
             <div class="table-responsive">
@@ -27,7 +27,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="order in getOrders" :key="order.id">
+                    <tr v-for="order in orders" :key="order.id">
                       <td>{{ order.id }}</td>
                       <td>{{ order.date | formatDate("date") }}</td>
                       <td>{{ getProductsName }}</td>
@@ -63,9 +63,9 @@ export default {
   },
 
   computed: {
-    ...mapGetters("cart", ["getOrders"]),
+    // ...mapGetters("cart", ["getOrders"]),
     getProductsName() {
-      let order = this.getOrders.map((order) => {
+      let order = this.orders.map((order) => {
         let productName = order.products.map((product) => {
           console.log(product.title);
           return product.title;
@@ -75,7 +75,7 @@ export default {
       return order.join(", ");
     },
     getTotalPrice() {
-      let total = this.getOrders.map((order) => {
+      let total = this.orders.map((order) => {
         let price = order.products.map((product) => {
           return product.quantity * product.cost;
         });
@@ -87,7 +87,7 @@ export default {
       return total.toString();
     },
     getTotalQuantity() {
-      let total = this.getOrders.map((order) => {
+      let total = this.orders.map((order) => {
         let quantity = order.products.map((product) => {
           return Number(product.quantity);
         });
@@ -99,7 +99,7 @@ export default {
       return total.toString();
     },
     getTotalSizes() {
-      let total = this.getOrders.map((order) => {
+      let total = this.orders.map((order) => {
         let size = order.products.map((product) => {
           return product.sizes;
         });
@@ -109,7 +109,7 @@ export default {
       return total.toString();
     },
     getTotalColor() {
-      let total = this.getOrders.map((order) => {
+      let total = this.orders.map((order) => {
         let color = order.products.map((product) => {
           return product.color;
         });

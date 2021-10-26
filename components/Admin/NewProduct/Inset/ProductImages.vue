@@ -13,7 +13,7 @@
             />
           </template>
           <template v-for="i in getImageCount">
-            <add-foto :key="i" />
+            <add-foto :key="i+1" />
           </template>
        
         </div>

@@ -27,11 +27,11 @@
               md="6"
               :key="product.id"
             >
+            
               <v-card @click="selectProduct(product)">
                 <v-img
                   :src="
-                    Array.isArray(product.poster)
-                      ? product.poster[0]
+                    product.poster.length ? product.poster[0]
                       : product.poster
                   "
                   class="white--text align-end"
@@ -71,8 +71,7 @@ export default {
 
     getProducts() {
       let productsList = [];
-      productsList = this.products.filter(
-        (product) => product["category-name"] == this.selectCategory
+      productsList = this.products.filter(product => product["category-name"] == this.selectCategory
       );
       return productsList;
     },

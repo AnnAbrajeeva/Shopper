@@ -16,12 +16,34 @@ export const state = () => ({
      sizes: [],
      color: "",
      cloth: "",
-     id: ''
+     id: '',
+     recomendedProducts: []
    },
    loading: false
   })
   
   export const mutations = {
+    resetStore(state) {
+      state.newProduct.title = ''
+      state.newProduct.articul = '',
+      state.newProduct.available = '',
+      state.newProduct.gender = '',
+      state.newProduct['category-name'] = '',
+      state.newProduct.cost = '',
+      state.newProduct.oldCost = '',
+      state.newProduct['category-id'] = '',
+      state.newProduct['cost-opt'] = '',
+      state.newProduct.status = '',
+      state.newProduct.id = '',
+      state.newProduct.url = '',
+      state.newProduct.poster = [],
+      state.newProduct.descr = ''
+      state.newProduct.color = ''
+      state.newProduct.cloth = ''
+      state.newProduct.sizes = []
+      state.newProduct.recomendedProducts = []
+      state.recomendedProducts = []
+    },
     setRecomendedProducts(state, product) {
       state.recomendedProducts.push(product)
     },
@@ -64,26 +86,28 @@ export const state = () => ({
     setMaterial(state, material) {
       state.newProduct.cloth = material
     },
-    addProduct(state) {
-        state.newProduct.title = ''
-        state.newProduct.articul = '',
-        state.newProduct.available = '',
-        state.newProduct.gender = '',
-        state.newProduct['category-name'] = '',
-        state.newProduct.cost = '',
-        state.newProduct.oldCost = '',
-        state.newProduct.status = '',
-        state.newProduct.poster = [],
-        state.newProduct.descr = ''
-        state.newProduct.color = ''
-        state.newProduct.cloth = ''
-        state.newProduct.sizes = []
-    },
-    editProduct(state) {
-      console.log(state.newProduct)
-    },
+    // addProduct(state) {
+    // },
+    // editProduct(state) {  
+    // },
     setProduct(state, product) {
       state.newProduct = product
+      if(product.recomendedProducts) {
+        state.recomendedProducts = product.recomendedProducts
+      }     
+    },
+    putRecommendedInProduct(state) {
+      state.newProduct.recomendedProducts = state.recomendedProducts
+    },
+    setLoadingTrue(state) {
+      state.loading = true
+    },
+    setLoadingFalse(state) {
+      state.loading = false
+    },
+    delRecomendedProducts(state, product) {
+      let index = state.recomendedProducts.findIndex(prod => prod.id == product.id)
+      state.recomendedProducts.splice(index, 1)
     }
   }
 
@@ -134,20 +158,30 @@ export const state = () => ({
       commit('setProduct', product)
     },
     async addProduct({commit, state}) {
-      state.loading = true
+      // state.newProduct.recomended = state.recomendedProducts
+      commit('setLoadingTrue')
+      commit('putRecommendedInProduct')
+      // newProduct.push(state.recomendedProducts)
       await axios.post('https://shopper-4eb43-default-rtdb.asia-southeast1.firebasedatabase.app/products.json', state.newProduct)
       .then(res => {
-        commit('addProduct')
-        state.loading = false
+        // commit('addProduct')
+        commit('setLoadingFalse')
+        commit('resetStore')
       })    
     },
-    async editProduct({commit, state}, id) {
-      state.loading = true
-      await axios.patch(`https://shopper-4eb43-default-rtdb.asia-southeast1.firebasedatabase.app/products/${id}.json`, state.newProduct)
+    editProduct({commit, state}, id) {
+      // state.newProduct.recomended = state.recomendedProducts
+      commit('setLoadingTrue')
+      commit('putRecommendedInProduct')
+      axios.patch(`https://shopper-4eb43-default-rtdb.asia-southeast1.firebasedatabase.app/products/${id}.json`, state.newProduct)
       .then(res => {
-        state.loading = false
-        commit('editProduct')
+        commit('setLoadingFalse')
+        // commit('editProduct')
+        commit('resetStore')
       })
+    },
+    delRecomendedProducts({commit}, product) {
+      commit('delRecomendedProducts', product)
     }
   }
 
@@ -160,5 +194,8 @@ export const state = () => ({
     },
     getLoading(state) {
       return state.loading
+    },
+    getRecommended(state) {
+      return state.newProduct.recomendedProducts
     }
   }

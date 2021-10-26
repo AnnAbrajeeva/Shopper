@@ -6,9 +6,9 @@
       </div>
     </transition>
 
-    <admin-header />
+    <admin-header @showMenu="showMenu" />
 
-    <sidebar />
+    <sidebar :drawer="this.drawer" />
 
     <v-main>
       <nuxt />
@@ -42,12 +42,16 @@ export default {
       cartModal: false,
       loading: true,
       appReady: false,
+      drawer: true,
     };
   },
   methods: {
     showModal() {
       this.cartModal = true;
     },
+    showMenu() {
+      this.drawer = !this.drawer
+    }
   },
   created() {
     this.$router.beforeEach((to, from, next) => {

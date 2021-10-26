@@ -1,6 +1,7 @@
 import axios from "axios"
 
 export const state = () => ({
+    loading: false,
     orders: [],
     order: {
       id: null,
@@ -127,10 +128,7 @@ export const state = () => ({
       product.quantity = value
     },
     addNewOrder(state, user) {
-      state.order.products = [...state.cart]
-      state.order.user = user
-      state.order.id = state.orders.length+1
-      state.orders.push(state.order)
+    
       console.log(state.order)
       state.order = {
         id: null,
@@ -140,24 +138,36 @@ export const state = () => ({
       }
       state.cart = []
       localStorage.clear()
+    },
+    addOrder(state, user) {
+      state.order.products = [...state.cart]
+      state.order.user = user
+      state.order.id = state.orders.length+1
+      state.orders.push(state.order)
+    },
+    setLoadingTrue(state) {
+      state.loading = true
+    },
+    setLoadingFalse(state) {
+      state.loading = false
     }
   }
 
   export const actions = {
-    async getProductsInCart({commit}, context) {
-      commit('setLoadingTrue')
-       return await axios.get('/api/cart/')
-       .then(res => {
-        let cart = res.data.cart
-        commit('getProductsInCart', cart)
-        commit('setLoadingFalse')
-        return cart
-       })
-      .catch (e => {
-        commit('setLoadingFalse')
-        return console.log(e)
-      })
-    },
+    // async getProductsInCart({commit}, context) {
+    //   commit('setLoadingTrue')
+    //    return await axios.get('/api/cart/')
+    //    .then(res => {
+    //     let cart = res.data.cart
+    //     commit('getProductsInCart', cart)
+    //     commit('setLoadingFalse')
+    //     return cart
+    //    })
+    //   .catch (e => {
+    //     commit('setLoadingFalse')
+    //     return console.log(e)
+    //   })
+    // },
     async addProductsInCart({commit}, product) {
         commit('addProductsInCart', product)
     },
@@ -175,12 +185,17 @@ export const state = () => ({
       commit('changeQuantityInCart', {value: value, id: id})
     },
     addNewOrder({commit, state}, user) {
+      commit('setLoadingTrue')
+      commit('addOrder', user)
       axios.post('https://shopper-4eb43-default-rtdb.asia-southeast1.firebasedatabase.app/orders.json', state.order)
       .then(res => {
         commit('addNewOrder', user)
+        commit('setLoadingFalse')
       })
-      .catch(e => console.log(e))
-      
+      .catch(e => {
+        commit('setLoadingFalse')
+        console.log(e)
+      })
     }
   }
 
@@ -193,5 +208,8 @@ export const state = () => ({
     },
     getOrders(state) {
       return state.orders
+    },
+    getLoading(state) {
+      return state.loading
     }
   }

@@ -145,14 +145,15 @@
         </div>
         </v-col>
       </v-row>
-      <button @click.prevent="saveOrder" class="order__button">
+      <v-btn :loading="getLoading" @click.prevent="saveOrder" class="order__button">
         Оформить заказ
-      </button>
+      </v-btn>
     </v-container>
   </v-form>
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 import { required, minLength, email } from "vuelidate/lib/validators";
 import { helpers } from "vuelidate/lib/validators";
 const phone = helpers.regex("alpha", /^\+?[0-9\ \-\/]+$/);
@@ -231,6 +232,7 @@ export default {
   },
 
   computed: {
+    ...mapGetters('cart', ['getLoading']),
     nameErrors() {
       const errors = [];
       if (!this.$v.user.name.$dirty) return errors;

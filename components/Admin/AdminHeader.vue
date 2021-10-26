@@ -5,15 +5,11 @@
    color="#f5f5f5"
    light
   >
-    <v-app-bar-nav-icon></v-app-bar-nav-icon>
+    <v-app-bar-nav-icon @click="openMenu" class="hidden-lg-and-up"></v-app-bar-nav-icon>
 
     <v-toolbar-title class="header-admin__date">{{this.getFullDate}}</v-toolbar-title>
 
-    <v-spacer></v-spacer>
-
-    <v-btn icon>
-      <v-icon>mdi-magnify</v-icon>
-    </v-btn>
+   
 
     <v-btn>
       <v-icon>mdi-logout-variant</v-icon>
@@ -26,6 +22,12 @@
 export default {
   data() {
     return {};
+  },
+
+  methods: {
+    openMenu() {
+      this.$emit('showMenu')
+    }
   },
 
   computed: {

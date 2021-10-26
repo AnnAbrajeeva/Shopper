@@ -1,13 +1,12 @@
 <template>
     <v-navigation-drawer
+    
     app
     class="sidebar"
       v-model="drawer"
       :src="bg"
       absolute
-      dark
-      overlay-color="black"
-      overlay-opacity=".87"
+      
     >
       <v-list dense nav class="py-0">
         <v-list-item two-line>
@@ -34,6 +33,11 @@
 import SidebarLinks from "./SidebarLinks.vue";
 
 export default {
+  props: {
+    drawer: {
+      type: Boolean
+    }
+  },
   components: {
     SidebarLinks,
   },
@@ -48,15 +52,15 @@ export default {
 
       bg: "/assets/img/sidebar-1.jpg",
       color: "rgba(27,27,27,.87)",
-      drawer: true,
+      
     };
   },
 
-  provide() {
-    return {
-      autoClose: this.autoClose,
-    };
-  },
+  // provide() {
+  //   return {
+  //     autoClose: this.autoClose,
+  //   };
+  // },
   computed: {
     sidebarStyle() {
       return {
