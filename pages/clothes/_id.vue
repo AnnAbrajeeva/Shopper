@@ -47,6 +47,8 @@ export default {
     };
   },
 
+  middleware: ['auth-check'],
+
   async asyncData({ $axios, params }) {
     const product = await $axios.$get(
       `https://shopper-4eb43-default-rtdb.asia-southeast1.firebasedatabase.app/products/${params.id}.json`

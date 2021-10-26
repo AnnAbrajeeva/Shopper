@@ -1,5 +1,5 @@
 <template>
-      <div class="basket__cart">
+      <div v-if="product" class="basket__cart">
           <img class="basket__cart_img" :src="typeof(product.poster) == 'string' ? product.poster : product.poster[0]" :alt="product.title" />
 
           <div class="basket__cart__info">

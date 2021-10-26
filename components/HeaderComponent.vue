@@ -32,10 +32,10 @@
             </div>
             <ul v-if="!this.checkAuthUser">
               <li>
-                <nuxt-link to="auth/registration">Регистрация</nuxt-link>
+                <nuxt-link to="/auth/registration">Регистрация</nuxt-link>
                 <span>/</span> &nbsp;
               </li>
-              <li><nuxt-link to="auth/login">Вход</nuxt-link></li>
+              <li><nuxt-link to="/auth/login">Вход</nuxt-link></li>
             </ul>
 
             <v-btn @click="logoutUser" v-else class="ma-2 signout" text icon large left color="white">
@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import CartModal from "~/components/Cart/CartModal.vue";
 export default {
   data() {
@@ -71,23 +71,24 @@ export default {
     },
   },
   methods: {
+    ...mapActions('cart', ['fetchProductsInCart']),
     showModal() {
       this.$store.dispatch("cart/openModal");
     },
     logoutUser() {
+      this.$toasted.success("Вы вышли из системы", {
+          theme: "bubble",
+          position: "top-right",
+          duration: 5000,
+        });
       this.$store.dispatch("user/logoutUser")
       .then(()=>{this.$router.push('/')})
     }
   },
-  //  mounted() {
 
-  //     let cart = JSON.parse(localStorage.getItem('cart'));
-  //         this.cart = cart || []
-  //          console.log(cart)
-  //       // let cartObj = JSON.parse(localStorage.getItem('cart'));
-  //       // let cart = cartObj.find((c) => c.key === 'cart');
-  //       // this.cart = cart
-
-  // },
+  mounted() {
+    this.fetchProductsInCart()
+  }
+ 
 };
 </script>

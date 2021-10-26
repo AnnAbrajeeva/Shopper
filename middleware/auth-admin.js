@@ -1,6 +1,6 @@
 export default function (context) {
-    console.log(context)
-    if(!context.store.getters['user/checkAuthUser']) {
+    let isAdmin = context.store.getters['user/checkAdmin']
+    if(!context.store.getters['user/checkAuthUser'] || isAdmin === 'admin') {
         context.redirect('/admin/auth')
     }
 }

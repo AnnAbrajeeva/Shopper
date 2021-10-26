@@ -61,6 +61,8 @@ export default {
     };
   },
 
+  middleware: ['auth-check'],
+
   data() {
     return {
       page: 1,

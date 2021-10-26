@@ -31,6 +31,8 @@ export default {
     }
   },
 
+  middleware: ['auth-check'],
+
   components: {
     Slider,
     ProductTabs,

@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { required, email } from "vuelidate/lib/validators";
+import { required, email, minLength } from "vuelidate/lib/validators";
 
 export default {
   data() {
@@ -50,7 +50,7 @@ export default {
   validations: {
     user: {
       email: { required, email },
-      password: { required },
+      password: { required, minLength: minLength(6) },
     },
   },
 
@@ -58,12 +58,15 @@ export default {
     loginErrors() {
       const errors = [];
       if (!this.$v.user.email.$dirty) return errors;
+      !this.$v.user.email.email && errors.push("Введите верный email адрес");
       !this.$v.user.email.required && errors.push("Введите Ваш логин");
       return errors;
     },
     passwordErrors() {
       const errors = [];
       if (!this.$v.user.password.$dirty) return errors;
+      !this.$v.user.password.minLength &&
+        errors.push("Пароль должен быть не меньше 6-ти символов");
       !this.$v.user.password.required && errors.push("Введите Ваш пароль");
       return errors;
     },
@@ -81,13 +84,43 @@ export default {
       };
       try {
         await this.$store.dispatch("user/authUser", user);
-        if(this.$route.fullPath == '/admin/auth') {
-           this.$router.push("/admin");
+        this.$toasted.success("Вы успешно авторизовались!", {
+          theme: "bubble",
+          position: "top-right",
+          duration: 5000,
+        });
+
+      console.log(this.$route.fullPath)
+        if (this.$route.fullPath == "/admin/auth") {
+          console.log('123')
+          this.$router.push("/");
         } else {
-           this.$router.push("/");
+          this.$router.push("/");
         }
-       
-      } catch (e) {}
+      } catch (e) {
+        this.$v.$reset()
+        this.user.email = '';
+        this.user.password = '';
+        if (e.status == 400) {
+          this.$toasted.error(
+            `Ошибка при авторизации. Неверный логин или пароль`,
+            {
+              theme: "bubble",
+              position: "top-right",
+              duration: 5000,
+            }
+          );
+        } else {
+          this.$toasted.error(
+            `Ошибка при авторизации. ${e.data.error.message}`,
+            {
+              theme: "bubble",
+              position: "top-right",
+              duration: 5000,
+            }
+          );
+        }
+      }
     },
   },
 };

@@ -100,72 +100,62 @@ export default {
     },
 
     addToCart() {
-      if(!this.size) {
+      if (!this.size) {
         let message = {
-            name: "Выберите размер",
-            id: Date.now().toLocaleString(),
-            icon: "exclamation-circle-fill",
-          };
-          this.$emit("viewNotification", message);
-         return
+          name: "Выберите размер",
+          id: Date.now().toLocaleString(),
+          icon: "exclamation-circle-fill",
+        };
+        this.$toasted.error(`Выберите размер`, {
+          theme: "bubble",
+          position: "top-right",
+          duration: 5000,
+        });
+        return;
       }
+      console.log(this.product)
       let cart = this.$store.getters["cart/getCart"];
-      
-        let productInCart = cart.some((prod) => prod.id == this.product.id && prod.size === this.size);
-        if (productInCart) {
-          let message = {
-            name: "Товар уже есть в корзине",
-            id: Date.now().toLocaleString(),
-            icon: "exclamation-circle-fill",
+        let product = {
+            url: this.product.url,
+            id: this.product.id,
+            title: this.product.title,
+            articul: this.product.articul,
+            descr: this.product.descr,
+            cost: this.product.cost,
+            poster: this.product.poster,
+            size: this.size,
+            "category-id": this.product["category-id"],
+            "category-name": this.product["category-name"],
+            color: this.color,
+            cloth: this.product.cloth,
+            quantity: this.quantity,
           };
-          this.$emit("viewNotification", message);
+      if (cart.length) {   
+        let productInCart = cart.some(
+          (prod) => prod.id == this.product.id && prod.size === this.size
+        );
+        if (productInCart) {
+          this.$toasted.error(`Товар уже есть в корзине`, {
+            theme: "bubble",
+            position: "top-right",
+            duration: 5000,
+          });
+          return;
         } else {
-              let productInCart = cart.some((prod) => prod.id == this.product.id);
-              if(productInCart) {
-                let product = {
-                url: this.product.url,
-                id: `${this.product.id}-${this.size}`,
-                title: this.product.title,
-                articul: this.product.articul,
-                descr: this.product.descr,
-                cost: this.product.cost,
-                poster: this.product.poster,
-                size: this.size,
-                "category-id": this.product["category-id"],
-                "category-name": this.product["category-name"],
-                color: this.color,
-                cloth: this.product.cloth,
-                quantity: this.quantity,
-            };
-            this.$store.dispatch("cart/addProductsInCart", product);
-              } else {
-                 let product = {
-                url: this.product.url,
-                id: this.product.id,
-                title: this.product.title,
-                articul: this.product.articul,
-                descr: this.product.descr,
-                cost: this.product.cost,
-                poster: this.product.poster,
-                size: this.size,
-                "category-id": this.product["category-id"],
-                "category-name": this.product["category-name"],
-                color: this.color,
-                cloth: this.product.cloth,
-                quantity: this.quantity,
-                };
-                this.$store.dispatch("cart/addProductsInCart", product);
-              }
-                 
-            let message = {
-                name: "Товар добавлен в корзину",
-                id: Date.now().toLocaleString(),
-                icon: "check-circle-fill",
-            };    
-            this.$emit("viewNotification", message);
-            this.quantity = 1;
-            this.size = "";
+          this.$store.dispatch("cart/addProductsInCart", product);
         }
+      } else {     
+          this.$store.dispatch("cart/addProductsInCart", product);
+        } 
+
+         this.$toasted.error(`Товар добавлен в корзину`, {
+            theme: "bubble",
+            position: "top-right",
+            duration: 5000,
+          });
+        this.quantity = 1;
+        this.size = "";
+    
     },
   },
 };

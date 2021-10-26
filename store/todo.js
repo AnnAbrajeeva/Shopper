@@ -28,8 +28,6 @@ export const mutations = {
   deleteTodo(state, id) {
     state.todos = state.todos.filter(todo => todo.id !== id)
     localStorage.setItem('todos', JSON.stringify(state.todos))
-    // const parsed = JSON.stringify(this.todos);
-    // window.localStorage.setItem('todos', parsed);
   },
   editTodo(state, editValue) {
     let index = state.todos.findIndex(todo => todo.id == editValue.id)

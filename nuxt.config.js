@@ -92,10 +92,10 @@ export default {
     ],
     // https://go.nuxtjs.dev/bootstrap
     ['bootstrap-vue/nuxt'],
-    ['nuxt-vuex-localstorage', {
-     mode: 'debug', 
-     localStorage: ['cart'] //  If not entered, “localStorage” is the default value
-    }],
+    // ['nuxt-vuex-localstorage', {
+    //  mode: 'debug', 
+    //  localStorage: ['cart'] //  If not entered, “localStorage” is the default value
+    // }],
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
 

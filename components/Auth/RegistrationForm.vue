@@ -68,7 +68,7 @@ export default {
     user: {
       login: {required},
       email: { required, email },
-      password: { required },
+      password: { required,   minLength: minLength(6) },
       samePassword: {
          required, sameAsPassword: sameAs('password')
       }
@@ -111,22 +111,27 @@ export default {
       this.$store.dispatch('user/addNewUser', this.user)
       .then(res => {
         if(this.$route.path === '/auth/registration') {
+          this.$toast.success('Successfully authenticated')
           this.$router.push('/')
         } else {
+          this.$toast.success('Successfully authenticated')
           this.$router.push('/admin')
         }
       })
       .catch(error => {
+        this.$v.$reset()
           this.user.login = ''
           this.user.email = ''
          this.user.password = ''
-            if (error.response) {
-              console.log(error.response.data);
-            } else if (error.request) {
-              console.log(error.request);
-            } else {
-              console.log("Error", error.message);
-            }})
+           this.$toasted.error(
+            `Ошибка при регистрации. ${error.data.error.message}`,
+            {
+              theme: "bubble",
+              position: "top-right",
+              duration: 5000,
+            }
+          );
+          })
     },
   },
      }

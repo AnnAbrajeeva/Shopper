@@ -145,7 +145,6 @@ export default {
   data() {
     return {
       activetab: "1",
-      products: [],
       settings: {
         arrows: false,
         dots: false,
@@ -195,7 +194,6 @@ export default {
       let randomProduct = [];
       for (let i = 0; i <= 10; i++) {
         let index = Math.floor(Math.random() * 100 + 1);
-        console.log(index);
         randomProduct.push(this.products[index]);
       }
       return randomProduct;
@@ -204,7 +202,6 @@ export default {
       let randomProduct = [];
       for (let i = 0; i <= 10; i++) {
         let index = Math.floor(Math.random() * 100 + 1);
-        console.log(index);
         randomProduct.push(this.products[index]);
       }
       return randomProduct;

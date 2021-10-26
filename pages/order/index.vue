@@ -73,7 +73,7 @@
          
           <div>Итого: {{getTotalPrice}} сум</div>
         </div>
-         <nuxt-link to="/checkout" class="order__button">Оформить заказ</nuxt-link>
+         <button @click="doOrder" class="order__button">Оформить заказ</button>
       </div>
     </div>
   </div>
@@ -91,6 +91,7 @@ export default {
   },
   computed: {
     ...mapGetters("cart", ["getCart"]),
+    ...mapGetters('user', ["checkAuthUser"]),
     getTotalPrice() {
       if (this.getCart.length) {
         let result = [];
@@ -115,6 +116,20 @@ export default {
     delFromCart(id) {
       this.$store.dispatch("cart/deleteProductFromCart", id);
     },
+    doOrder() {
+      if(this.checkAuthUser) {
+        this.$router.push('/checkout')
+      } else {
+         this.$toasted.error(
+            `Для совершения покупки вы должны авторизоваться`,
+            {
+              theme: "bubble",
+              position: "top-right",
+              duration: 5000,
+            }
+          );
+      }
+    }
   },
 };
 </script>
