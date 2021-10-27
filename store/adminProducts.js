@@ -8,6 +8,7 @@ export const state = () => ({
      available: '',
      gender: '',
      'category-name': '',
+     'category-id': '',
      cost: '',
      oldCost: '',
      status: '',
@@ -29,6 +30,7 @@ export const state = () => ({
       state.newProduct.available = '',
       state.newProduct.gender = '',
       state.newProduct['category-name'] = '',
+      state.newProduct['category-id'] = '',
       state.newProduct.cost = '',
       state.newProduct.oldCost = '',
       state.newProduct['category-id'] = '',
@@ -62,6 +64,9 @@ export const state = () => ({
     setCategory(state, category) {
       state.newProduct['category-name'] = category
     },
+    setCategory(state, categoryId) {
+      state.newProduct['category-id'] = categoryId
+    },
     setCost(state, cost) {
       state.newProduct.cost = cost
     },
@@ -86,10 +91,6 @@ export const state = () => ({
     setMaterial(state, material) {
       state.newProduct.cloth = material
     },
-    // addProduct(state) {
-    // },
-    // editProduct(state) {  
-    // },
     setProduct(state, product) {
       state.newProduct = product
       if(product.recomendedProducts) {
@@ -129,6 +130,9 @@ export const state = () => ({
     },
     setCategory({commit}, category) {
       commit('setCategory', category)
+    },
+    setCategoryId({commit}, categoryId) {
+      commit('setCategoryId', categoryId)
     },
     setCost({commit}, cost) {
       commit('setCost', cost)

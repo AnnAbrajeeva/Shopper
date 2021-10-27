@@ -58,9 +58,10 @@ export const mutations = {
 export const actions = {
   async getProducts({commit}, context) {
     commit('setLoadingTrue')
-     return await axios.get('/api/products/')
+     return await axios.get('https://shopper-4eb43-default-rtdb.asia-southeast1.firebasedatabase.app/products.json')
      .then(res => {
-      let products = res.data[0].data.content
+       console.log(res)
+      let products = res.data
       commit('setProducts', products)
       commit('setLoadingFalse')
       return products
@@ -73,7 +74,7 @@ export const actions = {
 
   async getProduct({commit}, id) {
     commit('setLoadingTrue')
-    return await axios.get('/api/products/')
+    return await axios.get('https://shopper-4eb43-default-rtdb.asia-southeast1.firebasedatabase.app/products.json')
     .then(res => {
     
       let products = res.data[0].data.content
@@ -114,9 +115,9 @@ export const actions = {
 
   async getProductsInCategory({commit, state}, id) {
     commit('setLoadingTrue')
-    return await axios.get('/api/products/')
+    return await axios.get('https://shopper-4eb43-default-rtdb.asia-southeast1.firebasedatabase.app/products.json')
     .then(res => {
-      let products = res.data[0].data.content
+      let products = res.data
       this.products = products
       const categoryProducts = products.filter(product => product['category-id'] === id)
       commit('getProductsInCategory', categoryProducts)

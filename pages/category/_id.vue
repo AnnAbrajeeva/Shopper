@@ -73,14 +73,22 @@ export default {
     RingLoader,
   },
 
-  async mounted() {
-    const products = await this.$store.dispatch(
-      "products/getProductsInCategory",
-      this.$route.params.id
+   async asyncData({ $axios }) {
+    const products = await $axios.$get(
+      "https://shopper-4eb43-default-rtdb.asia-southeast1.firebasedatabase.app/products.json"
     );
-    const allProducts = await this.$store.dispatch("products/getProducts");
-    this.categoryProducts = products;
-    this.products = allProducts;
+    let productsArray = [];
+
+    for (let [key, value] of Object.entries(products)) {
+      productsArray.push({ ...value, id: key });
+    }
+  
+    return { products: productsArray };
+  },
+
+  mounted() {
+    const categoryProducts = this.products.filter(product => product['category-id'] == this.$route.params.id)
+    this.categoryProducts = categoryProducts;
   },
 
   methods: {
@@ -103,9 +111,7 @@ export default {
 
     setPages () {
       let numberOfPages = Math.ceil(this.sortingProducts.length / this.perPage);
-      for (let index = 1; index <= numberOfPages; index++) {
-        this.pages.push(index);
-      }
+      this.pages = numberOfPages
     },
 
   },
@@ -153,6 +159,7 @@ export default {
     },
     getCategories() {
       let sortCategory = this.getUniqueListBy(this.products, "category-name");
+      console.log(sortCategory)
       return sortCategory;
     },
     getThisCategory() {

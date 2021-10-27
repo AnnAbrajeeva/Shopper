@@ -2,36 +2,34 @@
   <div class="slider">
     <div class="callbacks_container">
       <VueSlickCarousel v-bind="settings">
-        <li>
-          <img src="~static/assets/images/bnr.jpg" alt="" />
+        <div class="home-slider__wrap">
+          <img src="~static/assets/images/1616606592_35-p-fon-odezhda-38.jpg" alt="" />
           <div class="banner-info">
-            <h3>FASHIONS</h3>
+            <h3>{{ $t('home.slider.slide1') }}</h3>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              consectetur adipiscing elit. consectetur adipiscing elit.
+              {{ $t('home.slider.slide11') }}
             </p>
           </div>
-        </li>
-        <li>
-          <img src="~static/assets/images/bnr2.jpg" alt="" />
+        </div>
+        <div class="home-slider__wrap">
+          <img src="~static/assets/images/1616606687_48-p-fon-odezhda-55.jpg" alt="" />
           <div class="banner-info">
-            <h3>MODELING</h3>
+            <h3>{{ $t('home.slider.slide2') }}</h3>
+            <h3>{{ $t('home.slider.slide22') }}</h3>
+            <!-- <p>
+              ВЕСНА-ЛЕТО
+            </p> -->
+          </div>
+        </div>
+         <div class="home-slider__wrap">
+          <img src="~static/assets/images/1616606643_53-p-fon-odezhda-60.jpg" alt="" />
+          <div class="banner-info">
+            <h3>{{ $t('home.slider.slide3') }}</h3>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              consectetur adipiscing elit. consectetur adipiscing elit.
+             {{ $t('home.slider.slide33') }}
             </p>
           </div>
-        </li>
-        <li>
-          <img src="~static/assets/images/bnr3.jpg" alt="" />
-          <div class="banner-info">
-            <h3>FASHIONS</h3>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              consectetur adipiscing elit. consectetur adipiscing elit.
-            </p>
-          </div>
-        </li>
+        </div>
       </VueSlickCarousel>
     </div>
   </div>

@@ -10,21 +10,21 @@
             <a
               v-on:click="activetab = '1'"
               v-bind:class="[activetab === '1' ? 'active' : '']"
-              >РЕКОМЕНДУЕМ</a
+              >{{ $t('home.tabs.recommended') }}</a
             >
           </li>
           <li>
             <a
               v-on:click="activetab = '2'"
               v-bind:class="[activetab === '2' ? 'active' : '']"
-              >НОВИНКИ</a
+              >{{ $t('home.tabs.new') }}</a
             >
           </li>
           <li>
             <a
               v-on:click="activetab = '3'"
               v-bind:class="[activetab === '3' ? 'active' : '']"
-              >РАСПРОДАЖА</a
+              >{{ $t('home.tabs.sale') }}</a
             >
           </li>
           <div class="clearfix"></div>

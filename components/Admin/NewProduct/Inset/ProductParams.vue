@@ -68,6 +68,7 @@ export default {
       available: '',
       gender: '',
       category: '',
+      categoryId: ''
     };
   },
 
@@ -83,8 +84,49 @@ export default {
       this.$store.dispatch("adminProducts/setGender", this.gender);
     },
     category() {
+      setCategoryId()
       this.$store.dispatch("adminProducts/setCategory", this.category);
+      this.$store.dispatch("adminProducts/setCategoryId", this.categoryId);
     },
+  },
+
+  methods: {
+    setCategoryId() {
+      if(this.category) {
+        switch (category) {
+          case 'FashionUp':
+          this.categoryId = '14'   
+          break;
+            
+          case 'Сарафаны':
+          this.categoryId = '10'   
+          break;
+
+          case 'Юбки и Шорты':
+          this.categoryId = '11'   
+          break;
+
+          case 'Платья':
+          this.categoryId = '2'   
+          break;
+
+          case 'Кофты,свитшот':
+          this.categoryId = '13'   
+          break;
+
+          case 'Костюмы и Комбинезоны':
+          this.categoryId = '5'   
+          break;
+
+          case 'Рубашки':
+          this.categoryId = '9'   
+          break;
+        
+          default:
+            break;
+        }
+      }
+    }
   },
   mounted() {
     if(this.product) {

@@ -35,6 +35,16 @@ body {
   flex-direction: column;
 }
 
+.select-lang {
+  color: #FFFFFF;
+  text-transform: uppercase;
+}
+
+.select-lang:hover {
+  color: #9f0000;
+  text-decoration: none;
+}
+
 .main {
   flex: 1 1 auto;
 }
@@ -202,12 +212,21 @@ button.signout span {
   color: white !important;
 }
 
+button.signout span:hover, 
+button.signout span:hover i {
+  color: #9f0000 !important;
+}
+
 button.signout i {
   color: white !important;
 }
 
+/* button.signout i:hover {
+  color: #9f0000 !important;
+} */
+
 .header-right {
-  min-width: 200px;
+  min-width: 300px;
   float: right;
 }
 
@@ -542,7 +561,7 @@ button.order__button {
 }
 
 .cart-length:hover {
-  color: #f1b63e;
+  color: #9f0000;
 }
 
 .cart-sec a img {
@@ -550,8 +569,8 @@ button.order__button {
 }
 
 .signin ul li a:hover {
-  color: #f1b63e;
-  border-bottom: 2px solid #f1b63e;
+  color: #9f0000;
+  border-bottom: 2px solid #9f0000;
 }
 
 .signin ul li a {
@@ -566,6 +585,15 @@ button.order__button {
 }
 
 /*--- slider-css --*/
+.home-slider__wrap {
+  max-height: 500px;
+}
+
+.home-slider__wrap img {
+  height: 100%;
+}
+
+
 .rslides {
   position: relative;
   list-style: none;
@@ -601,7 +629,7 @@ button.order__button {
 .banner-info {
   width: 56%;
   position: absolute;
-  top: 35%;
+  top: 45%;
   left: 20%;
   text-align: center;
 }
@@ -835,7 +863,7 @@ margin:2em;
 }
 
 .navigation ul li a:hover {
-  color: #f1b63e;
+  color: #9f0000;
 }
 
 .footer {
@@ -862,7 +890,7 @@ margin:2em;
 }
 
 .footer p a:hover {
-  color: #dea844;
+  color: #9f0000;
 }
 
 .social {
@@ -1125,7 +1153,8 @@ background:#efefee;
 }
 
 .size h4,
-.pricing h4 {
+.pricing h4,
+.color h4 {
   color: #3b3b3b;
   font-size: 1.2em;
   font-weight: 600;

@@ -18,7 +18,7 @@
 
           <div class="product-price">
             <p class="text-center d-inline-block mr-1">Цена:</p>
-            <span d-block> {{ this.product.cost }} &euro;</span>
+            <span d-block> {{ this.product.cost }} сум</span>
           </div>
         </div>
 
@@ -69,8 +69,8 @@ export default {
 
   computed: {
     viewDescr() {
-      if (this.products.length > 1) {
-        return this.product.descr.__text;
+      if (typeof this.product.descr == 'object' || this.products.length > 1) {
+        return this.product.descr.__text
       } else {
         return this.product.descr;
       }
@@ -100,12 +100,7 @@ export default {
     },
 
     addToCart() {
-      if (!this.size) {
-        let message = {
-          name: "Выберите размер",
-          id: Date.now().toLocaleString(),
-          icon: "exclamation-circle-fill",
-        };
+      if (!this.size) {      
         this.$toasted.error(`Выберите размер`, {
           theme: "bubble",
           position: "top-right",
@@ -132,7 +127,7 @@ export default {
           };
       if (cart.length) {   
         let productInCart = cart.some(
-          (prod) => prod.id == this.product.id && prod.size === this.size
+          (prod) => prod.color == this.product.color && prod.size === this.size
         );
         if (productInCart) {
           this.$toasted.error(`Товар уже есть в корзине`, {
@@ -148,7 +143,7 @@ export default {
           this.$store.dispatch("cart/addProductsInCart", product);
         } 
 
-         this.$toasted.error(`Товар добавлен в корзину`, {
+         this.$toasted.success(`Товар добавлен в корзину`, {
             theme: "bubble",
             position: "top-right",
             duration: 5000,

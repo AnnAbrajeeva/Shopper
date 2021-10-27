@@ -101,6 +101,37 @@ export default {
 
     '@nuxt/http',
 
+    ['nuxt-i18n', {
+      detectBrowserLanguage: {
+          useCookie: true,
+          cookieKey: 'i18n_redirected',
+          // alwaysRedirect: false,
+          // fallbackLocale: 'ru'
+        },
+      locales: [
+        {
+          code: 'en',
+          iso: 'en-US',
+          name: 'EN',
+          file: 'en.js',
+        },
+        {
+          code: 'ru',
+          iso: 'ru-RU',
+          name: 'RU',
+          file: 'ru.js',
+        },
+      ],
+      lazy: true,
+      langDir: 'lang/',
+      defaultLocale: 'ru',
+      detectBrowserLanguage: {
+        alwaysRedirect: true,
+        fallbackLocale: 'ru',
+        onlyOnRoot: true,
+      },
+    }],
+
     [
       '@nuxtjs/toast',
     {
