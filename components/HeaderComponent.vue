@@ -1,12 +1,49 @@
 <template>
-  <div class="header">
+  <v-app-bar elevate-on-scroll color="black" light class="header">
     <div class="container">
       <div class="header-wrapper">
         <div class="header-left">
+          <v-app-bar-nav-icon
+            class="header-menu-icon"
+            @click="menu = !menu"
+          ></v-app-bar-nav-icon>
+          <v-menu 
+          v-model="menu" 
+          bottom
+      origin="center center"
+      transition="scale-transition"
+          style="max-width: 600px">
+            <v-list>
+              <v-list-item-group>
+                <v-list-item>
+                  <v-list-item-title>
+                    <nuxt-link class="header-menu-title" :to="localePath('/')">
+                      {{ $t("pages.home") }}</nuxt-link
+                    >
+                  </v-list-item-title>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-title>
+                    <nuxt-link class="header-menu-title" :to="localePath('/clothes')">
+                      {{ $t("pages.shop") }}</nuxt-link
+                    ></v-list-item-title
+                  >
+                </v-list-item>
+              </v-list-item-group>
+            </v-list>
+          </v-menu>
           <div class="top-menu">
             <ul>
-              <li><nuxt-link :to="localePath('/')"> {{ $t('pages.home') }}</nuxt-link></li>
-              <li><nuxt-link :to="localePath('/clothes')">{{ $t('pages.shop') }}</nuxt-link></li>
+              <li>
+                <nuxt-link :to="localePath('/')">
+                  {{ $t("pages.home") }}</nuxt-link
+                >
+              </li>
+              <li>
+                <nuxt-link :to="localePath('/clothes')">{{
+                  $t("pages.shop")
+                }}</nuxt-link>
+              </li>
             </ul>
           </div>
         </div>
@@ -16,15 +53,14 @@
           /></nuxt-link>
         </div>
         <div class="header-right">
-          <div class="currency"></div>
           <div class="signin">
             <nuxt-link
-            class="select-lang"
+              class="select-lang"
               v-for="locale in $i18n.locales"
               v-if="locale.code !== $i18n.locale"
               :key="locale.code"
               :to="switchLocalePath(locale.code)"
-              >{{locale.code}}</nuxt-link
+              >{{ locale.code }}</nuxt-link
             >
             <div class="cart-sec">
               <button class="cart-length" @click="showModal">
@@ -35,10 +71,16 @@
             </div>
             <ul v-if="!this.checkAuthUser">
               <li>
-                <nuxt-link :to="localPath('/auth/registration')">{{ $t('auth.register') }}</nuxt-link>
+                <nuxt-link :to="localPath('/auth/registration')">{{
+                  $t("auth.register")
+                }}</nuxt-link>
                 <span>/</span> &nbsp;
               </li>
-              <li><nuxt-link :to="localPath('/auth/login')">{{ $t('auth.login') }}</nuxt-link></li>
+              <li>
+                <nuxt-link :to="localPath('/auth/login')">{{
+                  $t("auth.login")
+                }}</nuxt-link>
+              </li>
             </ul>
 
             <v-btn
@@ -52,15 +94,15 @@
               color="white"
             >
               <v-icon>mdi-logout-variant</v-icon>
-              {{ $t('home.auth.logout') }}
+              {{ $t("home.auth.logout") }}
             </v-btn>
           </div>
         </div>
-        <!-- <div class="clearfix"></div> -->
+       
       </div>
     </div>
     <cart-modal />
-  </div>
+  </v-app-bar>
 </template>
 
 <script>
@@ -69,6 +111,7 @@ import CartModal from "~/components/Cart/CartModal.vue";
 export default {
   data() {
     return {
+      menu: false,
       // cart: []
     };
   },
@@ -84,6 +127,9 @@ export default {
   },
   methods: {
     ...mapActions("cart", ["fetchProductsInCart"]),
+    openMenu() {
+      this.menu = true;
+    },
     showModal() {
       this.$store.dispatch("cart/openModal");
     },
@@ -94,7 +140,7 @@ export default {
         duration: 5000,
       });
       this.$store.dispatch("user/logoutUser").then(() => {
-        this.$router.push("/");
+        this.$router.push(this.localeRoute('/'));
       });
     },
   },

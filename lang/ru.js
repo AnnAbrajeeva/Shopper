@@ -23,6 +23,20 @@ export default {
       new: 'НОВИНКИ',
       sale: 'РАСПРОДАЖА'
     }
+  },
+  shop: {
+    allProducts: "Все товары",
+    categories: "Категории",
+    filters: "Фильтры",
+    filterPrice: 'по цене',
+    from: "от",
+    to: "до",
+    reset: "Сбросить",
+    filterSize: 'по размеру', 
+    filterColor: 'по цвету',
+    color: "Цвет",
+    search: "Поиск",
+    view: "Просмотр" 
   }
 
 }

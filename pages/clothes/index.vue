@@ -1,14 +1,21 @@
 <template>
-  <div class="content-wrapper">
+  <div class="content-wrapper" @click.stop="drawer = null">
     <div class="loader" v-if="getLoading">
       <ring-loader color="#D73636" :size="150" sizeUnit="px" />
     </div>
 
+    <!-- Сайдбар -->
+        <sidebar :drawer="this.drawer" :products="this.products" :getCategories="getCategories" />
+
     <div class="men-fashions">
       <div class="container">
-        <div class="col-md-9 fashions">
+        <div 
+        :class="drawer ? 'col-md-9' : 'col-md-12'"
+        class="fashions">
+          
           <div class="title">
-            <h3>Все товары</h3>
+            <v-icon @click.stop="drawer = !drawer">mdi-view-dashboard</v-icon>
+            <h3>{{ $t('shop.allProducts') }}</h3>
             <search @search="search = $event" />
           </div>
             <div class="fashion-section">
@@ -26,13 +33,9 @@
             <section v-if="this.products.length" class="pagination-wrapper">
               <pagination :pages="pages" @changePage="changePage" />
             </section>
-      
-
-        
         </div>
 
-        <!-- Сайдбар -->
-        <sidebar :products="this.products" :getCategories="getCategories" />
+        
       </div>
 
     </div>
@@ -71,7 +74,8 @@ export default {
       categories: [],
       sortingProducts: [],
       search: null,
-      dialog: true
+      dialog: true,
+      drawer: null,
     };
   },
   components: {
@@ -96,6 +100,9 @@ export default {
   },
 
   methods: {
+    showSidebar() {
+      this.drawer = true
+    },
     getError() {
       this.dialog = false
       this.$router.push('/')

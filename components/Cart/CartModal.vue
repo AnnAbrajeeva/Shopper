@@ -137,10 +137,10 @@ export default {
 }
 
 .basket__wrap_button {
-  color: #fff;
+  color: #fff !important;
   background: #1a1818;
   padding: 0.7em;
-  text-decoration: none;
+  text-decoration: none !important;
   display: block;
   margin-top: 6em;
   text-align: center;

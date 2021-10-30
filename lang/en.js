@@ -24,6 +24,20 @@ export default {
       new: 'NOVELTY',
       sale: 'SALE'
     }
+  },
+  shop: {
+    allProducts: "All products",
+    categories: "Categories",
+    filters: "Filters",
+    filterPrice: 'by price',
+    from: "from",
+    to: "to",
+    reset: "Reset",
+    filterSize: 'by size', 
+    filterColor: 'by color',
+    color: "Color",
+    search: "Search",
+    view: "View" 
   }
 
 }

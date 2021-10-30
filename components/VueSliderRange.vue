@@ -1,8 +1,8 @@
 <template>
   <div class="track-container">
     <div class="box">
-      <span>от</span><input type="text" v-model="value[0]" />
-      <span>до</span><input type="text" v-model="value[1]" />
+      <span>{{ $t('shop.from') }}</span><input type="text" v-model="value[0]" />
+      <span>{{ $t('shop.to') }}</span><input type="text" v-model="value[1]" />
     </div>
 
     <vue-slider

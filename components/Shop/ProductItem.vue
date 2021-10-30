@@ -18,7 +18,7 @@
       <h4>
         <nuxt-link :to="`/clothes/${product.id}`">
           <img src="https://img.icons8.com/ios/50/000000/visible--v2.png" />
-          Просмотр</nuxt-link
+          {{ $t('shop.view') }}</nuxt-link
         >
       </h4>
     </div>

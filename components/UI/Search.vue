@@ -1,5 +1,5 @@
 <template>
-    <input v-model="search" class="search" type="text" name="search" placeholder="Поиск...">
+    <input v-model="search" class="search" type="text" name="search" :placeholder="`${$t('shop.search')}...`">
 </template>
 
 <script>

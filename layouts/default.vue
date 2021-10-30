@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+   <v-app>
     <transition name="spinner" v-if="this.loading">
       <div class="loader">
         <ring-loader color="#D73636" :size="150" sizeUnit="px" />
@@ -10,13 +10,15 @@
     
       <header-component @showModal="showModal" key="header" />
      
+      <v-main key="main">
         <nuxt class="main" v-if="appReady" key="nuxt"  />
+      </v-main>
  
       <footer-component key="footer" />
       <cart-modal cartModal="cartModal" key="modal" />
      
     </transition-group>
-  </div>
+   </v-app>
 </template>
 
 <script>
@@ -39,6 +41,8 @@ export default {
     FooterComponent,
     CartModal,
   },
+
+
   data() {
     return {
       cartModal: false,

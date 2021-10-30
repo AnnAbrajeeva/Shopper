@@ -1,59 +1,75 @@
 <template>
-  <div class="col-md-3 side-bar">
-    <div class="categories">
-      <h3>Категории</h3>
-      <ul>
-        <li v-for="product in getCategories" :key="product.id">
-          <nuxt-link :to="`/category/${product['category-id']}`">{{
-            product["category-name"]
-          }}</nuxt-link>
-        </li>
-      </ul>
-    </div>
-    <div class="sales">
-      <h3>Фильтры</h3>
-      <div class="pricing">
-        <div class="sidebar-title">
-          <h4>По цене</h4>
-          <p class="sidebar-filtersDel" @click="priceReset">Сбросить</p>
-        </div>
-
-        <no-ssr>
-          <vue-slider-range ref="priceSlider" />
-        </no-ssr>
+  <v-navigation-drawer
+  class="sidebar-wrapper"
+    app
+    hide-overlay
+    v-if="drawer"
+    v-model="drawer"
+    prominent
+    absolute
+    temporary
+  >
+    <div class="side-bar">
+      <div class="categories">
+        <h3>{{ $t("shop.categories") }}</h3>
+        <ul>
+          <li v-for="product in getCategories" :key="product.id">
+            <nuxt-link :to="`/category/${product['category-id']}`">{{
+              product["category-name"]
+            }}</nuxt-link>
+          </li>
+        </ul>
       </div>
+      <div class="sales">
+        <h3>{{ $t("shop.filters") }}</h3>
+        <div class="pricing">
+          <div class="sidebar-title">
+            <h4>{{ $t("shop.filterPrice") }}</h4>
+            <p class="sidebar-filtersDel" @click="priceReset">
+              {{ $t("shop.reset") }}
+            </p>
+          </div>
 
-      <div class="size" :key="Date.now().toLocaleString()">
-        <div class="sidebar-title">
-          <h4>По размеру</h4>
-          <p class="sidebar-filtersDel" @click="sizeReset">Сбросить</p>
+          <no-ssr>
+            <vue-slider-range ref="priceSlider" />
+          </no-ssr>
         </div>
-        <div class="form_radio_btn form_radio_btn_sidebar size__list">
-          <label
-            :class="size == value ? 'checked' : ''"
-            class="mr-2"
-            :for="size"
-            v-for="size in this.sizes"
-            :key="size"
-          >
-            <input
-              v-model="value"
-              type="radio"
-              name="radio-input"
-              :value="selectSize"
-              :id="size"
-              @change="chooseSize(size)"
+
+        <div class="size" :key="Date.now().toLocaleString()">
+          <div class="sidebar-title">
+            <h4>{{ $t("shop.filterSize") }}</h4>
+            <p class="sidebar-filtersDel" @click="sizeReset">
+              {{ $t("shop.reset") }}
+            </p>
+          </div>
+          <div class="form_radio_btn form_radio_btn_sidebar size__list">
+            <label
+              :class="size == value ? 'checked' : ''"
+              class="mr-2"
+              :for="size"
+              v-for="size in this.sizes"
               :key="size"
-            />
-            {{ size }}
-          </label>
+            >
+              <input
+                v-model="value"
+                type="radio"
+                name="radio-input"
+                :value="selectSize"
+                :id="size"
+                @change="chooseSize(size)"
+                :key="size"
+              />
+              {{ size }}
+            </label>
+          </div>
         </div>
-      </div>
 
         <div class="color">
           <div class="sidebar-title">
-            <h4>По цвету</h4>
-            <p class="sidebar-filtersDel" @click="colorsReset">Сбросить</p>
+            <h4>{{ $t("shop.filterColor") }}</h4>
+            <p class="sidebar-filtersDel" @click="colorsReset">
+              {{ $t("shop.reset") }}
+            </p>
           </div>
           <div data-app>
             <v-select
@@ -69,6 +85,7 @@
         </div>
       </div>
     </div>
+  </v-navigation-drawer>
 </template>
 
 <script>
@@ -81,7 +98,7 @@ export default {
     VueSliderRange,
   },
 
-  props: ["getCategories", "products"],
+  props: ["getCategories", "products", "drawer"],
   data() {
     return {
       sizes: [42, 44, 46, 48, 50, 52],
@@ -111,17 +128,17 @@ export default {
       this.$store.dispatch("products/setSize", size);
     },
     colorsReset() {
-      this.colors = []
+      this.colors = [];
       this.$store.dispatch("products/resetColorsFilter");
     },
     sizeReset() {
-      this.size = ''
-      this.$store.dispatch("products/resetSizeFilters")
+      this.size = "";
+      this.$store.dispatch("products/resetSizeFilters");
     },
     priceReset() {
       this.$refs.priceSlider.setValue([0, 2000]);
-      this.$store.dispatch("products/resetPriceFilters")
-    }
+      this.$store.dispatch("products/resetPriceFilters");
+    },
   },
 
   computed: {
@@ -130,7 +147,7 @@ export default {
       if (this.getColors.length) {
         this.colors = this.getColors;
       } else {
-        return this.colors
+        return this.colors;
       }
     },
     selectSize() {

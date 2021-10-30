@@ -162,7 +162,7 @@ export default {
               slidesToShow: 4,
               slidesToScroll: 4,
               infinite: true,
-              dots: true,
+              dots: false,
             },
           },
           {
