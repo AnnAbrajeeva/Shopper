@@ -71,15 +71,15 @@
             </div>
             <ul v-if="!this.checkAuthUser">
               <li>
-                <nuxt-link :to="localPath('/auth/registration')">{{
-                  $t("auth.register")
-                }}</nuxt-link>
+                <nuxt-link :to="localePath('/auth/registration')">
+                  {{ $t("home.auth.register") }}</nuxt-link
+                >
                 <span>/</span> &nbsp;
               </li>
               <li>
-                <nuxt-link :to="localPath('/auth/login')">{{
-                  $t("auth.login")
-                }}</nuxt-link>
+                   <nuxt-link :to="localePath('/auth/login')">
+                  {{ $t("home.auth.login") }}</nuxt-link
+                >
               </li>
             </ul>
 
@@ -140,7 +140,7 @@ export default {
         duration: 5000,
       });
       this.$store.dispatch("user/logoutUser").then(() => {
-        this.$router.push(this.localeRoute('/'));
+        this.$router.push(this.localePath('/'));
       });
     },
   },

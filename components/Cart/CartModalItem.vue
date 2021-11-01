@@ -4,8 +4,8 @@
 
           <div class="basket__cart__info">
             <div class="basket__cart_title">{{product.title}}</div>
-            <div class="basket__cart_price">{{product.cost*product.quantity}} сум</div>
-            <div class="basket__cart_count">{{product.quantity}} шт.</div>
+            <div class="basket__cart_price">{{product.cost*product.quantity}} {{ $t("currency") }}</div>
+            <div class="basket__cart_count">{{product.quantity}} {{ $tc('cart.piece', product.quantity) }}</div>
           </div>
             <div class="basket__cart_del" @click="delFromCart(product.id)">
               <svg

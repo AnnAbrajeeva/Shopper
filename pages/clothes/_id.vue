@@ -17,6 +17,8 @@
         </div>
       </div>
 
+      <recommended-products :product="product"></recommended-products>
+
       <!-- Sidebar -->
       <sidebar-product-item
         @updateProduct="updateProduct"
@@ -31,13 +33,15 @@
 
 <script>
 import SidebarProductItem from "../../components/Shop/SidebarProductItem.vue";
+import RecommendedProducts from "../../components/Shop/RecommendedProducts.vue";
 import SliderProductImage from "../../components/Shop/SliderProductImage.vue";
 import Notification from "../../components/Notifications/Notification.vue";
 export default {
   components: {
     SliderProductImage,
     SidebarProductItem,
-    Notification
+    Notification,
+    RecommendedProducts
   },
   data() {
     return {

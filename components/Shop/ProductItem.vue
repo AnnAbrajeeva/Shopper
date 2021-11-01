@@ -3,7 +3,7 @@
     <div class="card-img" :style="`background-image:url(${typeof(product.poster) == 'string' ? product.poster : product.poster[0]})`">
       <div class="product">
         <h3>{{ product.title }}</h3>
-        <p><span></span> {{ product.cost }} сум</p>
+        <p><span></span> {{ product.cost }} {{ $t('currency') }}</p>
       </div>
     </div>
     <div
@@ -15,8 +15,8 @@
         align-items-center
       "
     >
-      <h4>
-        <nuxt-link :to="`/clothes/${product.id}`">
+      <h4>      
+        <nuxt-link :to="localePath(`/clothes/${product.id}`)">
           <img src="https://img.icons8.com/ios/50/000000/visible--v2.png" />
           {{ $t('shop.view') }}</nuxt-link
         >

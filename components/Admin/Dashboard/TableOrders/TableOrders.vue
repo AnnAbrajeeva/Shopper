@@ -69,12 +69,33 @@ export default {
   computed: {
     // ...mapGetters("cart", ["getOrders"]),
     getProductsName() {
+      let productName
+
+
+
+      let orders = this.orders.flat()
+      console.log(orders)
+      console.log(this.orders.flat())
+
+      
        for (let i = 0; i < this.orders.length; i++) { 
-        let productName = this.orders[i].products.map((product) => {
-          return product.title;
+        // console.log(this.orders[i])
+
+        let product = this.orders[i].products.map(product => {
+        
+          return product.title
         });
-        return productName.join(', ')
+          // console.log(product)
+        // productName.join(', ')
+        // productName = this.orders[i].products.map((product) => {
+        //   console.log(this.orders[i].products)
+        //   return product.title;
+        // });
+       
+        return productName = product
+        
        }
+      //  console.log(productName)
       return productName.toString();
     },
     getTotalPrice() {

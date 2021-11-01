@@ -48,7 +48,7 @@
                     :src="product.poster[0]"
                     :alt="product.title"
                   />
-                  <nuxt-link :to="`/clothes/${product.id}`"
+                       <nuxt-link :to="localePath(`/clothes/${product.id}`)"
                     ><div class="caption">
                       <h3>{{ product.title }}</h3>
                       <h5>{{ product.cost }} сум</h5>
@@ -76,7 +76,7 @@
                     :src="product.poster[0]"
                     :alt="product.title"
                   />
-                 <nuxt-link :to="`/clothes/${product.id}`"
+                     <nuxt-link :to="localePath(`/clothes/${product.id}`)"
                     ><div class="caption">
                       <h3>{{ product.title }}</h3>
                       <h5>{{ product.cost }} сум</h5>
@@ -103,7 +103,7 @@
                     :src="product.poster[0]"
                     :alt="product.title"
                   />
-                  <nuxt-link :to="`/clothes/${product.id}`"
+                  <nuxt-link :to="localePath(`/clothes/${product.id}`)"
                     ><div class="caption">
                       <h3>{{ product.title }}</h3>
                       <h5>{{ product.cost }} сум</h5>
@@ -117,7 +117,7 @@
         </div>
 
         <div v-else>
-          <p class="productNotFound">Товары не найдены</p>
+          <p class="productNotFound">{{ $t('home.tabs.notFound') }}</p>
         </div>
       </div>
     </div>

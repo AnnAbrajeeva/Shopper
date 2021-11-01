@@ -6,7 +6,7 @@
       v-model="drawer"
       :src="bg"
       absolute
-      
+      hide-overlay
     >
       <v-list dense nav class="py-0">
         <v-list-item two-line>

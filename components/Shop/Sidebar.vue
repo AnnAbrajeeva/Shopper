@@ -14,7 +14,7 @@
         <h3>{{ $t("shop.categories") }}</h3>
         <ul>
           <li v-for="product in getCategories" :key="product.id">
-            <nuxt-link :to="`/category/${product['category-id']}`">{{
+            <nuxt-link :to="localePath(`/category/${product['category-id']}`)">{{
               product["category-name"]
             }}</nuxt-link>
           </li>

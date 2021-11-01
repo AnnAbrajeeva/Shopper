@@ -5,39 +5,42 @@
     </div>
 
     <!-- Сайдбар -->
-        <sidebar :drawer="this.drawer" :products="this.products" :getCategories="getCategories" />
+    <sidebar
+      :drawer="this.drawer"
+      :products="this.products"
+      :getCategories="getCategories"
+    />
 
     <div class="men-fashions">
       <div class="container">
-        <div 
-        :class="drawer ? 'col-md-9' : 'col-md-12'"
-        class="fashions">
-          
+        <div :class="drawer ? 'col-md-9' : 'col-md-12'" class="fashions">
           <div class="title">
             <v-icon @click.stop="drawer = !drawer">mdi-view-dashboard</v-icon>
-            <h3>{{ $t('shop.allProducts') }}</h3>
+            <h3>{{ $t("shop.allProducts") }}</h3>
             <search @search="search = $event" />
           </div>
-            <div class="fashion-section">
-              <div
-                class="col-12 col-md-4"
-                v-for="product in sortProducts"
-                :key="product.id"
-              >
-                <product-item :product="product" :key="product.id" />
-              </div>
-              <div class="clearfix"></div>
+
+          <div v-if="products" class="fashion-section">
+            <div
+              class="col-12 col-md-4"
+              v-for="product in sortProducts"
+              :key="product.id"
+            >
+              <product-item :product="product" :key="product.id" />
             </div>
+            <div class="clearfix"></div>
+          </div>
 
-            <!-- Пагинация  -->
-            <section v-if="this.products.length" class="pagination-wrapper">
-              <pagination :pages="pages" @changePage="changePage" />
-            </section>
+          <div v-else>
+            <p class="productNotFound">{{ $t("home.tabs.notFound") }}</p>
+          </div>
+
+          <!-- Пагинация  -->
+          <section v-if="this.products.length" class="pagination-wrapper">
+            <pagination :pages="pages" @changePage="changePage" />
+          </section>
         </div>
-
-        
       </div>
-
     </div>
   </div>
 </template>
@@ -64,7 +67,7 @@ export default {
     };
   },
 
-  middleware: ['auth-check'],
+  middleware: ["auth-check"],
 
   data() {
     return {
@@ -95,17 +98,17 @@ export default {
     for (let [key, value] of Object.entries(products)) {
       productsArray.push({ ...value, id: key });
     }
-  
+
     return { products: productsArray };
   },
 
   methods: {
     showSidebar() {
-      this.drawer = true
+      this.drawer = true;
     },
     getError() {
-      this.dialog = false
-      this.$router.push('/')
+      this.dialog = false;
+      this.$router.push("/");
     },
 
     getUniqueListBy(arr, key) {

@@ -7,7 +7,7 @@
             v-model="user.name"
             :error-messages="nameErrors"
             solo
-            label="Ваше имя"
+            :label="$t('orderForm.name')" 
             prepend-inner-icon="mdi-account"
             @input="$v.user.name.$touch()"
             @blur="$v.user.name.$touch()"
@@ -19,7 +19,7 @@
             v-model.trim="user.email"
             :error-messages="emailErrors"
             solo
-            label="Ваш email"
+            :label="$t('orderForm.email')" 
             required
             append-icon=" mdi-email"
             @input="$v.user.email.$touch()"
@@ -33,7 +33,7 @@
             v-model="user.phone"
             :error-messages="phoneErrors"
             solo
-            label="Ваш номер телефона"
+            :label="$t('orderForm.phone')" 
             required
             append-icon="mdi-phone"
             @input="$v.user.phone.$touch()"
@@ -46,10 +46,10 @@
         <v-col data-app cols="12" md="6">
           <v-select
             v-model="user.city"
-            :items="states"
+            :items="sortCities"
             :error-messages="cityErrors"
             menu-props="auto"
-            label="Укажите город"
+            :label="$t('orderForm.city')" 
             hide-details
             append-icon="mdi-map"
             @change="$v.user.city.$touch()"
@@ -63,7 +63,7 @@
             v-model="user.address"
              :error-messages="addressErrors"
             solo
-            label="Введите адрес доставки"
+             :label="$t('orderForm.shipping')" 
             required
             append-icon="mdi-map-marker"
             @input="$v.user.address.$touch()"
@@ -73,7 +73,7 @@
         </v-col>
       </v-row>
 
-      <p>Выберите способ оплаты</p>
+      <p>{{$t('orderForm.payment')}}</p>
       <v-row>
         <v-col cols="12" md="12">
         <div class="form-group" :class="{ 'form-group--error': $v.user.payment.$error }">
@@ -89,7 +89,7 @@
               @input="$v.user.payment.$touch()"
               @blur="$v.user.payment.$touch()"
             />
-            <span>Наличные</span>
+            <div>Наличные</div>
           </label>
           <label class="radio-inline payment-method click">
             <input
@@ -146,7 +146,7 @@
         </v-col>
       </v-row>
       <v-btn :loading="getLoading" @click.prevent="saveOrder" class="order__button">
-        Оформить заказ
+       {{ $t('cart.order')}}
       </v-btn>
     </v-container>
   </v-form>
@@ -158,6 +158,9 @@ import { required, minLength, email } from "vuelidate/lib/validators";
 import { helpers } from "vuelidate/lib/validators";
 const phone = helpers.regex("alpha", /^\+?[0-9\ \-\/]+$/);
 export default {
+
+ middleware: ['auth-check'],
+
   data() {
     return {
       name: "",
@@ -225,7 +228,7 @@ export default {
       } else {
         this.$store.dispatch("cart/addNewOrder", this.user);
         setTimeout(() => {
-          this.$router.push('order/orderSuccess')
+          this.$router.push(this.localePath('order/orderSuccess'))
         }, 500)
     }
   },
@@ -233,6 +236,10 @@ export default {
 
   computed: {
     ...mapGetters('cart', ['getLoading']),
+    sortCities() {
+      let citi = this.$t('orderForm.states')
+      return citi.sort()
+    },
     nameErrors() {
       const errors = [];
       if (!this.$v.user.name.$dirty) return errors;

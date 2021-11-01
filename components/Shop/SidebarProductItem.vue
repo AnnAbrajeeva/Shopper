@@ -4,11 +4,11 @@
       <div class="product-name">
         <h2>{{ this.product.title }}</h2>
         <p>{{ this.viewDescr }}</p>
-        <p>Ткань : {{ this.product.cloth }}</p>
+        <p>{{ $t("shop.singleProduct.cloth") }} {{ this.product.cloth }}</p>
 
         <div class="d-flex align-items-center justify-content-between">
           <div>
-            <label for="sb-inline">Кол-во</label>
+            <label for="sb-inline">{{ $t("shop.singleProduct.quantity") }}</label>
             <b-form-spinbutton
               id="sb-inline"
               v-model="quantity"
@@ -17,13 +17,17 @@
           </div>
 
           <div class="product-price">
-            <p class="text-center d-inline-block mr-1">Цена:</p>
-            <span d-block> {{ this.product.cost }} сум</span>
+            <p class="text-center d-inline-block mr-1">{{ $t("shop.singleProduct.price") }}:</p>
+            <span d-block> {{ this.product.cost }} {{ $t("currency") }}</span>
           </div>
         </div>
 
         <div class="clearfix"></div>
       </div>
+       <div class="product-price product-price_total mt-5">
+            <p class="text-center d-inline-block mr-1">{{ $t("shop.singleProduct.total") }}:</p>
+            <span d-block> {{ this.totalPrice }} {{ $t("currency") }}</span>
+          </div>
       <div class="product-id">
         <div class="size select-size">
           <b-form-select
@@ -34,19 +38,19 @@
           >
             <template #first>
               <b-form-select-option value="" disabled
-                >Выберите цвет</b-form-select-option
+                >{{ $t("shop.singleProduct.color") }}</b-form-select-option
               >
             </template>
           </b-form-select>
         </div>
 
-        <h4>Выберите размер</h4>
+        <h4>{{ $t("shop.singleProduct.size") }}</h4>
         <div class="size select-size">
           <select-size v-if="viewSizes" v-model="size" :viewSizes="viewSizes" />
         </div>
 
-        <p>Артикул продукта : {{ this.product.articul }}</p>
-        <button @click="addToCart" class="add">Добавить в корзину</button>
+        <p>{{ $t("shop.singleProduct.articul") }} : {{ this.product.articul }}</p>
+        <button @click="addToCart" class="add">{{ $t("cart.addToCart") }}</button>
       </div>
     </div>
   </div>
@@ -89,6 +93,10 @@ export default {
         return colors;
       }
     },
+
+    totalPrice() {
+      return this.quantity * this.product.cost
+    }
   },
 
   methods: {
@@ -101,7 +109,7 @@ export default {
 
     addToCart() {
       if (!this.size) {      
-        this.$toasted.error(`Выберите размер`, {
+        this.$toasted.error(this.$t("toast.chooseSize"), {
           theme: "bubble",
           position: "top-right",
           duration: 5000,
@@ -130,7 +138,7 @@ export default {
           (prod) => prod.color == this.product.color && prod.size === this.size
         );
         if (productInCart) {
-          this.$toasted.error(`Товар уже есть в корзине`, {
+          this.$toasted.error(this.$t("toast.productAlreadyInCart"), {
             theme: "bubble",
             position: "top-right",
             duration: 5000,

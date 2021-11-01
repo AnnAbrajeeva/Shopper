@@ -5,14 +5,14 @@
 
     <div class="basket__wrap" :key="Date.now()">
       <div class="basket__wrap_header" >
-        <div class="basket__wrap_header-title">Корзина</div>
+        <div class="basket__wrap_header-title">{{ $t("cart.cart") }}</div>
         <div @click="hideModal" class="basket__wrap_header-close">+</div>
       </div>
 
-      <div class="basket__wrap__desc">Товары в корзине</div>
+      <div class="basket__wrap__desc">{{ $t("cart.productsInCart") }}</div>
       <div v-if="this.getCart.length === 0">
         <p class="basket__wrap_emptyCart">
-          Вы ещё ничего не добавили в корзину
+          {{ $t("cart.noProducts") }}
        
         </p>
       </div>
@@ -20,7 +20,7 @@
       <div v-else v-for="product in this.getCart" :key="product.id" class="basket__wrap_body">
         <cart-modal-item :product="product" />
       </div>
-      <nuxt-link @click.native="hideModal()" to="/order" class="basket__wrap_button">Оформить заказ</nuxt-link>
+      <nuxt-link @click.native="hideModal()" :to="localePath('/order')" class="basket__wrap_button">{{ $t("cart.order") }}</nuxt-link>
      
     </div>
   </div>

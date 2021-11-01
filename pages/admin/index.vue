@@ -28,22 +28,25 @@ export default {
     TableOrders,
   },
 
-
   async asyncData({ $axios }) {
     let currencyKey = process.env.CURRENCY_KEY;
     const currency = await $axios.$get(
-      `https://openexchangerates.org/api/latest.json?app_id=${currencyKey}&symbols=EUR,RUB,UZS`,
+      `https://openexchangerates.org/api/latest.json?app_id=${currencyKey}&symbols=EUR,RUB,UZS`
     );
     const orders = await $axios.$get(
       "https://shopper-4eb43-default-rtdb.asia-southeast1.firebasedatabase.app/orders.json"
     );
-    let ordersArray = [];
 
-    for (let [key, value] of Object.entries(orders)) {
-      ordersArray.push({ ...value, id: key });
+    let ordersArray = [];
+    if (orders) {
+      
+      for (let [key, value] of Object.entries(orders)) {
+        ordersArray.push({ ...value, id: key });
+      }
     }
-    console.log(currency)
-    console.log(orders)
+
+    console.log(currency);
+    console.log(orders);
 
     return { currency, orders: ordersArray };
   },

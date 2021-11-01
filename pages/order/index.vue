@@ -1,8 +1,8 @@
 <template>
   <div class="content-wrapper order">
     <div class="container">
-      <div v-if="!getCart.length" class="title order-title">В корзине нет товаров</div>
-      <div v-else class="title order-title">Товаров в корзине {{ getCart.length }} шт.</div>
+      <div v-if="!getCart.length" class="title order-title">{{ $t("cart.noProducts") }}</div>
+      <div v-else class="title order-title">{{ $t("cart.inCart") }} {{ getCart.length }} {{ $tc('cart.piece', getCart.length) }}</div>
 
       <div class="shopping-cart">
         <!-- Title -->
@@ -31,7 +31,7 @@
 
           <div class="description">
             <span>{{ product.title }}</span>
-            <span>Цвет: {{ product.color }}</span>
+            <span>{{ $t("shop.color") }}: {{ product.color }}</span>
           </div>
 
           <div class="quantity">
@@ -46,7 +46,7 @@
           </div>
 
           <div class="total-price">
-            {{ product.cost * product.quantity }} сум
+            {{ product.cost * product.quantity }} {{ $t("currency") }}
           </div>
 
           <div class="delete-cart" @click="delFromCart(product.id)">
@@ -71,9 +71,9 @@
 
         <div class="order__total">
          
-          <div>Итого: {{getTotalPrice}} сум</div>
+          <div>{{ $t("cart.total") }}: {{getTotalPrice}} {{ $t("currency") }}</div>
         </div>
-         <button @click="doOrder" class="order__button">Оформить заказ</button>
+         <button @click="doOrder" class="order__button">{{ $t("cart.order") }}</button>
       </div>
     </div>
   </div>
@@ -89,6 +89,9 @@ export default {
       },
     };
   },
+
+   middleware: ['auth-check'],
+   
   computed: {
     ...mapGetters("cart", ["getCart"]),
     ...mapGetters('user', ["checkAuthUser"]),
@@ -118,7 +121,7 @@ export default {
     },
     doOrder() {
       if(this.checkAuthUser) {
-        this.$router.push('/checkout')
+        this.$router.push(this.localePath('/checkout'))
       } else {
          this.$toasted.error(
             `Для совершения покупки вы должны авторизоваться`,
