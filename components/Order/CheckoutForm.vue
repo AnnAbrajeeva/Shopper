@@ -228,7 +228,7 @@ export default {
       } else {
         this.$store.dispatch("cart/addNewOrder", this.user);
         setTimeout(() => {
-          this.$router.push(this.localePath('order/orderSuccess'))
+          this.$router.push(this.localePath('/order/orderSuccess'))
         }, 500)
     }
   },

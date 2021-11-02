@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-4 side-bar2">
+  <div class="col-sm-12 col-md-4 side-bar2">
     <div class="product-wrapper">
       <div class="product-name">
         <h2>{{ this.product.title }}</h2>

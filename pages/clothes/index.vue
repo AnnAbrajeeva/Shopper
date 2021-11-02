@@ -1,9 +1,5 @@
 <template>
-  <div class="content-wrapper" @click.stop="drawer = null">
-    <div class="loader" v-if="getLoading">
-      <ring-loader color="#D73636" :size="150" sizeUnit="px" />
-    </div>
-
+  <div class="content-wrapper">
     <!-- Сайдбар -->
     <sidebar
       :drawer="this.drawer"
@@ -20,7 +16,7 @@
             <search @search="search = $event" />
           </div>
 
-          <div v-if="products" class="fashion-section">
+          <div v-if="products && this.sortProducts.length" class="fashion-section">
             <div
               class="col-12 col-md-4"
               v-for="product in sortProducts"
@@ -32,11 +28,11 @@
           </div>
 
           <div v-else>
-            <p class="productNotFound">{{ $t("home.tabs.notFound") }}</p>
+            <h2 class="productNotFound">{{ $t("home.tabs.notFound") }}</h2>
           </div>
 
           <!-- Пагинация  -->
-          <section v-if="this.products.length" class="pagination-wrapper">
+          <section v-if="this.products.length && this.sortProducts.length" class="pagination-wrapper">
             <pagination :pages="pages" @changePage="changePage" />
           </section>
         </div>
@@ -95,8 +91,10 @@ export default {
     );
     let productsArray = [];
 
-    for (let [key, value] of Object.entries(products)) {
-      productsArray.push({ ...value, id: key });
+    if (products) {
+      for (let [key, value] of Object.entries(products)) {
+        productsArray.push({ ...value, id: key });
+      }
     }
 
     return { products: productsArray };
@@ -132,7 +130,12 @@ export default {
   },
 
   computed: {
-    ...mapGetters("products", ["getPriceValue", "getColors", "getSize"]),
+    ...mapGetters("products", [
+      "getPriceValue",
+      "getColors",
+      "getSize",
+      "loading",
+    ]),
 
     sortProducts() {
       if (this.products.length) {

@@ -115,6 +115,7 @@ export const actions = {
     }
     commit('destroyToken');
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
     Cookies.remove('jwt');
     Cookies.remove('user');
   }

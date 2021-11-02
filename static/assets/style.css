@@ -116,6 +116,7 @@ header.header {
 .single-section {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .header-left {
@@ -3619,6 +3620,14 @@ h3.lorem {
   box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%) !important;
 }
 
+.card.last-orders {
+  height: auto;
+}
+
+.card.new-product {
+  height: auto;
+}
+
 .orders .v-data-table>.v-data-table__wrapper>table>tbody>tr>td {
   border: 1px solid #ddd;
 }
@@ -3982,4 +3991,29 @@ td input.edit {
     .notfound .notfound-404 h1 {
       font-size: 112px;
     }
+}
+
+.recommended {
+  margin: 20px 0 !important;
+}
+
+.recommended_wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.recommended__title {
+  color: #1a1818;
+  font-size: 1.5em;
+  font-weight: 600;
+  margin: 0.5em 0;
+  text-align: left;
+}
+
+.recommended_products {
+  margin-right: 20px;
+}
+
+.v-pagination__item--active {
+  background-color:rgb(5, 5, 5) !important;
 }

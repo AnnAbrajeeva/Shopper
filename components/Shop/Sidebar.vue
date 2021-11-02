@@ -1,6 +1,7 @@
 <template>
   <v-navigation-drawer
-  class="sidebar-wrapper"
+
+  class="sidebar-wrapper hidden-sm-and-down"
     app
     hide-overlay
     v-if="drawer"
@@ -8,6 +9,7 @@
     prominent
     absolute
     temporary
+    permanent
   >
     <div class="side-bar">
       <div class="categories">

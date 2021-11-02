@@ -103,7 +103,7 @@
                   :loading="getLoading"
                   :disabled="getLoading"
                   color="secondary"
-                  @click="this.$router.push('/admin/products')"
+                  @click="returnBack"
                 >
                   Отменить
                 </v-btn>
@@ -219,22 +219,14 @@ export default {
     });
   },
 
-  // async mounted() {
-  //   if (this.products) {
-  //     let product = await this.products.find((product) => {
-  //       return product.id == this.$route.params.id;
-  //     });
-  //     this.product = product;
-  //     this.title = product.title
-  //     this.$store.dispatch('adminProducts/setProduct', product)
-  //   }
-  // },
-
   methods: {
     editProduct() {
       this.$store.dispatch("adminProducts/editProduct", this.product.id);
       this.$router.push('/admin/products')
     },
+    returnBack() {
+       this.$router.push('/admin/products')
+    }
   },
 };
 </script>

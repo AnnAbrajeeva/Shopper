@@ -5,7 +5,6 @@
         <div class="card last-orders">
           <div class="card-header card-header-primary">
             <h4 class="card-title">Последние заказы</h4>
-           
           </div>
           <div class="orders card-body">
             <div class="table-responsive">
@@ -25,15 +24,15 @@
                       <th class="text-left">E-mail</th>
                     </tr>
                   </thead>
-                
+
                   <tbody>
                     <tr v-for="order in sortOrders" :key="order.id">
                       <td>{{ order.date | formatDate("date") }}</td>
-                      <td>{{ getProductsName }}</td>
-                      <td>{{ getTotalPrice }} сум</td>
-                      <td>{{ getTotalQuantity }} шт.</td>
-                      <td>{{ getTotalSizes }} шт.</td>
-                      <td>{{ getTotalColor }}</td>
+                      <td>{{ getName(order) }}</td>
+                      <td>{{ getPrice(order) }} сум</td>
+                      <td>{{ getQuantity(order) }} шт.</td>
+                      <td>{{ getSizes(order) }}</td>
+                      <td>{{ getColor(order) }}</td>
                       <td>{{ order.user["name"] }}</td>
                       <td>
                         {{ order.user["city"] + " " + order.user["address"] }}
@@ -66,89 +65,59 @@ export default {
     };
   },
 
+  methods: {
+    getName(order) {
+      let title = order.products.map((product) => {
+        return product.title;
+      });
+      return title.join(", ");
+    },
+
+    getPrice(order) {
+      let price = order.products.map((product) => {
+        return Number(product.cost);
+      });
+      let total = price.reduce(
+        (previousValue, currentValue) => previousValue + currentValue
+      );
+      return total;
+    },
+
+    getQuantity(order) {
+      let quantity = order.products.map((product) => {
+        return Number(product.quantity);
+      });
+      let total = quantity.reduce(
+        (previousValue, currentValue) => previousValue + currentValue
+      );
+      return total;
+    },
+
+     getSizes(order) {
+      let size = order.products.map((product) => {
+        return product.size
+      });
+    
+      return size.join(", ");
+    },
+
+     getColor(order) {
+      let color = order.products.map((product) => {
+        return product.color
+      });
+    
+      return color.join(", ");
+    },
+  },
+
   computed: {
-    // ...mapGetters("cart", ["getOrders"]),
-    getProductsName() {
-      let productName
 
-
-
-      let orders = this.orders.flat()
-      console.log(orders)
-      console.log(this.orders.flat())
-
-      
-       for (let i = 0; i < this.orders.length; i++) { 
-        // console.log(this.orders[i])
-
-        let product = this.orders[i].products.map(product => {
-        
-          return product.title
-        });
-          // console.log(product)
-        // productName.join(', ')
-        // productName = this.orders[i].products.map((product) => {
-        //   console.log(this.orders[i].products)
-        //   return product.title;
-        // });
-       
-        return productName = product
-        
-       }
-      //  console.log(productName)
-      return productName.toString();
-    },
-    getTotalPrice() {
-     for (let i = 0; i < this.orders.length; i++) { 
-        let price = this.orders[i].products.map((product) => {
-          return product.quantity * product.cost;
-        });
-        let total = price.reduce(
-          (previousValue, currentValue) => previousValue + currentValue
-        );
-        return total
-     }
-      return total.toString();
-    },
-    getTotalQuantity() {
-       for (let i = 0; i < this.orders.length; i++) {
-        let quantity = this.orders[i].products.map((product) => {
-          return Number(product.quantity);
-            });
-        let total = quantity.reduce(
-          (previousValue, currentValue) => previousValue + currentValue
-        );
-        return total
-       }
-      
-      return total.toString();
-    },
-    getTotalSizes() {
-     for (let i = 0; i < this.orders.length; i++) {
-        let sizes = this.orders[i].products.map((product) => {
-          let sizes = [];
-          sizes.push(product.sizes);
-          return product.sizes;
-        });
-        return sizes.join(", ");
-      }
-    },
-    getTotalColor() {
-      for (let i = 0; i < this.orders.length; i++) {
-        let color = this.orders[i].products.map((product) => {
-          let colors = [];
-          colors.push(product.color);
-          return product.color;
-        });
-        return color.join(", ");
-      }
-    },
     sortOrders() {
-      let sort = this.orders.sort(function(a,b) {
-         return new Date(b.date) - new Date(a.date);
-      })
-      return sort
-    }
+      let sort = this.orders.sort(function (a, b) {
+        return new Date(b.date) - new Date(a.date);
+      });
+      return sort;
+    },
   },
 };
 </script>

@@ -2,7 +2,7 @@
         <div v-if="!loading" class="container-fluid">
           <div class="row">
             <div class="col-md-12 mt-10">
-              <div class="card">
+              <div class="card new-product">
                 <div class="card-header card-header-primary">
                   <h4 class="card-title">Добавить новый товар</h4>
                 </div>
@@ -92,7 +92,7 @@
                         :loading="loading"
                         :disabled="loading"
                         color="secondary"
-                        @click="this.$router.push('/admin/products')"
+                        @click="returnBack"
                       >
                         Отменить
                       </v-btn>
@@ -185,6 +185,9 @@ export default {
        this.$refs.form.validate()
        if(!this.valid) return
       this.$store.dispatch('adminProducts/addProduct')
+      this.$router.push('/admin/products') 
+    },
+    returnBack() {
       this.$router.push('/admin/products') 
     }
   }

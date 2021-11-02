@@ -9,10 +9,11 @@
     <admin-header @showMenu="showMenu" />
 
     <sidebar :drawer="this.drawer" />
-
+  <transition name="fade" mode="in-out" class="main-wrapper">
     <v-main>
       <nuxt />
     </v-main>
+  </transition>
   </v-app>
 </template>
 

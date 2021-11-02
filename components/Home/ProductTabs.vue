@@ -122,7 +122,7 @@
       </div>
     </div>
 
-    <second-navigation />
+    <!-- <second-navigation /> -->
     <!-- Navigation -->
   </div>
 </template>

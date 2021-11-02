@@ -2,7 +2,7 @@ export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   mode: 'universal',
   devtools: true,
-  loading: '~/components/UI/Loader.vue',
+  // loading: '~/components/UI/Loader.vue',
   head: {
     title: 'Shopper',
     htmlAttrs: {

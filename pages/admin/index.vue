@@ -45,9 +45,6 @@ export default {
       }
     }
 
-    console.log(currency);
-    console.log(orders);
-
     return { currency, orders: ordersArray };
   },
 

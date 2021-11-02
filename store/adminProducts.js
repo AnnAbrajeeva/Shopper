@@ -64,8 +64,8 @@ export const state = () => ({
     setCategory(state, category) {
       state.newProduct['category-name'] = category
     },
-    setCategory(state, categoryId) {
-      state.newProduct['category-id'] = categoryId
+    setCategoryId(state, categoryId) {
+      state.newProduct['category-id'] = categoryId;
     },
     setCost(state, cost) {
       state.newProduct.cost = cost

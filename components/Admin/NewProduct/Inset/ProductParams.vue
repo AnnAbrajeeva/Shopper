@@ -84,7 +84,7 @@ export default {
       this.$store.dispatch("adminProducts/setGender", this.gender);
     },
     category() {
-      setCategoryId()
+      this.setCategoryId()
       this.$store.dispatch("adminProducts/setCategory", this.category);
       this.$store.dispatch("adminProducts/setCategoryId", this.categoryId);
     },
@@ -93,7 +93,7 @@ export default {
   methods: {
     setCategoryId() {
       if(this.category) {
-        switch (category) {
+        switch (this.category) {
           case 'FashionUp':
           this.categoryId = '14'   
           break;

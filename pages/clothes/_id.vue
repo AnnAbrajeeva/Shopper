@@ -10,14 +10,12 @@
      />
 
     <div class="single-section">
-      <div class="col-md-8 fashions2">
+      <div class="col-sm-12 col-md-8 fashions2">
         <slider-product-image v-if="products.length > 1" :product="product" />
         <div v-else class="slider2">
           <img :src="product.poster" :alt="product.title" />
         </div>
-      </div>
-
-      <recommended-products :product="product"></recommended-products>
+      </div>  
 
       <!-- Sidebar -->
       <sidebar-product-item
@@ -28,6 +26,7 @@
         :key="Date.now().toLocaleString()"
       />
     </div>
+     <recommended-products v-if="product.recomendedProducts" :product="product"></recommended-products>
   </div>
 </template>
 

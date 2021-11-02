@@ -30,7 +30,7 @@ export default {
     },
     logout() {
        this.$store.dispatch("user/logoutUser")
-      this.$router.push('/admin/auth')
+      this.$router.push('/admin/login')
       this.$toasted.success("Вы вышли из системы", {
           theme: "bubble",
           position: "top-right",

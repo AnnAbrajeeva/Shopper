@@ -40,6 +40,10 @@ export default {
     opacity: 0.5;
 }
 
+.v-application .primary {
+    background: black !important;
+}
+
 .v-pagination__item--active {
     background: black !important;
 }

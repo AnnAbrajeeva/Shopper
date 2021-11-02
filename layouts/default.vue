@@ -1,24 +1,23 @@
 <template>
-   <v-app>
-    <transition name="spinner" v-if="this.loading">
+  <v-app>
+    <!-- <transition name="spinner" v-if="this.loading">
       <div class="loader">
         <ring-loader color="#D73636" :size="150" sizeUnit="px" />
       </div>
-    </transition>
+    </transition> -->
 
-    <transition-group name="fade" mode="in-out" v-else class="main-wrapper">
-    
+    <template >
       <header-component @showModal="showModal" key="header" />
-     
-      <v-main key="main">
-        <nuxt class="main" v-if="appReady" key="nuxt"  />
-      </v-main>
- 
+      <transition name="fade" mode="in-out" class="main-wrapper">
+        <v-main key="main">
+          <nuxt class="main" key="nuxt" />
+        </v-main>
+      </transition>
+
       <footer-component key="footer" />
       <cart-modal cartModal="cartModal" key="modal" />
-     
-    </transition-group>
-   </v-app>
+    </template>
+  </v-app>
 </template>
 
 <script>
@@ -42,7 +41,6 @@ export default {
     CartModal,
   },
 
-
   data() {
     return {
       cartModal: false,
@@ -55,22 +53,22 @@ export default {
       this.cartModal = true;
     },
   },
-  created() {
-    this.$router.beforeEach((to, from, next) => {
-      this.loading = true;
-      setTimeout(next, 1000);
-    });
+  // created() {
+  //   this.$router.beforeEach((to, from, next) => {
+  //     this.loading = true;
+  //     setTimeout(next, 1000);
+  //   });
 
-    this.$router.afterEach((to, from) => {
-      this.loading = false;
-    });
-  },
-  mounted() {
-    setTimeout(() => {
-      this.loading = false;
-      this.appReady = true;
-    }, 1000);
-  },
+  //   this.$router.afterEach((to, from) => {
+  //     this.loading = false;
+  //   });
+  // },
+  // mounted() {
+  //   setTimeout(() => {
+  //     this.loading = false;
+  //     this.appReady = true;
+  //   }, 1000);
+  // },
 };
 </script>
 
