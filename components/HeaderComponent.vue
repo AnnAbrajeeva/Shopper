@@ -139,9 +139,7 @@ export default {
         position: "top-right",
         duration: 5000,
       });
-      this.$store.dispatch("user/logoutUser").then(() => {
-        this.$router.push(this.localePath('/'));
-      });
+      this.$store.dispatch("user/logoutUser")
     },
   },
 

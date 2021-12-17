@@ -6,13 +6,10 @@
 
 <script>
 export default {
-   head() {
-    return {
-      link: [
-      { rel: 'canonical', href: `http://localhost:http://localhost:3000${this.$route.path}` },
-    ]
-    }
-  },
+
+   middleware: ["auth-check", "auth-admin"],
+
+   
   
   data() {
     return {

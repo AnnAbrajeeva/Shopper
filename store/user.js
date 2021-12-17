@@ -37,7 +37,6 @@ export const actions = {
       })
       .then((res) => {
         let token = res.data.idToken;
-        console.log(res);
         commit('setUser');
         commit('setToken', token);
         localStorage.setItem('token', JSON.stringify(token));
@@ -59,17 +58,20 @@ export const actions = {
         returnSecureToken: true
       })
       .then((res) => {
-
+        this.$router.push('/')
         if(res.data.localId == adminKey) {
           Cookies.set('user', 'admin');
+          localStorage.setItem('user', 'admin')
         } else {
           Cookies.set('user', 'user');
+          localStorage.setItem('user', 'user')
         }
 
         let token = res.data.idToken;
         commit('setToken', token);
         localStorage.setItem('token', JSON.stringify(token));
         Cookies.set('jwt', token);
+        this.$router.push('/')
       })
       .catch(error => {
       throw error.response;
@@ -92,14 +94,16 @@ export const actions = {
       if (!jwtCookie) return false;
       token = jwtCookie.split('=')[1];
       commit('setToken', token);
-
+      if(token) {
+        this.$router.push('/')
+      }
       const userCookie = req.headers.cookie
         .split(';')
         .find(t => t.trim().startsWith('user'));
       if (!userCookie) return false;
       user = userCookie.split('=')[1];
       commit('setUser', user);
-
+      // this.$router.push('/')
     } else {
       token = localStorage.getItem('token');
       commit('setToken', token);
@@ -110,9 +114,6 @@ export const actions = {
   logoutUser({
     commit
   }) {
-    if(localStorage.getItem('isAdmin') !== null) {
-      localStorage.removeItem('isAdmin');
-    }
     commit('destroyToken');
     localStorage.removeItem('token');
     localStorage.removeItem('user');

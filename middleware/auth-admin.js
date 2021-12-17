@@ -1,6 +1,6 @@
 export default function (context) {
     let isAdmin = context.store.getters['user/checkAdmin'];
-    if(!context.store.getters['user/checkAuthUser'] || isAdmin !== 'admin') {
-        context.redirect(context.localePath('/admin/login'));
-    }
+    if(!isAdmin) {
+        context.redirect('/admin/login');
+    } 
 }

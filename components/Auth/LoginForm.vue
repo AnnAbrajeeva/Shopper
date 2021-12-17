@@ -89,14 +89,7 @@ export default {
           position: "top-right",
           duration: 5000,
         });
-
-      console.log(this.$route.fullPath)
-        if (this.$route.fullPath == "/admin/auth") {
-          console.log('123')
           this.$router.push("/");
-        } else {
-          this.$router.push("/");
-        }
       } catch (e) {
         this.$v.$reset()
         this.user.email = '';

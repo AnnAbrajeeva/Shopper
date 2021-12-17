@@ -15,14 +15,7 @@ import ProductTabs from "~/components/Home/ProductTabs.vue";
 export default {
   head() {
     return {
-      title: "My Page title",
-      meta: [
-        {
-          hid: "description",
-          name: "description",
-          content: "marketing website",
-        },
-      ],
+      title: "Shopper",
     };
   },
   data() {
@@ -30,8 +23,6 @@ export default {
       loading: false
     }
   },
-
-  middleware: ['auth-check'],
 
   components: {
     Slider,

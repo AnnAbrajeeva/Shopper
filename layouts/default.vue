@@ -1,11 +1,5 @@
 <template>
   <v-app>
-    <!-- <transition name="spinner" v-if="this.loading">
-      <div class="loader">
-        <ring-loader color="#D73636" :size="150" sizeUnit="px" />
-      </div>
-    </transition> -->
-
     <template >
       <header-component @showModal="showModal" key="header" />
       <transition name="fade" mode="in-out" class="main-wrapper">
@@ -25,16 +19,8 @@ import HeaderComponent from "~/components/HeaderComponent.vue";
 import FooterComponent from "~/components/FooterComponent.vue";
 import CartModal from "~/components/Cart/CartModal.vue";
 export default {
-  head() {
-    return {
-      link: [
-        {
-          rel: "canonical",
-          href: `http://localhost:http://localhost:3000${this.$route.path}`,
-        },
-      ],
-    };
-  },
+  
+   middleware: ["auth-check", "auth-admin"],
   components: {
     HeaderComponent,
     FooterComponent,
@@ -53,22 +39,6 @@ export default {
       this.cartModal = true;
     },
   },
-  // created() {
-  //   this.$router.beforeEach((to, from, next) => {
-  //     this.loading = true;
-  //     setTimeout(next, 1000);
-  //   });
-
-  //   this.$router.afterEach((to, from) => {
-  //     this.loading = false;
-  //   });
-  // },
-  // mounted() {
-  //   setTimeout(() => {
-  //     this.loading = false;
-  //     this.appReady = true;
-  //   }, 1000);
-  // },
 };
 </script>
 

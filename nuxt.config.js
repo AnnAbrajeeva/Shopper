@@ -16,7 +16,7 @@ export default {
       { name: 'theme-color', content: '#000000' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'icon', type: 'image/x-icon', href: '/assets/images/favicon.png' },
       {rel: 'stylesheet', href: "/assets/style.css"},
       {rel: 'stylesheet', href: "/assets/easy-responsive-tabs.css"},
       {rel: 'stylesheet', href: "/assets/css/material-dashboard.css"}
@@ -48,12 +48,10 @@ export default {
    '~/plugins/vue-slick-carousel.js',
    {src: '~/plugins/firebase.js', ssr: false},
    '~/plugins/vue-spinners.js',
-   '~/plugins/server.js',
    '~/plugins/icons.js',
    '~/plugins/filter.js',
    { src: '~/plugins/vuelidate.js', ssr: true },
    { src: '~/plugins/tinymce.js', ssr: false },
-  //  { src: '~/plugins/persistedState.client.js' },
    {
     src: '~plugins/vue-slider-component.js',
     ssr: false

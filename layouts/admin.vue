@@ -23,16 +23,7 @@ import AdminHeader from "~/components/Admin/AdminHeader.vue";
 
 export default {
   name: "adminLayout",
-  head() {
-    return {
-      link: [
-        {
-          rel: "canonical",
-          href: `http://localhost:http://localhost:3000${this.$route.path}`,
-        },
-      ],
-    };
-  },
+
   components: {
     Sidebar,
     AdminHeader,

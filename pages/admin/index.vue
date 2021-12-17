@@ -1,6 +1,4 @@
 <template>
-  <!-- <div class="main-panel">
-    <div class="content"> -->
   <div class="container-fluid mt-10">
     <div class="row">
       <todo />
@@ -9,8 +7,6 @@
     </div>
     <table-orders :orders="orders" class="mt-10" />
   </div>
-  <!-- </div>
-  </div> -->
 </template>
 
 <script>

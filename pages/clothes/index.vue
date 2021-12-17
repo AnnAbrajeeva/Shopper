@@ -74,7 +74,7 @@ export default {
       sortingProducts: [],
       search: null,
       dialog: true,
-      drawer: null,
+      drawer: true,
     };
   },
   components: {

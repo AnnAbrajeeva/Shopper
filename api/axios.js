@@ -1,6 +1,7 @@
 
 // in HTTP.js
 import axios from 'axios'
+import store from '../store/user'
 
  
 // create a new axios instance
@@ -15,9 +16,11 @@ instance.interceptors.request.use(config => {
 })
  
 // before a response is returned stop nprogress
-instance.interceptors.response.use(response => {
-    this.$store.dispatch('products/setLoadingFalse')
-  return response
-})
+instance.interceptors.response.use(undefined, error => {
+  if(error.response.status === 401) {
+      router.push('/admin/login');
+  }
+  return Promise.reject(error);
+});
  
-export default instance
+export default instance;
