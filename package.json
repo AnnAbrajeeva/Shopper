@@ -7,7 +7,8 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "api": "json-server --watch api/db.json --read-only"
+    "api": "json-server --watch api/db.json --read-only",
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "@blowstack/ckeditor-nuxt": "^0.6.0",
