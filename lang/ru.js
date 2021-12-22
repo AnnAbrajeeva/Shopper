@@ -2,7 +2,8 @@ export default {
   hello: 'Hello World',
   pages: {
     home: 'Главная',
-    shop: 'Магазин'
+    shop: 'Магазин',
+    admin: 'Админка'
   },
 
   error: {

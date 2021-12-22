@@ -25,7 +25,7 @@ export default {
   },
 
   async asyncData({ $axios }) {
-    let currencyKey = process.env.CURRENCY_KEY;
+    let currencyKey = '88f42378985044bf8432e57d61315f26';
     const currency = await $axios.$get(
       `https://openexchangerates.org/api/latest.json?app_id=${currencyKey}&symbols=EUR,RUB,UZS`
     );

@@ -2,7 +2,8 @@ export default {
   hello: 'Hello World',
   pages: {
     home: 'Home',
-    shop: 'Shop'
+    shop: 'Shop',
+    admin: 'Admin'
   },
 
   toast: {
