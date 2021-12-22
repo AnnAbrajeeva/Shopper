@@ -28,7 +28,7 @@ export const actions = {
   async addNewUser({
     commit
   }, user) {
-    const firebaseKey = process.env.FIREBASE_KEY;
+    const firebaseKey = 'AIzaSyAoNYrTio0PFuV1N_Q9A2NoIJRIk57wQB8';
     return await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${firebaseKey}`, {
         displayName: user.login,
         email: user.email,
@@ -50,8 +50,8 @@ export const actions = {
   async authUser({
     commit
   }, authData) {
-    const adminKey = process.env.ADMIN_KEY;
-    const firebaseKey = process.env.FIREBASE_KEY;
+    const adminKey = 'NW7A5HDQZ4WsRwQn5SEK5eeXaiD3';
+    const firebaseKey = 'AIzaSyAoNYrTio0PFuV1N_Q9A2NoIJRIk57wQB8';
     return await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${firebaseKey}`, {
         email: authData.email,
         password: authData.password,
