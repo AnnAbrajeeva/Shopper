@@ -20,7 +20,7 @@ import FooterComponent from "~/components/FooterComponent.vue";
 import CartModal from "~/components/Cart/CartModal.vue";
 export default {
   
-   middleware: ["auth-check", "auth-admin"],
+   middleware: ["auth-check"],
   components: {
     HeaderComponent,
     FooterComponent,

@@ -7,7 +7,7 @@
 <script>
 export default {
 
-   middleware: ["auth-check", "auth-admin"],
+   middleware: ["auth-check"],
 
    
   
