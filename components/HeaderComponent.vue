@@ -29,6 +29,13 @@
                     ></v-list-item-title
                   >
                 </v-list-item>
+                 <v-list-item>
+                  <v-list-item-title>
+                    <nuxt-link class="header-menu-title" :to="localePath('/admin')">
+                      {{ Admin }}</nuxt-link
+                    ></v-list-item-title
+                  >
+                </v-list-item>
               </v-list-item-group>
             </v-list>
           </v-menu>
@@ -43,6 +50,11 @@
                 <nuxt-link :to="localePath('/clothes')">{{
                   $t("pages.shop")
                 }}</nuxt-link>
+              </li>
+               <li>
+                <nuxt-link :to="localePath('/admin')">
+                  Admin
+                </nuxt-link>
               </li>
             </ul>
           </div>
