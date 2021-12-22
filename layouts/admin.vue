@@ -28,7 +28,7 @@ export default {
     Sidebar,
     AdminHeader,
   },
-  middleware: ["auth-check", "auth-admin"],
+  middleware: ["auth-check"],
   data() {
     return {
       cartModal: false,

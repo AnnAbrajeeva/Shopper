@@ -53,7 +53,7 @@
               </li>
                <li>
                 <nuxt-link :to="localePath('/admin')">
-                  Admin
+                  {{Admin}}
                 </nuxt-link>
               </li>
             </ul>
